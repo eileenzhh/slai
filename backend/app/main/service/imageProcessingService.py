@@ -1,6 +1,2 @@
-class ImageProcessingService():
-    def __init__(self):
-        print("__init__")
-
-    def someFunc(self):
-        print("someFunc")
+def process_image():
+    print("process_image")

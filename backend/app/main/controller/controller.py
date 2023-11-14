@@ -1,26 +1,29 @@
-from flask import Flask, jsonify, request
+from flask import Blueprint, jsonify, request
+controller_endpoints = Blueprint('controller_endpoints', __name__)
+from app.main.service import imageProcessingService, modelIntegrationService
 
-app = Flask(__name__)
-
+# needs a better name
 
 # Testing
 
-@app.route('/')
-def hello():
-    return "Hello, World!"
+@controller_endpoints.route('/cases', methods=['POST'])
+def cases():
+    data = request.json
+    imageProcessingService.process_image()
+    modelIntegrationService.call_model()
+    return data
+
+# incomes = [
+#     { 'description': 'salary', 'amount': 5000 }
+# ]
 
 
-incomes = [
-    { 'description': 'salary', 'amount': 5000 }
-]
+# @controller_endpoints.route('/incomes')
+# def get_incomes():
+#     return jsonify(incomes)
 
 
-@app.route('/incomes')
-def get_incomes():
-    return jsonify(incomes)
-
-
-@app.route('/incomes', methods=['POST'])
-def add_income():
-    incomes.append(request.get_json())
-    return '', 204
+# @controller_endpoints.route('/incomes', methods=['POST'])
+# def add_income():
+#     incomes.append(request.get_json())
+#     return '', 204
