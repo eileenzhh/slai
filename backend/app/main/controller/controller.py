@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, request
+
+from backend.app.main.service import model_integration_service
 controller_endpoints = Blueprint('controller_endpoints', __name__)
-from app.main.service import imageProcessingService, modelIntegrationService
+from app.main.service import image_processing_service, model_integration_service, emr_integration_service
 
 # needs a better name
 
@@ -9,21 +11,6 @@ from app.main.service import imageProcessingService, modelIntegrationService
 @controller_endpoints.route('/cases', methods=['POST'])
 def cases():
     data = request.json
-    imageProcessingService.process_image()
-    modelIntegrationService.call_model()
+    image_processing_service.process_image()
+    model_integration_service.call_model()
     return data
-
-# incomes = [
-#     { 'description': 'salary', 'amount': 5000 }
-# ]
-
-
-# @controller_endpoints.route('/incomes')
-# def get_incomes():
-#     return jsonify(incomes)
-
-
-# @controller_endpoints.route('/incomes', methods=['POST'])
-# def add_income():
-#     incomes.append(request.get_json())
-#     return '', 204
