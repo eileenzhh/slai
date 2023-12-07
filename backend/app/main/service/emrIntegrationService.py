@@ -1,2 +1,0 @@
-def someFunc():
-    print("someFunc")
