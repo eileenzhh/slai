@@ -1,0 +1,59 @@
+isic_id,attribution,copyright_license,acquisition_day,age_approx,anatom_site_general,benign_malignant,clin_size_long_diam_mm,dermoscopic_type,diagnosis,diagnosis_confirm_type,family_hx_mm,image_type,lesion_id,mel_class,mel_mitotic_index,mel_thick_mm,mel_ulcer,melanocytic,patient_id,personal_hx_mm,sex
+ISIC_1091339.JPG,Hospital Italiano de Buenos Aires,CC-BY,,70,head/neck,malignant,,contact polarized,basal cell carcinoma,histopathology,False,dermoscopic,IL_0455383,,,,,,IP_5801898,False,female
+ISIC_3069438.JPG,Hospital Italiano de Buenos Aires,CC-BY,,75,lower extremity,malignant,,,basal cell carcinoma,histopathology,,clinical: overview,IL_2025836,,,,,,IP_5398777,,male
+ISIC_3149813.JPG,Hospital Italiano de Buenos Aires,CC-BY,,55,head/neck,malignant,,,basal cell carcinoma,histopathology,,clinical: overview,IL_5244040,,,,,,IP_6819963,,female
+ISIC_8803373.JPG,Hospital Italiano de Buenos Aires,CC-BY,,65,,malignant,,,basal cell carcinoma,histopathology,False,clinical: overview,IL_4874075,,,,,,IP_3388406,False,male
+ISIC_9078177.JPG,Hospital Italiano de Buenos Aires,CC-BY,,65,head/neck,malignant,,contact polarized,basal cell carcinoma,histopathology,,dermoscopic,IL_3383993,,,,,,IP_3342129,,female
+ISIC_0015719.JPG,"The University of Queensland Diamantina Institute, The University of Queensland, Dermatology Research Centre",CC-BY,556,45,upper extremity,benign,,contact non-polarized,,serial imaging showing no change,False,dermoscopic,IL_4649854,,,,,,IP_3075186,True,female
+ISIC_0052212.JPG,"ViDIR Group, Department of Dermatology, Medical University of Vienna",CC-BY-NC,366,50,lower extremity,benign,,contact polarized,nevus,serial imaging showing no change,,dermoscopic,IL_9087444,,,,,True,IP_2842074,,female
+ISIC_0247330.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,918,65,lower extremity,malignant,,,melanoma,histopathology,,dermoscopic,IL_3206110,melanoma in situ,,,,True,IP_3232631,,female
+ISIC_0457385.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,189,50,upper extremity,benign,,,,single image expert consensus,,dermoscopic,IL_9469603,,,,,,IP_1307115,,male
+ISIC_0647125.JPG,Hospital Italiano de Buenos Aires,CC-BY,,70,head/neck,malignant,,,basal cell carcinoma,histopathology,,clinical: overview,IL_9840135,,,,,,IP_7923120,,male
+ISIC_0721601.JPG,Hospital Italiano de Buenos Aires,CC-BY,,70,head/neck,benign,,,actinic keratosis,,,clinical: overview,IL_9163996,,,,,,IP_1612316,,female
+ISIC_1000616.JPG,Hospital Italiano de Buenos Aires,CC-BY,,40,posterior torso,malignant,,contact polarized,melanoma,histopathology,False,dermoscopic,IL_0925062,,,,,,IP_3028994,True,male
+ISIC_1137455.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,91,70,posterior torso,benign,,,,single image expert consensus,,dermoscopic,IL_4194419,,,,,,IP_6362160,,male
+ISIC_1444924.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,189,50,lower extremity,benign,,,,single image expert consensus,,dermoscopic,IL_1473702,,,,,,IP_1307115,,male
+ISIC_1831970.JPG,Hospital Italiano de Buenos Aires,CC-BY,,50,anterior torso,malignant,,,basal cell carcinoma,histopathology,False,clinical: overview,IL_1878538,,,,,,IP_4253242,False,female
+ISIC_1891091.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,91,70,anterior torso,benign,,,,single image expert consensus,,dermoscopic,IL_5410546,,,,,,IP_6362160,,male
+ISIC_1903848.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,91,70,upper extremity,benign,,,,single image expert consensus,,dermoscopic,IL_0420028,,,,,,IP_6362160,,male
+ISIC_2075121.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,199,65,upper extremity,benign,,,,single image expert consensus,,dermoscopic,IL_1730076,,,,,,IP_4745288,,male
+ISIC_2355513.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,472,40,anterior torso,benign,,,,single image expert consensus,,dermoscopic,IL_9786877,,,,,,IP_6873524,,female
+ISIC_2696751.JPG,Hospital Italiano de Buenos Aires,CC-BY,,80,head/neck,benign,,contact polarized,actinic keratosis,,,dermoscopic,IL_4406287,,,,,,IP_1344764,,female
+ISIC_2728181.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,1,15,posterior torso,benign,,,,single image expert consensus,,dermoscopic,IL_8224055,,,,,,IP_2444029,,male
+ISIC_2803072.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,1520,50,posterior torso,benign,,,nevus,histopathology,,dermoscopic,IL_4404196,,,,,True,IP_8986063,,male
+ISIC_3065175.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,87,45,lower extremity,benign,,,nevus,histopathology,,dermoscopic,IL_9800532,,,,,True,IP_7130762,,female
+ISIC_3187493.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,841,75,head/neck,benign,,,,single image expert consensus,,dermoscopic,IL_9610625,,,,,,IP_6362160,,male
+ISIC_3230575.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,1879,55,lower extremity,benign,,,,single image expert consensus,,dermoscopic,IL_0819374,,,,,,IP_9770302,,female
+ISIC_3305120.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,199,65,upper extremity,benign,,,,single image expert consensus,,dermoscopic,IL_9044514,,,,,,IP_4745288,,male
+ISIC_3424187.JPG,Hospital Italiano de Buenos Aires,CC-BY,,55,anterior torso,malignant,,,squamous cell carcinoma,histopathology,False,clinical: overview,IL_0337405,,,,,,IP_1773325,False,female
+ISIC_3437472.JPG,"""Repeated dermoscopic images of melanocytic lesions"" by University Hospital Basel / CC-BY-NC",CC-BY-NC,,,,benign,,contact non-polarized,nevus,histopathology,,dermoscopic,IL_9623006,,,,,True,,,
+ISIC_3582787.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,1989,30,posterior torso,benign,,,,single image expert consensus,,dermoscopic,IL_4408818,,,,,,IP_1188709,,female
+ISIC_3678711.JPG,Memorial Sloan Kettering Cancer Center,CC-0,1,70,anterior torso,benign,8.9,,lichenoid keratosis,histopathology,False,dermoscopic,IL_6793195,,,,,False,IP_6422845,True,male
+ISIC_3733653.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,841,75,head/neck,malignant,,,melanoma,histopathology,,dermoscopic,IL_3092764,melanoma in situ,,,,True,IP_6362160,,male
+ISIC_4207079.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,365,50,lower extremity,benign,,,nevus,histopathology,,dermoscopic,IL_1254642,,,,,True,IP_9770302,,female
+ISIC_4875503.JPG,Hospital Italiano de Buenos Aires,CC-BY,,80,lower extremity,malignant,,,squamous cell carcinoma,histopathology,False,clinical: overview,IL_5428065,,,,,,IP_3315006,False,female
+ISIC_4970724.JPG,Hospital Italiano de Buenos Aires,CC-BY,,85,head/neck,malignant,,,squamous cell carcinoma,histopathology,,clinical: overview,IL_3177073,,,,,,IP_7884622,,male
+ISIC_5158910.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,1879,55,lower extremity,benign,,,,single image expert consensus,,dermoscopic,IL_5968392,,,,,,IP_9770302,,female
+ISIC_6403739.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,1592,50,lower extremity,benign,,,,single image expert consensus,,dermoscopic,IL_2720671,,,,,,IP_9770302,,female
+ISIC_6950870.JPG,Hospital Italiano de Buenos Aires,CC-BY,,70,head/neck,benign,,contact polarized,actinic keratosis,,,dermoscopic,IL_2635206,,,,,,IP_7923120,,male
+ISIC_7059484.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,1,15,posterior torso,benign,,,,single image expert consensus,,dermoscopic,IL_9029377,,,,,,IP_2444029,,male
+ISIC_7084553.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,147,65,head/neck,malignant,,,melanoma,histopathology,,dermoscopic,IL_8664460,invasive melanoma,,,,True,IP_4745288,,male
+ISIC_7246266.JPG,Memorial Sloan Kettering Cancer Center,CC-0,1,70,anterior torso,benign,7.5,contact polarized,lichenoid keratosis,histopathology,True,dermoscopic,IL_6566358,,,,,False,IP_7717848,True,female
+ISIC_7594243.JPG,Sydney Melanoma Diagnostic Center at Royal Prince Alfred Hospital,CC-BY,,45,head/neck,malignant,4.5,,melanoma,histopathology,,dermoscopic,IL_8414535,melanoma in situ,,,,True,IP_2677654,,female
+ISIC_7703479.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,1989,30,lower extremity,benign,,,,single image expert consensus,,dermoscopic,IL_2391944,,,,,,IP_1188709,,female
+ISIC_7886280.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,1879,55,anterior torso,benign,,,,single image expert consensus,,dermoscopic,IL_7834543,,,,,,IP_9770302,,female
+ISIC_8114263.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,1,15,lower extremity,benign,,,,single image expert consensus,,dermoscopic,IL_2064514,,,,,,IP_2444029,,male
+ISIC_8495716.JPG,Hospital Italiano de Buenos Aires,CC-BY,,35,anterior torso,malignant,,,basal cell carcinoma,histopathology,,clinical: overview,IL_8573962,,,,,,IP_9002218,,female
+ISIC_8671159.JPG,Memorial Sloan Kettering Cancer Center,CC-0,1,80,anterior torso,benign,8.8,contact polarized,lichenoid keratosis,histopathology,False,dermoscopic,IL_1853192,,,,,True,IP_5711377,True,female
+ISIC_8811120.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,1879,55,lower extremity,benign,,,,single image expert consensus,,dermoscopic,IL_3893681,,,,,,IP_9770302,,female
+ISIC_8866533.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,1,55,posterior torso,benign,,,,single image expert consensus,,dermoscopic,IL_0358706,,,,,,IP_5331792,,male
+ISIC_9082696.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,453,55,lower extremity,benign,,,nevus,histopathology,,dermoscopic,IL_4650474,,,,,True,IP_5331792,,male
+ISIC_9301333.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,472,40,anterior torso,benign,,,,single image expert consensus,,dermoscopic,IL_3354527,,,,,,IP_6873524,,female
+ISIC_9458769.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,189,50,anterior torso,benign,,,,single image expert consensus,,dermoscopic,IL_8268522,,,,,,IP_1307115,,male
+ISIC_9478930.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,1767,45,posterior torso,benign,,,,single image expert consensus,,dermoscopic,IL_9942979,,,,,,IP_6873524,,female
+ISIC_9543045.JPG,Sydney Melanoma Diagnostic Center at Royal Prince Alfred Hospital,CC-BY,,30,posterior torso,malignant,8.2,,melanoma,histopathology,,dermoscopic,IL_5515726,invasive melanoma,0/mm^2,0.9,False,True,IP_4627929,,male
+ISIC_9760338.JPG,Memorial Sloan Kettering Cancer Center,CC-BY-NC,1,55,anterior torso,benign,,,,single image expert consensus,,dermoscopic,IL_9867725,,,,,,IP_5331792,,male
+ISIC_9859134.JPG,Memorial Sloan Kettering Cancer Center,CC-0,1,75,anterior torso,benign,7.1,non-contact polarized,lichenoid keratosis,histopathology,False,dermoscopic,IL_4984330,,,,,True,IP_6993731,False,male
+ISIC_1241693.JPG,Hospital Italiano de Buenos Aires,CC-BY,,75,lower extremity,malignant,,contact polarized,squamous cell carcinoma,histopathology,,dermoscopic,IL_0983679,,,,,,IP_1418688,,female
+ISIC_2035987.JPG,Hospital Italiano de Buenos Aires,CC-BY,,55,posterior torso,malignant,,,squamous cell carcinoma,histopathology,True,clinical: overview,IL_4336943,,,,,,IP_3739383,True,female
+ISIC_4489445.JPG,Hospital Italiano de Buenos Aires,CC-BY,,70,head/neck,malignant,,,squamous cell carcinoma,histopathology,,clinical: overview,IL_7399308,,,,,,IP_7923120,,male

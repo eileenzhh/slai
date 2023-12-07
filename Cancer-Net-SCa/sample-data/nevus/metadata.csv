@@ -1,0 +1,4 @@
+isic_id,attribution,copyright_license,benign_malignant,dermoscopic_type,diagnosis,diagnosis_confirm_type,image_type,lesion_id,melanocytic
+ISIC_3437472,"""Repeated dermoscopic images of melanocytic lesions"" by University Hospital Basel / CC-BY-NC",CC-BY-NC,benign,contact non-polarized,nevus,histopathology,dermoscopic,IL_9623006,True
+ISIC_4615519,"""Repeated dermoscopic images of melanocytic lesions"" by University Hospital Basel / CC-BY-NC",CC-BY-NC,benign,contact non-polarized,nevus,histopathology,dermoscopic,IL_9948538,True
+ISIC_9976869,"""Repeated dermoscopic images of melanocytic lesions"" by University Hospital Basel / CC-BY-NC",CC-BY-NC,benign,contact non-polarized,nevus,histopathology,dermoscopic,IL_5299431,True

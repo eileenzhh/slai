@@ -1,0 +1,4 @@
+isic_id,attribution,copyright_license,age_approx,anatom_site_general,benign_malignant,dermoscopic_type,diagnosis,image_type,lesion_id,patient_id,sex
+ISIC_0721601,Hospital Italiano de Buenos Aires,CC-BY,70,head/neck,benign,,actinic keratosis,clinical: overview,IL_9163996,IP_1612316,female
+ISIC_2696751,Hospital Italiano de Buenos Aires,CC-BY,80,head/neck,benign,contact polarized,actinic keratosis,dermoscopic,IL_4406287,IP_1344764,female
+ISIC_6950870,Hospital Italiano de Buenos Aires,CC-BY,70,head/neck,benign,contact polarized,actinic keratosis,dermoscopic,IL_2635206,IP_7923120,male

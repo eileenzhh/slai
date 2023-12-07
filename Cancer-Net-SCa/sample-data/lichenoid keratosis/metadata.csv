@@ -1,0 +1,5 @@
+isic_id,attribution,copyright_license,acquisition_day,age_approx,anatom_site_general,benign_malignant,clin_size_long_diam_mm,dermoscopic_type,diagnosis,diagnosis_confirm_type,family_hx_mm,image_type,lesion_id,melanocytic,patient_id,personal_hx_mm,sex
+ISIC_3678711,Memorial Sloan Kettering Cancer Center,CC-0,1,70,anterior torso,benign,8.9,,lichenoid keratosis,histopathology,False,dermoscopic,IL_6793195,False,IP_6422845,True,male
+ISIC_7246266,Memorial Sloan Kettering Cancer Center,CC-0,1,70,anterior torso,benign,7.5,contact polarized,lichenoid keratosis,histopathology,True,dermoscopic,IL_6566358,False,IP_7717848,True,female
+ISIC_8671159,Memorial Sloan Kettering Cancer Center,CC-0,1,80,anterior torso,benign,8.8,contact polarized,lichenoid keratosis,histopathology,False,dermoscopic,IL_1853192,True,IP_5711377,True,female
+ISIC_9859134,Memorial Sloan Kettering Cancer Center,CC-0,1,75,anterior torso,benign,7.1,non-contact polarized,lichenoid keratosis,histopathology,False,dermoscopic,IL_4984330,True,IP_6993731,False,male
