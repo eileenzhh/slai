@@ -32,7 +32,7 @@ def calculate_histogram(image_path):
 
 def process_images(folder_path):
     # Get a list of all files in the folder
-    image_files = [f for f in os.listdir(folder_path) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp'))]
+    image_files = [f for f in os.listdir(folder_path) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp', '.JPG'))]
 
     # Process each image in the folder
     for image_file in image_files:
