@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import cameraIcon from '../assets/camera.png'
 import styled from 'styled-components'
 
 import Breadcrumb from '../components/Breadcrumb';
-const breadcrumbItems = [
-    { text: 'Take Image', active: true },
-    { text: 'Submit Image', active: false },
-    { text: 'Results', active: false },
-    { text: 'View Results', active: false },
-  ];
+import { STAGE_ITEMS, useSetStage } from '../app-context/stage-context';
 
 const Main = () => {
+
+    const setStage = useSetStage()
+    useEffect(() => {
+        setStage(STAGE_ITEMS.TAKE_IMAGE)
+    }, [])
     return (
         <div>
-            <Breadcrumb items={breadcrumbItems}/>
+            <Breadcrumb/>
             <Layout>
                 <Title>Take Image</Title>
                 <InstructionContainer>

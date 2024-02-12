@@ -1,19 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import orangeCircle from '../assets/orange_circle.png';
+import { STAGE_ITEMS, useCurrentStage } from '../app-context/stage-context';
 
-interface BreadcrumbProps {
-  items: { text: string; active: boolean; }[];
-}
-
-const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
+const Breadcrumb = () => {
+  const items = Object.values(STAGE_ITEMS)
+  const currentStage = useCurrentStage()
   return (
     <BreadcrumbContainer>
       {items.map((item, index) => (
-        <BreadcrumbItem key={index} active={item.active}>
+        <BreadcrumbItem key={index} active={item === currentStage}>
           <img src={orangeCircle} alt="Orange Circle" />
           <div>
-          {item.text}
+          {item}
           {index < items.length - 1 && ' > '}
           </div>
         </BreadcrumbItem>
