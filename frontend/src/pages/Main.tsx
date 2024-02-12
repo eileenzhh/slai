@@ -6,6 +6,8 @@ import styled from 'styled-components'
 import Breadcrumb from '../components/Breadcrumb';
 import { STAGE_ITEMS, useSetStage } from '../app-context/stage-context';
 
+import { Layout, OrangeButton, Title } from '../commonStyles';
+
 const Main = () => {
 
     const setStage = useSetStage()
@@ -27,7 +29,7 @@ const Main = () => {
                 </InstructionContainer>
             </Layout>
             
-            <Link to='/preview-image'><Button>Next</Button></Link>
+            <Link to='/preview-image'><OrangeButton>Next</OrangeButton></Link>
             
         </div>
     )
@@ -35,13 +37,6 @@ const Main = () => {
 
 export default Main
 
-const Layout = styled.div`
-    margin: 4rem 0;
-`
-
-const Title = styled.h1`
-    text-align: center
-`
 const CameraIcon = styled.div`
     display: flex;
     justify-content:center;
@@ -55,22 +50,4 @@ const InstructionContainer = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
-`
-
-const Button = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    background-color: #FFB37B;
-    border-radius: 1rem;
-    position: absolute;
-    bottom: 4rem;
-    right: 4rem;
-    width: 200px;
-    height: 75px;
-    a {
-        text-decoration: none;
-    }
-    text-align: center;
 `
