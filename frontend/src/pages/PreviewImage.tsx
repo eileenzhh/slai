@@ -3,8 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSetStage } from '../app-context/stage-context';
 import Breadcrumb from '../components/Breadcrumb';
 import { STAGE_ITEMS } from '../constants';
-import { Layout, OrangeButton, Title } from '../commonStyles';
+import { Layout, MiddleContainer, OrangeButton, Title } from '../commonStyles';
 import Loading from '../components/Loading';
+import sample from '../assets/sample.png';
 
 const PreviewImage = () => {
     const [loading, setLoading] = useState<boolean>(false)
@@ -29,7 +30,10 @@ const PreviewImage = () => {
             <Breadcrumb/>
             <Layout>
                 <Title>Submit Image</Title>
-            <p>This is the Preview image page</p>
+                <MiddleContainer>
+                    <img src={sample} alt="preview image"/>
+                </MiddleContainer>
+                <p>Preview image</p>
             </Layout>
 
             <OrangeButton onClick={onSubmit} disabled={loading}>Next</OrangeButton>

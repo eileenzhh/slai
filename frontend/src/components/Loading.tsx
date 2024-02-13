@@ -8,9 +8,9 @@ const Loading = () => {
     return (
         <LoadingContainer>
         <LoadingOverlay />
-        <GreyMiddleContainer>
+        {/* <GreyMiddleContainer> */}
             <LoadingSpinner>Loading...</LoadingSpinner>
-        </GreyMiddleContainer>
+        {/* </GreyMiddleContainer> */}
       </LoadingContainer>
     )
 }

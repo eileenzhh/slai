@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 export const Layout = styled.div`
     margin: 4rem 0;
+    text-align: center;
 `
 
 export const Title = styled.h1`
