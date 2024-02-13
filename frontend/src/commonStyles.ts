@@ -9,12 +9,12 @@ export const Title = styled.h1`
     text-align: center
 `
 
-export const OrangeButton = styled.div`
+export const OrangeButton = styled.div<{ disabled?: boolean }>`
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 24px;
-    background-color: #FFB37B;
+    background-color: ${({disabled}) => (disabled ? '#FFD9BD' :  '#FFB37B')};
     border-radius: 1rem;
     position: absolute;
     bottom: 4rem;
@@ -25,4 +25,14 @@ export const OrangeButton = styled.div`
         text-decoration: none;
     }
     text-align: center;
+    cursor: pointer;
+`
+export const MiddleContainer = styled.div`
+    border: 1px solid #000;
+    width: 444px;
+    height: 420px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 `

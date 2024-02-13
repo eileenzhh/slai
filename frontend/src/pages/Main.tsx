@@ -1,35 +1,49 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import cameraIcon from '../assets/camera.png'
 import styled from 'styled-components'
 
 import Breadcrumb from '../components/Breadcrumb';
-import { STAGE_ITEMS, useSetStage } from '../app-context/stage-context';
+import { useSetStage } from '../app-context/stage-context';
+import { STAGE_ITEMS } from '../constants';
 
-import { Layout, OrangeButton, Title } from '../commonStyles';
+import { Layout, OrangeButton, Title, MiddleContainer } from '../commonStyles';
+import Loading from '../components/Loading';
 
 const Main = () => {
+    const [loading, setLoading] = useState<boolean>(false)
+    const navigate = useNavigate()
 
     const setStage = useSetStage()
     useEffect(() => {
         setStage(STAGE_ITEMS.TAKE_IMAGE)
     }, [])
+
+    const onSubmit = () => {
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false)
+            navigate('/preview-image')
+        }, 3000)
+    }
+
     return (
         <div>
+            {loading && <Loading />}
             <Breadcrumb/>
             <Layout>
                 <Title>Take Image</Title>
-                <InstructionContainer>
+                <MiddleContainer>
                     <CameraIcon><img src={cameraIcon} alt="Camera Icon" /></CameraIcon>
                     <p>How to take a picture</p>
                     <ul>
                         <li>Connect mobile app</li>
                         <li>Make sure to have good lighting</li>
                     </ul>
-                </InstructionContainer>
+                </MiddleContainer>
             </Layout>
             
-            <Link to='/preview-image'><OrangeButton>Next</OrangeButton></Link>
+            <OrangeButton disabled={loading} onClick={onSubmit}>Next</OrangeButton>
             
         </div>
     )
@@ -40,14 +54,4 @@ export default Main
 const CameraIcon = styled.div`
     display: flex;
     justify-content:center;
-`
-
-const InstructionContainer = styled.div`
-    border: 1px solid #000;
-    width: 444px;
-    height: 420px;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
 `

@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import orangeCircle from '../assets/orange_circle.png';
-import { STAGE_ITEMS, useCurrentStage } from '../app-context/stage-context';
+import { useCurrentStage } from '../app-context/stage-context';
+import { STAGE_ITEMS } from '../constants';
 
 const Breadcrumb = () => {
   const items = Object.values(STAGE_ITEMS)

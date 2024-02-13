@@ -1,24 +1,38 @@
-import React, { useEffect } from 'react';
-import { Link} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSetStage } from '../app-context/stage-context';
 import Breadcrumb from '../components/Breadcrumb';
-import { STAGE_ITEMS } from '../app-context/stage-context';
+import { STAGE_ITEMS } from '../constants';
 import { Layout, OrangeButton, Title } from '../commonStyles';
+import Loading from '../components/Loading';
 
 const PreviewImage = () => {
+    const [loading, setLoading] = useState<boolean>(false)
+    const navigate = useNavigate()
+
     const setStage = useSetStage()
     useEffect(() => {
         setStage(STAGE_ITEMS.SUBMIT_IMAGE)
     }, [])
+
+    const onSubmit = () => {
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false)
+            navigate('/results')
+        }, 3000)
+    }
+
     return (
         <div>
+            {loading && <Loading />}
             <Breadcrumb/>
             <Layout>
                 <Title>Submit Image</Title>
             <p>This is the Preview image page</p>
             </Layout>
 
-            <Link to='/results'><OrangeButton>Next</OrangeButton></Link>
+            <OrangeButton onClick={onSubmit} disabled={loading}>Next</OrangeButton>
 
         </div>
     )

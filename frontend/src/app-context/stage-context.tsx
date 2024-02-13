@@ -1,11 +1,5 @@
 import React, { createContext, useContext, ReactNode, useState } from 'react';
-
-export const STAGE_ITEMS = {
-  TAKE_IMAGE: "Take Image",
-  SUBMIT_IMAGE: "Submit Image",
-  RESULTS: "Results",
-  VIEW_RESULTS: "View Results",
-} as const;
+import { STAGE_ITEMS } from '../constants';
 
 type StageItemType = typeof STAGE_ITEMS[keyof typeof STAGE_ITEMS];
 

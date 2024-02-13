@@ -3,7 +3,7 @@ import { Link} from 'react-router-dom';
 
 import { useSetStage } from '../app-context/stage-context';
 import Breadcrumb from '../components/Breadcrumb';
-import { STAGE_ITEMS } from '../app-context/stage-context';
+import { STAGE_ITEMS } from '../constants';
 import { Layout, OrangeButton, Title } from '../commonStyles';
 
 const Results = () => {
