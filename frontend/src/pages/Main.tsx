@@ -35,11 +35,13 @@ const Main = () => {
                 <Title>Take Image</Title>
                 <MiddleContainer>
                     <CameraIcon><img src={cameraIcon} alt="Camera Icon" /></CameraIcon>
+                    <Instructions>
                     <p>How to take a picture</p>
                     <ul>
                         <li>Connect mobile app</li>
                         <li>Make sure to have good lighting</li>
                     </ul>
+                    </Instructions>
                 </MiddleContainer>
             </Layout>
             
@@ -54,4 +56,9 @@ export default Main
 const CameraIcon = styled.div`
     display: flex;
     justify-content:center;
+`
+
+const Instructions = styled.div`
+    margin-left: 2rem;
+    text-align: left;
 `
