@@ -58,13 +58,12 @@ def case():
     #     }
 
     # hard-coded response for testing
-    if keys:
-        response = {
-            "image": "byte_data",
-            "cases": [
-                "/static/images/ISIC_0015719.jpg",
-                "/static/images/ISIC_0052212.jpg",
-            ],
-        }
+    response = {
+        "image": "byte_data",
+        "cases": [
+            "/static/images/ISIC_0015719.jpg",
+            "/static/images/ISIC_0052212.jpg",
+        ],
+    }
 
     return jsonify(response)
