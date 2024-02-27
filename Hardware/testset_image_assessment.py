@@ -28,10 +28,37 @@ def find_histogram_peaks(histogram_vals):
         results.append({color: combine})
     return results
 
+def get_contrast_values(folder_path):
+    image_files = [f for f in os.listdir(folder_path) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp', '.JPG'))]
+    contrast_values = []
+    for image_file in image_files:
+        image_path = os.path.join(folder_path, image_file)
+
+        contrast = Image_Quaility_Assessment.calculate_contrast(image_path)
+        contrast_values.append(contrast)
+    # print(contrast_values)
+
+    num_samples = len(contrast_values)
+    average = np.mean(contrast_values)
+    value_range = np.ptp(contrast_values)  # Peak-to-peak (range) value
+    minimum = np.min(contrast_values)
+    maximum = np.max(contrast_values)
+    std_deviation = np.std(contrast_values)
+
+    # Print the results
+    print(f"Number of Images: {num_samples}")
+    print(f"Average: {average}")
+    print(f"Range: {value_range}")
+    print(f"Minimum: {minimum}")
+    print(f"Maximum: {maximum}")
+    print(f"Standard Deviation: {std_deviation}")
+
 testset_folder_path = 'Cancer-Net-SCa/ISIC-images'
 testset_folder_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', testset_folder_path))
 
-test_process_images(testset_folder_dir, 10)
+# test_process_images(testset_folder_dir, 10)
+
+get_contrast_values(testset_folder_dir)
 
 '''
 first 10 images
