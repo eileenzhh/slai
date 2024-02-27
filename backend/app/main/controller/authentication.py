@@ -1,13 +1,18 @@
 from flask import Blueprint, jsonify, request
-authentication = Blueprint('authentication', __name__)
 from app.main.service import authentication_service
 
-@authentication.route('/login')
-def login():
-    authentication_service.login()
-    return "/login called"
+authentication = Blueprint("authentication", __name__)
 
-@authentication.route('/logout')
+
+@authentication.route("/login", methods=["POST"])
+def login():
+    data = request.json
+    authentication_service.login()
+    return data
+
+
+@authentication.route("/logout", methods=["POST"])
 def logout():
+    data = request.json
     authentication_service.logout()
-    return "/logout called"
+    return data
