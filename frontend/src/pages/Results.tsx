@@ -4,7 +4,7 @@ import { Link} from 'react-router-dom';
 import { useSetStage } from '../app-context/stage-context';
 import Breadcrumb from '../components/Breadcrumb';
 import { STAGE_ITEMS } from '../constants';
-import { Layout, OrangeButton, MiddleContainer, Title } from '../commonStyles';
+import { Layout, RightOrangeButton, MiddleContainer, Title } from '../commonStyles';
 import sample from '../assets/sample.png';
 import sample1 from '../assets/sample1.png';
 import sample2 from '../assets/sample2.png';
@@ -22,7 +22,7 @@ const Results = () => {
         <div>
             <Breadcrumb/>
             <Layout>
-                <Title>This is the results page</Title>
+                <Title>Cases Retrieved</Title>
                 <MiddleContainer>
                     <img src={sample} alt="preview image"/>
                 </MiddleContainer>
@@ -48,7 +48,7 @@ const Results = () => {
                 </BottomRow>
                 </ResultsContainer>
             </Layout>
-            <Link to='/results'><OrangeButton>Next</OrangeButton></Link>
+            <Link to='/results'><RightOrangeButton>Next</RightOrangeButton></Link>
 
         </div>
     )
@@ -86,5 +86,5 @@ const Image = styled.img`
 `;
 
 const ResultsContainer = styled.div`
-    margin: 4rem;
+    margin: 0 4rem;
 `

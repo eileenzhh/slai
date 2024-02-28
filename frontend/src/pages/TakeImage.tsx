@@ -7,10 +7,10 @@ import Breadcrumb from '../components/Breadcrumb';
 import { useSetStage } from '../app-context/stage-context';
 import { STAGE_ITEMS } from '../constants';
 
-import { Layout, OrangeButton, Title, MiddleContainer } from '../commonStyles';
+import { Layout, RightOrangeButton, Title, MiddleContainer } from '../commonStyles';
 import Loading from '../components/Loading';
 
-const Main = () => {
+const TakeImage = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const navigate = useNavigate()
 
@@ -45,13 +45,13 @@ const Main = () => {
                 </MiddleContainer>
             </Layout>
             
-            <OrangeButton disabled={loading} onClick={onSubmit}>Next</OrangeButton>
+            <RightOrangeButton disabled={loading} onClick={onSubmit}>Next</RightOrangeButton>
             
         </div>
     )
 }
 
-export default Main
+export default TakeImage
 
 const CameraIcon = styled.div`
     display: flex;
@@ -59,6 +59,6 @@ const CameraIcon = styled.div`
 `
 
 const Instructions = styled.div`
-    margin-left: 2rem;
+    
     text-align: left;
 `

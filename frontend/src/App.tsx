@@ -1,9 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Main from './pages/Main'
+import TakeImage from './pages/TakeImage'
 import PreviewImage from './pages/PreviewImage';
 import Results from './pages/Results';
 import { StageProvider } from './app-context/stage-context';
+import Home from './pages/Home';
+import Header from './components/Header';
 
 
 function App() {
@@ -11,8 +13,10 @@ function App() {
   return (
     <BrowserRouter>
     <StageProvider>
+      <Header />
       <Routes>
-        <Route path='/' element={<Main/>} />
+        <Route path='/' element={<Home/>} />
+        <Route path='take-image' element={<TakeImage/>} />
         <Route path='preview-image' element={<PreviewImage />} />
         <Route path='results' element={<Results />} />
       </Routes>

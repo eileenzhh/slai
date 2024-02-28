@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSetStage } from '../app-context/stage-context';
 import Breadcrumb from '../components/Breadcrumb';
 import { STAGE_ITEMS } from '../constants';
-import { Layout, MiddleContainer, OrangeButton, Title } from '../commonStyles';
+import { Layout, MiddleContainer, RightOrangeButton, Title } from '../commonStyles';
 import Loading from '../components/Loading';
 import sample from '../assets/sample.png';
 
@@ -36,7 +36,7 @@ const PreviewImage = () => {
                 <p>Preview image</p>
             </Layout>
 
-            <OrangeButton onClick={onSubmit} disabled={loading}>Next</OrangeButton>
+            <RightOrangeButton onClick={onSubmit} disabled={loading}>Next</RightOrangeButton>
 
         </div>
     )
