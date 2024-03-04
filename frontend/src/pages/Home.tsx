@@ -1,28 +1,48 @@
 import React from 'react';
 import styled from 'styled-components';
-import { OrangeButton } from '../commonStyles';
+import { BottomButtonContainer, Layout, OrangeButton, Title } from '../commonStyles';
 import { Link } from 'react-router-dom';
+import PreviewCase from '../components/PreviewCase';
+import sample from '../assets/sample.png';
 
 const Home = () => {
+    const dummyCases = {
+        "1": {
+            "cases": [
+                "/static/images/ISIC_0015719.jpg",
+                "/static/images/ISIC_0052212.jpg"
+            ],
+            "image": "byte_data"
+        },
+        "2": {
+            "cases": [
+                "/static/images/ISIC_0015719.jpg",
+                "/static/images/ISIC_0052212.jpg"
+            ],
+            "image": "byte_data"
+        }
+    }
     
     return (
-        <CaseContainer>
+        <Layout>
+            <Title>My Records</Title>
             <RecordsContainer>
-            <h3>My Records</h3>
+                <PreviewCase id={"1"} image={sample} date={"March 4, 2024"} />
+                <PreviewCase id={"2"} image={sample} date={"February 29, 2024"}/>
+                <PreviewCase id={"3"} image={sample}/>
             </RecordsContainer>
-            <OrangeButton><Link to='/take-image'>Start process</Link></OrangeButton>
-        </CaseContainer>
+            <BottomButtonContainer>
+            <OrangeButton><Link to='/take-image'>Create New Record</Link></OrangeButton>
+            </BottomButtonContainer>
+        </Layout>
     )
 }
 
 export default Home
 
-const CaseContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-`
-
 const RecordsContainer = styled.div`
-    
+    display: flex;
+    flex-direction: row;
+    gap: 2rem; 
+    margin: 0 2rem;
 `

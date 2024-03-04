@@ -1,10 +1,9 @@
-import React, {useEffect} from 'react';
-import { Link} from 'react-router-dom';
-
+import React, {useEffect, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSetStage } from '../app-context/stage-context';
 import Breadcrumb from '../components/Breadcrumb';
 import { STAGE_ITEMS } from '../constants';
-import { Layout, RightOrangeButton, MiddleContainer, Title } from '../commonStyles';
+import { Layout, BottomButtonContainer, OrangeButton, MiddleContainer, Title } from '../commonStyles';
 import sample from '../assets/sample.png';
 import sample1 from '../assets/sample1.png';
 import sample2 from '../assets/sample2.png';
@@ -14,10 +13,22 @@ import styled from 'styled-components';
 
 const Results = () => {
     const result = [sample1, sample2, empty, empty, empty]
+    const navigate = useNavigate()
     const setStage = useSetStage()
     useEffect(() => {
         setStage(STAGE_ITEMS.RESULTS)
     }, [])
+
+    const [loading, setLoading] = useState<boolean>(false)
+
+    const onNext = () => {
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false)
+            navigate('/results')
+        }, 3000)
+    }
+
     return (
         <div>
             <Breadcrumb/>
@@ -47,8 +58,11 @@ const Results = () => {
                     ))}
                 </BottomRow>
                 </ResultsContainer>
+                <BottomButtonContainer>
+                <OrangeButton onClick={onNext}>Next</OrangeButton>
+            </BottomButtonContainer>
             </Layout>
-            <Link to='/results'><RightOrangeButton>Next</RightOrangeButton></Link>
+            
 
         </div>
     )
