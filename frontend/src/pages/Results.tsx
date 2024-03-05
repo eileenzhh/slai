@@ -1,31 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSetStage } from '../app-context/stage-context';
 import Breadcrumb from '../components/Breadcrumb';
 import { STAGE_ITEMS } from '../constants';
 import { Layout, BottomButtonContainer, OrangeButton, MiddleContainer, Title } from '../commonStyles';
-import empty from '../assets/empty.png';
 
 import styled from 'styled-components';
 import Record from '../types/Record';
-import { dummyRecord } from '../types/DummyCase';
 
 interface ResultsProps {
-    id?: string;
-    image?: string;
-    records?: Array<string>;
-    date?: string;
     record?: Record;
 }
 
-const Results: React.FC<ResultsProps> = ({ id, image, records, date, record }) => {
+const Results: React.FC<ResultsProps> = ({ record }) => {
     const navigate = useNavigate()
     const setStage = useSetStage()
+    const location = useLocation()
+
+    const { state } = location;
+
     useEffect(() => {
         setStage(STAGE_ITEMS.RESULTS)
     }, [])
 
-    const [result, setResult] = useState<Record>(record ?? dummyRecord)
+    const [result, setResult] = useState<Record>(record ?? state)
     
     const onNext = () => {
         navigate('/export')
@@ -60,9 +58,10 @@ const Results: React.FC<ResultsProps> = ({ id, image, records, date, record }) =
                     ))}
                 </BottomRow>
                 </ResultsContainer>
-                <BottomButtonContainer>
-                <OrangeButton onClick={onNext}>Next</OrangeButton>
-            </BottomButtonContainer>
+                {!result.exported &&
+                    <BottomButtonContainer>
+                    <OrangeButton onClick={onNext}>Save Record</OrangeButton>
+                </BottomButtonContainer>}
             </Layout>
             
 

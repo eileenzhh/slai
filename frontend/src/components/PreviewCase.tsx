@@ -2,15 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 import sample from '../assets/sample.png';
 import Record from '../types/Record';
+import { useNavigate } from 'react-router-dom';
+import { BottomButtonContainer, SmallOrangeButton } from '../commonStyles';
+import { useCurrentStage } from '../app-context/stage-context';
+import { STAGE_ITEMS } from '../constants';
 
 interface PreviewCaseProps {
-    id?: string;
-    image?: string;
-    date?: string;
     record: Record;
 }
 
-const PreviewCase: React.FC<PreviewCaseProps> = ({ id, image, date, record}) => {
+const PreviewCase: React.FC<PreviewCaseProps> = ({ record}) => {
+    const navigate = useNavigate()
+    const currentStage = useCurrentStage()
+
+    const onClick = () => {
+        navigate('/results', { state : record })
+    }
 
     return (
         <Card>
@@ -21,6 +28,12 @@ const PreviewCase: React.FC<PreviewCaseProps> = ({ id, image, date, record}) => 
                 <p>Anatomy Site: {record.anatomySite}</p>
                 {record.exported ?? <p>Exported</p>}
             </DescriptionContainer>
+            {currentStage == STAGE_ITEMS.EXPORT_RESULTS ? null :
+            <SmallBottomButtonContainer>
+            <SmallOrangeButton onClick={onClick}>details</SmallOrangeButton>
+        </SmallBottomButtonContainer>
+            }
+            
         </Card>
     )
 }
@@ -43,4 +56,8 @@ const PreviewImage = styled.img<{src: string}>`
 const DescriptionContainer = styled.div`
     text-align: left;
     margin: 0 1rem;
+`
+
+const SmallBottomButtonContainer = styled(BottomButtonContainer)`
+    margin: 1rem;
 `

@@ -7,15 +7,13 @@ import { STAGE_ITEMS } from '../constants';
 import PreviewCase from '../components/PreviewCase';
 import styled from 'styled-components';
 import { dummyRecord } from '../types/DummyCase';
+import Record from '../types/Record';
 
 interface ExportProps {
-    id?: string;
-    image?: string;
-    cases?: Array<string>;
-    date?: string;
+    record?: Record
 }
 
-const Export: React.FC<ExportProps> = ({ id, image, cases, date}) => {
+const Export: React.FC<ExportProps> = ({record}) => {
     const navigate = useNavigate()
     const setStage = useSetStage()
     useEffect(() => {

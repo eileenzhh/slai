@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { useSetStage } from '../app-context/stage-context';
 import Breadcrumb from '../components/Breadcrumb';
 import { STAGE_ITEMS } from '../constants';
-import { Layout, MiddleContainer, RightOrangeButton, Title } from '../commonStyles';
+import { BottomButtonContainer, Layout, MiddleContainer, OrangeButton, RightOrangeButton, Title } from '../commonStyles';
 import Loading from '../components/Loading';
 import sample from '../assets/sample.png';
+import { dummyRecord } from '../types/DummyCase';
 
 const PreviewImage = () => {
     const [loading, setLoading] = useState<boolean>(false)
@@ -20,23 +21,24 @@ const PreviewImage = () => {
         setLoading(true)
         setTimeout(() => {
             setLoading(false)
-            navigate('/results')
+            navigate('/results',  { state : dummyRecord })
         }, 3000)
     }
 
     return (
         <div>
             {loading && <Loading />}
-            <Breadcrumb/>
             <Layout>
+            <Breadcrumb/>
                 <Title>Submit Image</Title>
                 <MiddleContainer>
                     <img src={sample} alt="preview image"/>
                 </MiddleContainer>
                 <p>Preview image</p>
+            <BottomButtonContainer>
+                <OrangeButton onClick={onSubmit} disabled={loading}>Next</OrangeButton>
+            </BottomButtonContainer>
             </Layout>
-
-            <RightOrangeButton onClick={onSubmit} disabled={loading}>Next</RightOrangeButton>
 
         </div>
     )

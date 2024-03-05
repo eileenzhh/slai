@@ -28,6 +28,13 @@ export const OrangeButton = styled.div<{ disabled?: boolean }>`
     // box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 `
 
+export const SmallOrangeButton = styled(OrangeButton)`
+    width: 100px;
+    height: 42px;
+    font-size: 18px;
+    border-radius: 0.5rem;
+`
+
 export const RightOrangeButton = styled(OrangeButton)`
     position: absolute;
     bottom: 4rem;
@@ -35,13 +42,12 @@ export const RightOrangeButton = styled(OrangeButton)`
 `
 
 export const BottomButtonContainer = styled.div`
-display: flex;
-justify-content: flex-end;
-margin: 2rem 2rem;
+    display: flex;
+    justify-content: flex-end;
+    margin: 2rem;
 `;
 
 export const MiddleContainer = styled.div`
-    border: 1px solid #000;
     width: 444px;
     height: 420px;
     margin: auto;
