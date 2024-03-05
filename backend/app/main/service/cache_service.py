@@ -17,7 +17,7 @@ class Cache_Service:
         self.queue.append((123, 2))
 
     def add(self, id, image_data, cases):
-        self.clear_cache()
+        self.invalidate_and_clear_cache()
         cur_time = time.time()
 
         self.queue.append((cur_time, id))
@@ -26,10 +26,10 @@ class Cache_Service:
         print(id, image_data, cases)
 
     def get(self):
-        self.clear_cache()
+        self.invalidate_and_clear_cache()
         return list(self.images.keys())
 
-    def clear_cache(self):
+    def invalidate_and_clear_cache(self):
         cur_time = time.time()
 
         # 5 minutes  = 300 seconds
@@ -38,3 +38,8 @@ class Cache_Service:
 
             self.images.pop(key)
             self.cases.pop(key)
+
+    def clear_all_cache(self):
+        self.images.clear()
+        self.cases.clear()
+        self.queue.clear()
