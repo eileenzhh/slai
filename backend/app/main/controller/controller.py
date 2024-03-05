@@ -41,6 +41,12 @@ def cases():
     return jsonify(response)
 
 
+@controller_endpoints.route("/clear", methods=["GET"])
+def clear():
+    cache_service.clear_all_cache()
+    return jsonify({})
+
+
 # Returns most recent case id
 @controller_endpoints.route("/case", methods=["GET"])
 def case():
