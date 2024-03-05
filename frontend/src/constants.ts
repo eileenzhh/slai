@@ -3,4 +3,5 @@ export const STAGE_ITEMS = {
     SUBMIT_IMAGE: "Submit Image",
     RESULTS: "Results",
     SAVE_RESULTS: "Save Results",
+    EXPORT_RESULTS: "Export Results",
   } as const;

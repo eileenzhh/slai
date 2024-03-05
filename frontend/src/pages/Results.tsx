@@ -4,29 +4,31 @@ import { useSetStage } from '../app-context/stage-context';
 import Breadcrumb from '../components/Breadcrumb';
 import { STAGE_ITEMS } from '../constants';
 import { Layout, BottomButtonContainer, OrangeButton, MiddleContainer, Title } from '../commonStyles';
-import sample from '../assets/sample.png';
-import sample1 from '../assets/sample1.png';
-import sample2 from '../assets/sample2.png';
 import empty from '../assets/empty.png';
 
 import styled from 'styled-components';
+import Record from '../types/Record';
+import { dummyRecord } from '../types/DummyCase';
 
-const Results = () => {
-    const result = [sample1, sample2, empty, empty, empty]
+interface ResultsProps {
+    id?: string;
+    image?: string;
+    records?: Array<string>;
+    date?: string;
+    record?: Record;
+}
+
+const Results: React.FC<ResultsProps> = ({ id, image, records, date, record }) => {
     const navigate = useNavigate()
     const setStage = useSetStage()
     useEffect(() => {
         setStage(STAGE_ITEMS.RESULTS)
     }, [])
 
-    const [loading, setLoading] = useState<boolean>(false)
-
+    const [result, setResult] = useState<Record>(record ?? dummyRecord)
+    
     const onNext = () => {
-        setLoading(true)
-        setTimeout(() => {
-            setLoading(false)
-            navigate('/results')
-        }, 3000)
+        navigate('/export')
     }
 
     return (
@@ -35,12 +37,12 @@ const Results = () => {
             <Layout>
                 <Title>Cases Retrieved</Title>
                 <MiddleContainer>
-                    <img src={sample} alt="preview image"/>
+                    <img src={result.image} alt="preview"/>
                 </MiddleContainer>
                 <p>Preview image</p>
                 <ResultsContainer>
                 <TopRow>
-                    {result.slice(0,3).map((item, index) => (
+                    {result.retrievedRecords.slice(0,3).map((item, index) => (
                         <GridItem key={index}>
                             <h3>{`Result: ${index + 1}`}</h3>
                             <Image src={item} alt={`Image ${index + 1}`} />
@@ -49,7 +51,7 @@ const Results = () => {
                     ))}
                 </TopRow>
                 <BottomRow>
-                    {result.slice(3,5).map((item, index) => (
+                    {result.retrievedRecords.slice(3,5).map((item, index) => (
                         <GridItem key={index}>
                             <h3>{`Result: ${index + 4}`}</h3>
                             <Image src={item} alt={`Image ${index + 4}`} />

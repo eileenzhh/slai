@@ -6,6 +6,7 @@ import Results from './pages/Results';
 import { StageProvider } from './app-context/stage-context';
 import Home from './pages/Home';
 import Header from './components/Header';
+import Export from './pages/Export';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path='take-image' element={<TakeImage/>} />
         <Route path='preview-image' element={<PreviewImage />} />
         <Route path='results' element={<Results />} />
+        <Route path='export' element={<Export />} />
       </Routes>
       </StageProvider>
     </BrowserRouter>

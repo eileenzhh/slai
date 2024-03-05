@@ -37,7 +37,7 @@ export const RightOrangeButton = styled(OrangeButton)`
 export const BottomButtonContainer = styled.div`
 display: flex;
 justify-content: flex-end;
-margin: 2rem 2rem 0;
+margin: 2rem 2rem;
 `;
 
 export const MiddleContainer = styled.div`

@@ -1,23 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 import sample from '../assets/sample.png';
+import Record from '../types/Record';
 
 interface PreviewCaseProps {
     id?: string;
     image?: string;
     date?: string;
+    record: Record;
 }
 
-const PreviewCase: React.FC<PreviewCaseProps> = ({ id, image, date}) => {
+const PreviewCase: React.FC<PreviewCaseProps> = ({ id, image, date, record}) => {
 
     return (
         <Card>
-            <p>Case {id}</p>
-            <PreviewImage src={image ?? sample} alt='preview-image' />
+            <p>Record {record.id}</p>
+            <PreviewImage src={record.image ?? sample} alt='preview-image' />
             <DescriptionContainer>
-                {date && <p>Date: {date}</p>}
+                {record.date && <p>Date: {record.date}</p>}
+                <p>Anatomy Site: {record.anatomySite}</p>
+                {record.exported ?? <p>Exported</p>}
             </DescriptionContainer>
-
         </Card>
     )
 }
@@ -29,7 +32,6 @@ const Card = styled.div`
     border-radius: 2rem;
     width: 375px;
     min-height: 225px;
-    padding: 1rem 0;
 `
 
 const PreviewImage = styled.img<{src: string}>`

@@ -3,37 +3,40 @@ import styled from 'styled-components';
 import { BottomButtonContainer, Layout, OrangeButton, Title } from '../commonStyles';
 import { Link } from 'react-router-dom';
 import PreviewCase from '../components/PreviewCase';
-import sample from '../assets/sample.png';
+import dummyCase from '../types/DummyCase';
+import Record from '../types/Record';
+
+const defaultValues: Pick<Record, 'date' | 'anatomySite' | 'exported'> = {
+    date: 'March 4, 2024',
+    anatomySite: 'Upper arm',
+    exported: false,
+  };
 
 const Home = () => {
-    const dummyCases = {
-        "1": {
-            "cases": [
-                "/static/images/ISIC_0015719.jpg",
-                "/static/images/ISIC_0052212.jpg"
-            ],
-            "image": "byte_data"
-        },
-        "2": {
-            "cases": [
-                "/static/images/ISIC_0015719.jpg",
-                "/static/images/ISIC_0052212.jpg"
-            ],
-            "image": "byte_data"
+    const cases: Record[] = Object.entries(dummyCase).map(([id, caseData]) => {
+        const record: Record ={
+            id: parseInt(id, 10),
+            image: caseData.image,
+            retrievedRecords: (caseData as { cases?: string[] }).cases || [],
+            ...defaultValues,
         }
-    }
-    
+        return record
+    } )
+
     return (
         <Layout>
-            <Title>My Records</Title>
-            <RecordsContainer>
-                <PreviewCase id={"1"} image={sample} date={"March 4, 2024"} />
-                <PreviewCase id={"2"} image={sample} date={"February 29, 2024"}/>
-                <PreviewCase id={"3"} image={sample}/>
-            </RecordsContainer>
-            <BottomButtonContainer>
+            <Title>Current Session</Title>
+            <p>Records automatically get deleted after 10 minutes.</p>
+            <MiddleButtonContainer>
+            <OrangeButton>Clear All Records</OrangeButton>
             <OrangeButton><Link to='/take-image'>Create New Record</Link></OrangeButton>
-            </BottomButtonContainer>
+            </MiddleButtonContainer>
+            <RecordsContainer>
+                {cases.map((record: Record) => (
+                    <PreviewCase record={record}/>
+                ))}
+            </RecordsContainer>
+
         </Layout>
     )
 }
@@ -43,6 +46,11 @@ export default Home
 const RecordsContainer = styled.div`
     display: flex;
     flex-direction: row;
-    gap: 2rem; 
+    gap: 4rem; 
     margin: 0 2rem;
+    justify-content: center;
+`
+
+const MiddleButtonContainer = styled(BottomButtonContainer)`
+justify-content: space-between;
 `

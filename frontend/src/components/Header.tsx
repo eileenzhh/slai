@@ -9,7 +9,7 @@ const Header = () => {
         <HeaderContainer>
            <LeftSide>
                 <Logo src={logo} alt="Orange Circle" />
-                <HeaderButton> <Link to='/'>My Records</Link></HeaderButton>
+                <HeaderButton> <Link to='/'>Records</Link></HeaderButton>
            </LeftSide>
            <h3>User 1</h3>
         </HeaderContainer>
