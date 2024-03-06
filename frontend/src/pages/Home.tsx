@@ -60,6 +60,7 @@ const Home = () => {
             <OrangeButton onClick={onClear} disabled={records.length === 0}>Clear All Records</OrangeButton>
             <OrangeButton><Link to='/take-image'>Create New Record</Link></OrangeButton>
             </MiddleButtonContainer>
+            {records.length === 0 && <p>You have no records. Create a new record.</p>}
             <RecordsContainer>
                 {records.map((record: Record, index) => (
                     <PreviewCase key={index} record={record}/>
