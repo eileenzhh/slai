@@ -17,13 +17,14 @@ export const OrangeButton = styled.div<{ disabled?: boolean }>`
         text-decoration: none;
     }
     text-align: center;
-    cursor: pointer;
+    cursor: ${({disabled}) => (disabled ? 'unset' : 'pointer')};
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 24px;
     background-color: ${({disabled}) => (disabled ? '#FFD9BD' :  '#FFB37B')};
     border-radius: 1rem;
+    color: ${({disabled}) => (disabled ? 'grey' : 'black')};
     // filter: drop-shadow(0 0 0.75rem grey);
     // box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 `

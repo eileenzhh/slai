@@ -43,7 +43,7 @@ const Home = () => {
     return (
         
         <Layout>
-            {showModal && 
+            {showModal && records.length > 0 && 
                 <Modal 
                     title={"Clear Results"} 
                     description={"Are you sure you want to clear all the results?"} 
@@ -57,7 +57,7 @@ const Home = () => {
             <Title>Current Session</Title>
             <p>Records automatically get deleted after 10 minutes.</p>
             <MiddleButtonContainer>
-            <OrangeButton onClick={onClear}>Clear All Records</OrangeButton>
+            <OrangeButton onClick={onClear} disabled={records.length === 0}>Clear All Records</OrangeButton>
             <OrangeButton><Link to='/take-image'>Create New Record</Link></OrangeButton>
             </MiddleButtonContainer>
             <RecordsContainer>
