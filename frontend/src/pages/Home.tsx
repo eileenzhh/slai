@@ -9,11 +9,11 @@ import { useSetStage } from '../app-context/stage-context';
 import { STAGE_ITEMS } from '../constants';
 import Modal from '../components/Modal';
 
-const defaultValues: Pick<Record, 'date' | 'anatomySite' | 'exported'> = {
-    date: 'March 4, 2024',
-    anatomySite: 'Upper arm',
-    exported: false,
-  };
+// const defaultValues: Pick<Record, 'date' | 'anatomySite' | 'exported'> = {
+//     date: 'March 4, 2024',
+//     anatomySite: 'Upper arm',
+//     exported: false,
+//   };
 
 const Home = () => {
     const [showModal, setShowModal] = useState<boolean>(false)
@@ -27,7 +27,9 @@ const Home = () => {
             id: parseInt(id, 10),
             image: caseData.image,
             retrievedRecords: (caseData as { cases?: string[] }).cases || [],
-            ...defaultValues,
+            date: id === "3" ? "March 4, 2024" : "March 5, 2024",
+            anatomySite: id === "1" ? "Upper arm" : "Thigh",
+            exported: id === "1" ? false : true,
         }
         return record
     }))

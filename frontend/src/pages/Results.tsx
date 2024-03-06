@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useSetStage } from '../app-context/stage-context';
 import Breadcrumb from '../components/Breadcrumb';
 import { STAGE_ITEMS } from '../constants';
-import { Layout, BottomButtonContainer, OrangeButton, MiddleContainer, Title } from '../commonStyles';
+import { Layout, BottomButtonContainer, OrangeButton, MiddleContainer, Title, LeftRightButtonContainer } from '../commonStyles';
 
 import styled from 'styled-components';
 import Record from '../types/Record';
@@ -27,6 +27,11 @@ const Results: React.FC<ResultsProps> = ({ record }) => {
     
     const onNext = () => {
         navigate('/export')
+    }
+
+    const goHome = () => {
+        navigate('/')
+
     }
 
     return (
@@ -58,10 +63,17 @@ const Results: React.FC<ResultsProps> = ({ record }) => {
                     ))}
                 </BottomRow>
                 </ResultsContainer>
-                {!result.exported &&
+
+                {!result.exported ?
+                    <LeftRightButtonContainer>
+                        <OrangeButton onClick={goHome}>Return Home</OrangeButton>
+                        <OrangeButton onClick={onNext}>Save Record</OrangeButton>
+                    </LeftRightButtonContainer> :
                     <BottomButtonContainer>
-                    <OrangeButton onClick={onNext}>Save Record</OrangeButton>
-                </BottomButtonContainer>}
+                        <OrangeButton onClick={goHome}>Return Home</OrangeButton>
+                    </BottomButtonContainer>
+
+                }
             </Layout>
             
 

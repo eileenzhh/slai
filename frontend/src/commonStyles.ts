@@ -48,6 +48,12 @@ export const BottomButtonContainer = styled.div`
     margin: 2rem;
 `;
 
+export const LeftRightButtonContainer = styled.div`
+display: flex;
+justify-content: space-between;
+margin: 2rem;
+`
+
 export const MiddleContainer = styled.div`
     width: 444px;
     height: 420px;
