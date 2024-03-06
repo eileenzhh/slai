@@ -1,0 +1,2 @@
+﻿image_name,patient_id,sex,age_approx,anatom_site_general_challenge,diagnosis,benign_malignant,target,isic_id
+ISIC_0015719,IP_3075186,female,45,upper extremity,unknown,benign,0,ISIC_0015719.jpg
