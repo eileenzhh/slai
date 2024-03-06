@@ -7,6 +7,7 @@ import dummyCase from '../types/DummyCase';
 import Record from '../types/Record';
 import { useSetStage } from '../app-context/stage-context';
 import { STAGE_ITEMS } from '../constants';
+import Modal from '../components/Modal';
 
 const defaultValues: Pick<Record, 'date' | 'anatomySite' | 'exported'> = {
     date: 'March 4, 2024',
@@ -15,6 +16,7 @@ const defaultValues: Pick<Record, 'date' | 'anatomySite' | 'exported'> = {
   };
 
 const Home = () => {
+    const [showModal, setShowModal] = useState<boolean>(false)
     const setStage = useSetStage()
     useEffect(() => {
         setStage(STAGE_ITEMS.HOME)
@@ -31,11 +33,27 @@ const Home = () => {
     }))
 
     const onClear = () => {
-        setRecords([])
+        setShowModal(true)
+    }
+
+    const onCloseModal = () => {
+        setShowModal(false)
     }
 
     return (
+        
         <Layout>
+            {showModal && 
+                <Modal 
+                    title={"Clear Results"} 
+                    description={"Are you sure you want to clear all the results?"} 
+                    primaryAction={() => {
+                        setRecords([])
+                        onCloseModal()
+                    }}
+                    secondaryAction={onCloseModal}
+                    onClose={onCloseModal}
+            />}
             <Title>Current Session</Title>
             <p>Records automatically get deleted after 10 minutes.</p>
             <MiddleButtonContainer>
@@ -43,8 +61,8 @@ const Home = () => {
             <OrangeButton><Link to='/take-image'>Create New Record</Link></OrangeButton>
             </MiddleButtonContainer>
             <RecordsContainer>
-                {records.map((record: Record) => (
-                    <PreviewCase record={record}/>
+                {records.map((record: Record, index) => (
+                    <PreviewCase key={index} record={record}/>
                 ))}
             </RecordsContainer>
 

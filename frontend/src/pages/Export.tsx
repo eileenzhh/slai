@@ -23,6 +23,11 @@ const Export: React.FC<ExportProps> = ({record}) => {
     const onNext = () => {
         navigate('/')
     }
+
+    const updatedRecord: Record = {
+        ...dummyRecord,
+        exported: true,
+    }
     return (
         <Layout>
             <Breadcrumb/>
@@ -30,7 +35,7 @@ const Export: React.FC<ExportProps> = ({record}) => {
             The record has been saved!
             <PreviewContainer>
             <PreviewCase 
-                record={dummyRecord}
+                record={updatedRecord}
             />
             </PreviewContainer>
             <BottomButtonContainer>

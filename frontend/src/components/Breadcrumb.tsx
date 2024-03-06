@@ -5,7 +5,7 @@ import { useCurrentStage } from '../app-context/stage-context';
 import { STAGE_ITEMS } from '../constants';
 
 const Breadcrumb = () => {
-  const items = Object.values(STAGE_ITEMS)
+  const items = Object.values(STAGE_ITEMS).filter(item => item !== STAGE_ITEMS.HOME)
   const currentStage = useCurrentStage()
   return (
     <BreadcrumbContainer>

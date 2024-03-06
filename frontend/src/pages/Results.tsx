@@ -37,14 +37,14 @@ const Results: React.FC<ResultsProps> = ({ record }) => {
                 <MiddleContainer>
                     <img src={result.image} alt="preview"/>
                 </MiddleContainer>
-                <p>Preview image</p>
+                <p>My image</p>
                 <ResultsContainer>
                 <TopRow>
                     {result.retrievedRecords.slice(0,3).map((item, index) => (
                         <GridItem key={index}>
                             <h3>{`Result: ${index + 1}`}</h3>
                             <Image src={item} alt={`Image ${index + 1}`} />
-                            <p>image description</p>
+                            <p>similarity: 92%</p>
                         </GridItem>
                     ))}
                 </TopRow>

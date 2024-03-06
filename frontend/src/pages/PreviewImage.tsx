@@ -31,12 +31,13 @@ const PreviewImage = () => {
             <Layout>
             <Breadcrumb/>
                 <Title>Submit Image</Title>
+                <p>Verify you would like to proceed with this image.</p>
                 <MiddleContainer>
                     <img src={sample} alt="preview image"/>
                 </MiddleContainer>
-                <p>Preview image</p>
+                <p>Click 'Submit' to retrieve cases for this image.</p>
             <BottomButtonContainer>
-                <OrangeButton onClick={onSubmit} disabled={loading}>Next</OrangeButton>
+                <OrangeButton onClick={onSubmit} disabled={loading}>Submit</OrangeButton>
             </BottomButtonContainer>
             </Layout>
 

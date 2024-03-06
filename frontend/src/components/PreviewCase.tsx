@@ -26,7 +26,7 @@ const PreviewCase: React.FC<PreviewCaseProps> = ({ record}) => {
             <DescriptionContainer>
                 {record.date && <p>Date: {record.date}</p>}
                 <p>Anatomy Site: {record.anatomySite}</p>
-                {record.exported ?? <p>Exported</p>}
+                <p>{record.exported ? "Exported" : "Unsaved"}</p>
             </DescriptionContainer>
             {currentStage == STAGE_ITEMS.EXPORT_RESULTS ? null :
             <SmallBottomButtonContainer>
