@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/SLAI-logo.png";
 import Modal from "./Modal";
@@ -23,9 +23,8 @@ const Header = () => {
   };
 
   const onClickRecords = () => {
-    setShowModal(true);
+    if (currentStage !== STAGE_ITEMS.HOME) setShowModal(true);
   };
-  console.log(state);
 
   const canShowModal = showModal && currentStage !== STAGE_ITEMS.HOME;
   const modalDescription =
@@ -55,7 +54,12 @@ const Header = () => {
           <HeaderContainer>
             <LeftSide>
               <Logo src={logo} alt="Orange Circle" />
-              <HeaderButton onClick={onClickRecords}>Records</HeaderButton>
+              <HeaderButton
+                onClick={onClickRecords}
+                active={currentStage === STAGE_ITEMS.HOME}
+              >
+                Records
+              </HeaderButton>
             </LeftSide>
             <h3>User 1</h3>
           </HeaderContainer>
@@ -86,9 +90,15 @@ const Logo = styled.img`
   height: 4rem;
 `;
 
-const HeaderButton = styled.h3`
+const HeaderButton = styled.h3<{ active: boolean }>`
+  cursor: ${({ active }) => (active ? "default" : "pointer")};
+
   a {
     text-decoration: none;
     color: black;
+  }
+
+  &:hover {
+    opacity: ${({ active }) => (active ? "1" : "0.75")};
   }
 `;
