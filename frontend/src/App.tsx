@@ -15,7 +15,7 @@ function App() {
   return (
     <BrowserRouter>
     <StageProvider>
-    {window.location.pathname !== '/login' && <Header />}
+    <Header />
       <Routes>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/' element={<Home/>} />
