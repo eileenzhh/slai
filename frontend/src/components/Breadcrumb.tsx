@@ -1,20 +1,22 @@
-import React from 'react';
-import styled from 'styled-components';
-import orangeCircle from '../assets/orange_circle.png';
-import { useCurrentStage } from '../app-context/stage-context';
-import { STAGE_ITEMS } from '../constants';
+import React from "react";
+import styled from "styled-components";
+import orangeCircle from "../assets/orange_circle.png";
+import { useCurrentStage } from "../app-context/stage-context";
+import { STAGE_ITEMS } from "../constants";
 
 const Breadcrumb = () => {
-  const items = Object.values(STAGE_ITEMS).filter(item => item !== STAGE_ITEMS.HOME)
-  const currentStage = useCurrentStage()
+  const items = Object.values(STAGE_ITEMS).filter(
+    (item) => item !== STAGE_ITEMS.HOME
+  );
+  const currentStage = useCurrentStage();
   return (
     <BreadcrumbContainer>
       {items.map((item, index) => (
         <BreadcrumbItem key={index} active={item === currentStage}>
           <img src={orangeCircle} alt="Orange Circle" />
           <div>
-          {item}
-          {index < items.length - 1 && ' > '}
+            {item}
+            {index < items.length - 1 && " > "}
           </div>
         </BreadcrumbItem>
       ))}
@@ -24,10 +26,10 @@ const Breadcrumb = () => {
 
 export default Breadcrumb;
 
-const BreadcrumbItem = styled.span<{active: boolean}>`
+const BreadcrumbItem = styled.span<{ active: boolean }>`
   margin-right: 1rem;
-  color: ${(props) => (props.active ? 'black' : 'gray')};
-  font-weight: ${(props) => (props.active ? 'bold' : 'normal')};
+  color: ${(props) => (props.active ? "black" : "gray")};
+  font-weight: ${(props) => (props.active ? "bold" : "normal")};
   display: flex;
   align-items: center;
 

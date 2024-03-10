@@ -1,25 +1,23 @@
-import React from 'react'
-import styled from 'styled-components'
-import { MiddleContainer, GreyOverlay } from '../commonStyles'
+import React from "react";
+import styled from "styled-components";
+import { MiddleContainer, GreyOverlay } from "../commonStyles";
 
 const Loading = () => {
+  return (
+    <LoadingContainer>
+      <GreyOverlay />
+      {/* <GreyMiddleContainer> */}
+      <LoadingSpinner>Loading...</LoadingSpinner>
+      {/* </GreyMiddleContainer> */}
+    </LoadingContainer>
+  );
+};
 
-
-    return (
-        <LoadingContainer>
-        <GreyOverlay />
-        {/* <GreyMiddleContainer> */}
-            <LoadingSpinner>Loading...</LoadingSpinner>
-        {/* </GreyMiddleContainer> */}
-      </LoadingContainer>
-    )
-}
-
-export default Loading
+export default Loading;
 
 const LoadingContainer = styled.div`
   position: relative;
-  z-index: 100; 
+  z-index: 100;
 `;
 
 const LoadingSpinner = styled.div`
@@ -27,7 +25,7 @@ const LoadingSpinner = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: white; 
+  color: white;
   font-size: 20px;
 `;
 
@@ -37,5 +35,5 @@ const GreyMiddleContainer = styled(MiddleContainer)`
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: grey;
-  z-index: 1002; 
-`
+  z-index: 1002;
+`;
