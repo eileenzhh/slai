@@ -13,6 +13,7 @@ import Photos
 class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AVCapturePhotoOutputReadinessCoordinatorDelegate {
 	
 	let locationManager = CLLocationManager()
+    let focusIndicatorView = UIView()
     
     // MARK: View Controller Life Cycle
     
@@ -34,6 +35,13 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         captureModeControl.isEnabled = false
         captureModeControl.isHidden = true
         HDRVideoModeButton.isHidden = true
+        
+        focusIndicatorView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        focusIndicatorView.backgroundColor = UIColor.clear
+        focusIndicatorView.layer.borderWidth = 2.0
+        focusIndicatorView.layer.borderColor = UIColor.yellow.cgColor
+        focusIndicatorView.isHidden = true
+        view.addSubview(focusIndicatorView)
         
         // Set up the video preview view.
         previewView.session = session
@@ -146,7 +154,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                 self.removeObservers()
             }
         }
-        
+
         super.viewWillDisappear(animated)
     }
     
@@ -595,10 +603,54 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         }
     }
     
+    private func updateFocusIndicatorPosition(at location: CGPoint) {
+        focusIndicatorView.center = location
+        focusIndicatorView.isHidden = false
+
+        UIView.animate(withDuration: 0.5, animations: {
+            self.focusIndicatorView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        }) { (_) in
+            self.focusIndicatorView.transform = CGAffineTransform.identity
+            // Keep the indicator visible until the next tap
+            // self.focusIndicatorView.isHidden = true
+        }
+    }
+
+    
     @IBAction private func focusAndExposeTap(_ gestureRecognizer: UITapGestureRecognizer) {
         let devicePoint = previewView.videoPreviewLayer.captureDevicePointConverted(fromLayerPoint: gestureRecognizer.location(in: gestureRecognizer.view))
-        focus(with: .autoFocus, exposureMode: .autoExpose, at: devicePoint, monitorSubjectAreaChange: true)
+
+        let device = self.videoDeviceInput.device
+            do {
+                try device.lockForConfiguration()
+
+                if device.isFocusPointOfInterestSupported {
+                    device.focusPointOfInterest = devicePoint
+
+                    // Toggle between auto and locked focus
+                    if device.focusMode == .autoFocus {
+                        device.focusMode = .locked
+                    } else {
+                        device.focusMode = .autoFocus
+                    }
+                }
+
+                if device.isExposurePointOfInterestSupported {
+                    device.exposurePointOfInterest = devicePoint
+                    device.exposureMode = .autoExpose
+                }
+
+                device.unlockForConfiguration()
+
+                // Update the focus indicator position
+                updateFocusIndicatorPosition(at: gestureRecognizer.location(in: view))
+
+            } catch {
+                print("Could not lock device for configuration: \(error)")
+            }
+    
     }
+
     
     private func focus(with focusMode: AVCaptureDevice.FocusMode,
                        exposureMode: AVCaptureDevice.ExposureMode,
