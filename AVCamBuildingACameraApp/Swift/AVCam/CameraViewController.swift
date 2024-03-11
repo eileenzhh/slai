@@ -154,7 +154,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                 self.removeObservers()
             }
         }
-        
+
         super.viewWillDisappear(animated)
     }
     
