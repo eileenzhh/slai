@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "04B6ADE7-2281-4852-9BEE-0DD52E1F9BB5"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B5818D0A-BD42-4831-A43D-089C26B9E147"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AVCam/PhotoCaptureDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "photoOutput(_:didFinishCaptureFor:error:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B5818D0A-BD42-4831-A43D-089C26B9E147 - e3f7c40f769644d2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AVCam.PhotoCaptureProcessor.photoOutput(_: __C.AVCapturePhotoOutput, didFinishCaptureFor: __C.AVCaptureResolvedPhotoSettings, error: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
+                  moduleName = "AVCam"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lisaxie/Documents/slai/AVCamBuildingACameraApp/Swift/AVCam/PhotoCaptureDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "120"
+                  endingLineNumber = "120"
+                  offsetFromSymbolStart = "1336">
+               </Location>
+               <Location
+                  uuid = "B5818D0A-BD42-4831-A43D-089C26B9E147 - e3f7c40f769644d2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AVCam.PhotoCaptureProcessor.photoOutput(_: __C.AVCapturePhotoOutput, didFinishCaptureFor: __C.AVCaptureResolvedPhotoSettings, error: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
+                  moduleName = "AVCam"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lisaxie/Documents/slai/AVCamBuildingACameraApp/Swift/AVCam/PhotoCaptureDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "120"
+                  endingLineNumber = "120"
+                  offsetFromSymbolStart = "1344">
+               </Location>
+               <Location
+                  uuid = "B5818D0A-BD42-4831-A43D-089C26B9E147 - e3f7c40f76964456"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AVCam.PhotoCaptureProcessor.photoOutput(_: __C.AVCapturePhotoOutput, didFinishCaptureFor: __C.AVCaptureResolvedPhotoSettings, error: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
+                  moduleName = "AVCam"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lisaxie/Documents/slai/AVCamBuildingACameraApp/Swift/AVCam/PhotoCaptureDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "124"
+                  endingLineNumber = "124"
+                  offsetFromSymbolStart = "1292">
+               </Location>
+               <Location
+                  uuid = "B5818D0A-BD42-4831-A43D-089C26B9E147 - e3f7c40f76964456"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AVCam.PhotoCaptureProcessor.photoOutput(_: __C.AVCapturePhotoOutput, didFinishCaptureFor: __C.AVCaptureResolvedPhotoSettings, error: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
+                  moduleName = "AVCam"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lisaxie/Documents/slai/AVCamBuildingACameraApp/Swift/AVCam/PhotoCaptureDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "124"
+                  endingLineNumber = "124"
+                  offsetFromSymbolStart = "1440">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

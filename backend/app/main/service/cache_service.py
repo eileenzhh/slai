@@ -7,6 +7,7 @@ class Cache_Service:
         self.images = {}
         self.cases = {}
         self.queue = deque()
+        self.ids_count = 0
 
         # for testing
         self.images[1] = "test_data"
@@ -16,14 +17,17 @@ class Cache_Service:
         self.queue.append((123, 1))
         self.queue.append((123, 2))
 
-    def add(self, id, image_data, cases):
+    def add(self, image_data, cases):
         self.invalidate_and_clear_cache()
         cur_time = time.time()
+
+        id = self.ids_count
+        self.ids_count += 1
 
         self.queue.append((cur_time, id))
         self.images[id] = image_data
         self.cases[id] = cases
-        print(id, image_data, cases)
+        # ßprint(id, image_data, cases)
 
     def get(self):
         self.invalidate_and_clear_cache()
