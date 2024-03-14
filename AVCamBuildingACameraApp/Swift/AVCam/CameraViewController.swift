@@ -576,19 +576,29 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         }
     }
     
-    private func updateFocusIndicatorPosition(at location: CGPoint) {
-        focusIndicatorView.center = location
-        focusIndicatorView.isHidden = false
+    private let focusAreaTopLimit: CGFloat = 150 + 25 // Set your desired top limit
+    private let focusAreaBottomLimit: CGFloat = 640 + 25 // Set your desired bottom limit 700 too much
+    
 
-        UIView.animate(withDuration: 0.5, animations: {
-            self.focusIndicatorView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-        }) { (_) in
-            self.focusIndicatorView.transform = CGAffineTransform.identity
-            // Keep the indicator visible until the next tap
-            // self.focusIndicatorView.isHidden = true
+    private func updateFocusIndicatorPosition(at location: CGPoint) {
+        // Check if the tap location is within the desired limits
+        if location.y >= focusAreaTopLimit && location.y <= focusAreaBottomLimit {
+            // Update focus indicator position
+            focusIndicatorView.center = location
+            focusIndicatorView.isHidden = false
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                self.focusIndicatorView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            }) { (_) in
+                self.focusIndicatorView.transform = CGAffineTransform.identity
+                // Keep the indicator visible until the next tap
+                // self.focusIndicatorView.isHidden = true
+            }
+        } else {
+            // If the tap location is outside the desired limits, hide the focus indicator
+            focusIndicatorView.isHidden = true
         }
     }
-
     
     @IBAction private func focusAndExposeTap(_ gestureRecognizer: UITapGestureRecognizer) {
         let devicePoint = previewView.videoPreviewLayer.captureDevicePointConverted(fromLayerPoint: gestureRecognizer.location(in: gestureRecognizer.view))
