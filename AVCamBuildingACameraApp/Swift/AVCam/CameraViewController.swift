@@ -25,7 +25,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         photoButton.isEnabled = false
         
         
-        cameraButton.isEnabled = false
+//        cameraButton.isEnabled = false
         recordButton.isEnabled = false
         recordButton.isHidden = true
         livePhotoModeButton.isEnabled = false
@@ -438,7 +438,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     
     // MARK: Device Configuration
     
-    @IBOutlet private weak var cameraButton: UIButton!
+//    @IBOutlet private weak var cameraButton: UIButton!
     
     @IBOutlet private weak var cameraUnavailableLabel: UILabel!
     
@@ -450,28 +450,28 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     private var videoDeviceIsConnectedObservation: NSKeyValueObservation?
     
     /// - Tag: ChangeCamera
-    @IBAction private func changeCameraButtonPressed(_ cameraButton: UIButton) {
-        cameraButton.isEnabled = false
-        recordButton.isEnabled = false
-        photoButton.isEnabled = false
-        livePhotoModeButton.isEnabled = false
-        captureModeControl.isEnabled = false
-        photoQualityPrioritizationSegControl.isEnabled = false
-        HDRVideoModeButton.isEnabled = false
-        self.selectedMovieMode10BitDeviceFormat = nil
-        
-        self.changeCamera(nil, isUserSelection: true, completion: {
-            
-            DispatchQueue.main.async {
-                self.cameraButton.isEnabled = true
-                self.recordButton.isEnabled = self.movieFileOutput != nil
-                self.photoButton.isEnabled = true
-                self.livePhotoModeButton.isEnabled = true
-                self.captureModeControl.isEnabled = true
-                self.photoQualityPrioritizationSegControl.isEnabled = true
-            }
-        })
-    }
+//    @IBAction private func changeCameraButtonPressed(_ cameraButton: UIButton) {
+//        cameraButton.isEnabled = false
+//        recordButton.isEnabled = false
+//        photoButton.isEnabled = false
+//        livePhotoModeButton.isEnabled = false
+//        captureModeControl.isEnabled = false
+//        photoQualityPrioritizationSegControl.isEnabled = false
+//        HDRVideoModeButton.isEnabled = false
+//        self.selectedMovieMode10BitDeviceFormat = nil
+//        
+//        self.changeCamera(nil, isUserSelection: true, completion: {
+//            
+//            DispatchQueue.main.async {
+//                self.cameraButton.isEnabled = true
+//                self.recordButton.isEnabled = self.movieFileOutput != nil
+//                self.photoButton.isEnabled = true
+//                self.livePhotoModeButton.isEnabled = true
+//                self.captureModeControl.isEnabled = true
+//                self.photoQualityPrioritizationSegControl.isEnabled = true
+//            }
+//        })
+//    }
     
     private func changeCamera(_ videoDevice: AVCaptureDevice?, isUserSelection: Bool, completion: (() -> Void)? = nil) {
         sessionQueue.async {
@@ -960,7 +960,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
          
          See the AVCaptureFileOutputRecordingDelegate methods.
          */
-        cameraButton.isEnabled = false
+//        cameraButton.isEnabled = false
         recordButton.isEnabled = false
         captureModeControl.isEnabled = false
         
@@ -1094,7 +1094,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         DispatchQueue.main.async {
             // Only enable the ability to change camera if the device has more
             // than one camera.
-            self.cameraButton.isEnabled = self.videoDeviceDiscoverySession.uniqueDevicePositionsCount > 1
+//            self.cameraButton.isEnabled = self.videoDeviceDiscoverySession.uniqueDevicePositionsCount > 1
             self.recordButton.isEnabled = true
             self.captureModeControl.isEnabled = true
             self.recordButton.setImage(#imageLiteral(resourceName: "CaptureVideo"), for: [])
@@ -1116,7 +1116,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
             DispatchQueue.main.async {
                 // Only enable the ability to change camera if the device has
                 // more than one camera.
-                self.cameraButton.isEnabled = isSessionRunning && self.videoDeviceDiscoverySession.uniqueDevicePositionsCount > 1
+//                self.cameraButton.isEnabled = isSessionRunning && self.videoDeviceDiscoverySession.uniqueDevicePositionsCount > 1
                 self.recordButton.isEnabled = isSessionRunning && self.movieFileOutput != nil
                 self.photoButton.isEnabled = isSessionRunning
                 self.captureModeControl.isEnabled = isSessionRunning
