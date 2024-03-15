@@ -6,6 +6,15 @@ name = "pypi"
 [packages]
 flask = "*"
 flask-cors = "*"
+pickle-mixin = "*"
+pandas = "*"
+torch = "*"
+torchvision = "*"
+numpy = "*"
+scikit-learn = "*"
+pyyaml = "*"
+easydict = "*"
+argparse = "*"
 
 [dev-packages]
 
