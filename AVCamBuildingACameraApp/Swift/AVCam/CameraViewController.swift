@@ -1043,7 +1043,7 @@ extension CameraViewController: PhotoCaptureProcessorDelegate {
         }
     }
     
-    @objc func retakePhoto() {   
+    @objc func retakePhoto() {
         imageView?.removeFromSuperview()
         // Remove buttons
         retakeButton?.removeFromSuperview()
@@ -1057,6 +1057,33 @@ extension CameraViewController: PhotoCaptureProcessorDelegate {
     }
     
     @objc func submitPhoto() {
-        // Implement submit photo functionality
-    }
+        guard let photoCaptureProcessor = self.inProgressPhotoCaptureDelegates.first?.value else {
+                print("No in progress photo capture delegate")
+                return
+            }
+            
+            photoCaptureProcessor.submitPhotoData { [weak self] data, error in
+                guard let self = self else { return }
+                
+                if let error = error {
+                    print("Error submitting photo data: \(error)")
+                    return
+                }
+                
+                // Handle response data if needed
+                
+                // Reset UI and enable photo capture button
+                DispatchQueue.main.async {
+                    self.imageView?.removeFromSuperview()
+                    // Remove buttons
+                    self.retakeButton?.removeFromSuperview()
+                    self.submitButton?.removeFromSuperview()
+                    
+                    // Enable photo capture button
+                    self.photoButton.isEnabled = true
+
+                    // Reset the flag indicating viewing mode
+                    self.isViewingPhoto = false
+                }
+            }    }
 }
