@@ -15,6 +15,11 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
 	let locationManager = CLLocationManager()
     let focusIndicatorView = UIView()
     private var isViewingPhoto = false
+    
+    private var imageView: UIImageView?
+    private var retakeButton: UIButton?
+    private var submitButton: UIButton?
+    
     // MARK: View Controller Life Cycle
     
     override func viewDidLoad() {
@@ -1029,14 +1034,26 @@ extension CameraViewController: PhotoCaptureProcessorDelegate {
             self.view.addSubview(imageView)
             self.view.addSubview(retakeButton)
             self.view.addSubview(submitButton)
+            self.retakeButton = retakeButton
+            self.submitButton = submitButton
+            self.imageView = imageView
             
             self.photoButton.isEnabled = false
 
         }
     }
     
-    @objc func retakePhoto() {
-        // Implement retake photo functionality
+    @objc func retakePhoto() {   
+        imageView?.removeFromSuperview()
+        // Remove buttons
+        retakeButton?.removeFromSuperview()
+        submitButton?.removeFromSuperview()
+        
+        // Enable photo capture button
+        self.photoButton.isEnabled = true
+
+        // Reset the flag indicating viewing mode
+        self.isViewingPhoto = false
     }
     
     @objc func submitPhoto() {
