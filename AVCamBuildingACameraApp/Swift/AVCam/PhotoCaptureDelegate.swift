@@ -10,6 +10,10 @@ import Photos
 import UIKit
 import Foundation
 
+protocol PhotoCaptureProcessorDelegate: AnyObject {
+    func photoCaptureProcessor(_ process: PhotoCaptureProcessor, didFinishCapturingPhoto imageData: Data)
+}
+
 class PhotoCaptureProcessor: NSObject {
     private(set) var requestedPhotoSettings: AVCapturePhotoSettings
     
@@ -27,6 +31,8 @@ class PhotoCaptureProcessor: NSObject {
 
     // Save the location of captured photos.
     var location: CLLocation?
+    
+    weak var delegate: PhotoCaptureProcessorDelegate?
 
     init(with requestedPhotoSettings: AVCapturePhotoSettings,
          willCapturePhotoAnimation: @escaping () -> Void,
@@ -116,6 +122,8 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
             didFinish()
             return
         }
+        
+        delegate?.photoCaptureProcessor(self, didFinishCapturingPhoto: photoData!)
 
         let test_uiimage = UIImage(data: photoData!)
         let encodedPhotoData = test_uiimage?.pngData()!.base64EncodedString()

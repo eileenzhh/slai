@@ -14,7 +14,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
 	
 	let locationManager = CLLocationManager()
     let focusIndicatorView = UIView()
-    
+    private var isViewingPhoto = false
     // MARK: View Controller Life Cycle
     
     override func viewDidLoad() {
@@ -545,7 +545,9 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     
     /// - Tag: CapturePhoto
     @IBAction private func capturePhoto(_ photoButton: UIButton) {
-        
+        if self.isViewingPhoto {
+            return
+        }
         if self.photoSettings == nil {
             print("No photo settings to capture")
             return
@@ -581,11 +583,14 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                 self.sessionQueue.async {
                     self.inProgressPhotoCaptureDelegates[photoCaptureProcessor.requestedPhotoSettings.uniqueID] = nil
                 }
+//                photoCaptureProcessor.delegate = self // Set delegate to self
+
             })
 			
 			// Specify the location the photo was taken
 			photoCaptureProcessor.location = self.locationManager.location
-            
+            photoCaptureProcessor.delegate = self // Set delegate to self
+
             // The photo output holds a weak reference to the photo capture
             // delegate and stores it in an array to maintain a strong
             // reference.
@@ -982,5 +987,59 @@ extension AVCaptureDevice.DiscoverySession {
         }
         
         return uniqueDevicePositions.count
+    }
+}
+
+extension CameraViewController: PhotoCaptureProcessorDelegate {
+    func photoCaptureProcessor(_ processor: PhotoCaptureProcessor, didFinishCapturingPhoto imageData: Data) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.isViewingPhoto = true // Set flag to indicate viewing mode
+
+            // Create an image view to display the captured image
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+            imageView.contentMode = .scaleAspectFit
+            imageView.image = UIImage(data: imageData)
+            imageView.center = self.view.center
+            imageView.backgroundColor = .black // Set background color to match the screen
+            
+            // Add retake button
+            let retakeButton = UIButton(type: .system)
+            retakeButton.setTitle("Retake", for: .normal)
+            retakeButton.addTarget(self, action: #selector(self.retakePhoto), for: .touchUpInside)
+            
+            // Add submit button
+            let submitButton = UIButton(type: .system)
+            submitButton.setTitle("Submit", for: .normal)
+            submitButton.addTarget(self, action: #selector(self.submitPhoto), for: .touchUpInside)
+            
+            // Set button frames and positions
+            let buttonWidth: CGFloat = 150
+            let buttonHeight: CGFloat = 75
+            
+            let spacing: CGFloat = 40
+            
+            let totalButtonWidth = buttonWidth * 2 + spacing
+            let startX = (self.view.frame.width - totalButtonWidth) / 2
+            let buttonContainerHeight = buttonHeight + spacing + 20
+            let startY = self.view.frame.height - buttonContainerHeight - 20
+            retakeButton.frame = CGRect(x: startX, y: startY, width: buttonWidth, height: buttonHeight)
+            submitButton.frame = CGRect(x: startX + buttonWidth + spacing, y: startY, width: buttonWidth, height: buttonHeight)
+            // Add views to the main view
+            self.view.addSubview(imageView)
+            self.view.addSubview(retakeButton)
+            self.view.addSubview(submitButton)
+            
+            self.photoButton.isEnabled = false
+
+        }
+    }
+    
+    @objc func retakePhoto() {
+        // Implement retake photo functionality
+    }
+    
+    @objc func submitPhoto() {
+        // Implement submit photo functionality
     }
 }
