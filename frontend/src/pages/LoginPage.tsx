@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import logo from "../assets/SLAI-logo-white.png";
 import { SmallOrangeButton, Title } from "../commonStyles";
+import { useSetStage } from "../app-context/stage-context";
+import { STAGE_ITEMS } from "../constants";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const setStage = useSetStage()
+
   const navigate = useNavigate();
-  const onSubmit = () => {
-    navigate("/");
-  };
+  const onLogin = useCallback(() => {
+    console.log('hi')
+    setStage(STAGE_ITEMS.HOME)
+    navigate('/')
+  }, [])
+
   return (
     <LoginPageContainer>
       <LeftContainer>
@@ -22,7 +29,7 @@ const LoginPage = () => {
           <label>Password</label>
           <input type="text" placeholder="Password" />
         </LoginForm>
-        <SmallOrangeButton onClick={onSubmit}>Login</SmallOrangeButton>
+        <SmallOrangeButton onClick={onLogin}>Login</SmallOrangeButton>
       </RightContainer>
     </LoginPageContainer>
   );

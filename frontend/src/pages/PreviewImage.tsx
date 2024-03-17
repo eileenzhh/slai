@@ -13,27 +13,34 @@ import {
 import Loading from "../components/Loading";
 import sample from "../assets/sample.png";
 import { dummyRecord } from "../types/DummyCase";
+import Record from "../types/Record";
 
-const PreviewImage = () => {
+interface PreviewImageProps {
+  currentRecord: Record;
+}
+
+const PreviewImage: React.FC<PreviewImageProps> = ({ currentRecord }) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const setStage = useSetStage();
-  useEffect(() => {
-    setStage(STAGE_ITEMS.SUBMIT_IMAGE);
-  }, []);
+  // useEffect(() => {
+  //   setStage(STAGE_ITEMS.SUBMIT_IMAGE);
+  // }, []);
 
   const onSubmit = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      navigate("/results", { state: dummyRecord });
+      // navigate("/results", { state: dummyRecord });
+      setStage(STAGE_ITEMS.RESULTS)
     }, 3000);
   };
 
   const onBack = () => {
-    navigate("/take-image");
+    setStage(STAGE_ITEMS.TAKE_IMAGE)
   };
+
 
   return (
     <div>
@@ -43,7 +50,7 @@ const PreviewImage = () => {
         <Title>Submit Image</Title>
         <p>Verify you would like to proceed with this image.</p>
         <MiddleContainer>
-          <img src={sample} alt="preview image" />
+          <img src={currentRecord.image} alt="preview image" />
         </MiddleContainer>
         <p>Click 'Back' to retake your image.</p>
         <p>Click 'Submit' to retrieve cases for this image.</p>

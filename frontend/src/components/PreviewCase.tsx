@@ -4,7 +4,7 @@ import sample from "../assets/sample.png";
 import Record from "../types/Record";
 import { useNavigate } from "react-router-dom";
 import { BottomButtonContainer, SmallOrangeButton } from "../commonStyles";
-import { useCurrentStage } from "../app-context/stage-context";
+import { useCurrentStage, useSetStage } from "../app-context/stage-context";
 import { STAGE_ITEMS } from "../constants";
 
 interface PreviewCaseProps {
@@ -15,8 +15,10 @@ const PreviewCase: React.FC<PreviewCaseProps> = ({ record }) => {
   const navigate = useNavigate();
   const currentStage = useCurrentStage();
 
+  const setStage = useSetStage()
   const onClick = () => {
-    navigate("/results", { state: record });
+    setStage(STAGE_ITEMS.RESULTS)
+    // navigate("/results", { state: record });
   };
 
   return (
