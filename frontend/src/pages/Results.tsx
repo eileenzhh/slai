@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React from "react";
 import { useSetStage } from "../app-context/stage-context";
 import Breadcrumb from "../components/Breadcrumb";
 import { STAGE_ITEMS } from "../constants";
@@ -16,28 +15,20 @@ import styled from "styled-components";
 import Record from "../types/Record";
 
 interface ResultsProps {
-  record?: Record;
+  currentRecord: Record;
+  saveRecord: () => void;
 }
 
-const Results: React.FC<ResultsProps> = ({ record }) => {
-  const navigate = useNavigate();
+const Results: React.FC<ResultsProps> = ({ currentRecord, saveRecord }) => {
   const setStage = useSetStage();
-  const location = useLocation();
-
-  const { state } = location;
-
-  useEffect(() => {
-    setStage(STAGE_ITEMS.RESULTS);
-  }, []);
-
-  const [result, setResult] = useState<Record>(record ?? state);
 
   const onNext = () => {
-    navigate("/export");
+    saveRecord();
+    setStage(STAGE_ITEMS.EXPORT_RESULTS);
   };
 
   const goHome = () => {
-    navigate("/");
+    setStage(STAGE_ITEMS.HOME);
   };
 
   return (
@@ -46,12 +37,12 @@ const Results: React.FC<ResultsProps> = ({ record }) => {
       <Layout>
         <Title>Cases Retrieved</Title>
         <MiddleContainer>
-          <img src={result.image} alt="preview" />
+          <img src={currentRecord.image} alt="preview" />
         </MiddleContainer>
         <p>My image</p>
         <ResultsContainer>
           <TopRow>
-            {result.retrievedRecords.slice(0, 3).map((item, index) => (
+            {currentRecord.retrievedRecords.slice(0, 3).map((item, index) => (
               <GridItem key={index}>
                 <h3>{`Result: ${index + 1}`}</h3>
                 <Image src={item} alt={`Image ${index + 1}`} />
@@ -60,7 +51,7 @@ const Results: React.FC<ResultsProps> = ({ record }) => {
             ))}
           </TopRow>
           <BottomRow>
-            {result.retrievedRecords.slice(3, 5).map((item, index) => (
+            {currentRecord.retrievedRecords.slice(3, 5).map((item, index) => (
               <GridItem key={index}>
                 <h3>{`Result: ${index + 4}`}</h3>
                 <Image src={item} alt={`Image ${index + 4}`} />
@@ -70,7 +61,7 @@ const Results: React.FC<ResultsProps> = ({ record }) => {
           </BottomRow>
         </ResultsContainer>
 
-        {!result.exported ? (
+        {!currentRecord.exported ? (
           <LeftRightButtonContainer>
             <OrangeButton onClick={goHome}>Return Home</OrangeButton>
             <OrangeButton onClick={onNext}>Save Record</OrangeButton>

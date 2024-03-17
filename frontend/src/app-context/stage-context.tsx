@@ -1,7 +1,7 @@
 import React, { createContext, useContext, ReactNode, useState } from 'react';
 import { STAGE_ITEMS } from '../constants';
 
-type StageItemType = typeof STAGE_ITEMS[keyof typeof STAGE_ITEMS];
+export type StageItemType = typeof STAGE_ITEMS[keyof typeof STAGE_ITEMS];
 
 interface StageContextProps {
   currentStage: StageItemType;
@@ -15,7 +15,7 @@ interface StageProviderProps {
 }
 
 export const StageProvider: React.FC<StageProviderProps> = ({ children }) => {
-  const [currentStage, setCurrentStage] = useState<StageItemType>(STAGE_ITEMS.TAKE_IMAGE);
+  const [currentStage, setCurrentStage] = useState<StageItemType>(STAGE_ITEMS.HOME);
 
   const setStage = (newStage: StageItemType) => {
     setCurrentStage(newStage);
