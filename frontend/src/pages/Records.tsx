@@ -18,7 +18,7 @@ interface RecordsProps {
 }
 
 const Records: React.FC<RecordsProps> = ({ records, setRecords }) => {
-  const setStage = useSetStage()
+  const setStage = useSetStage();
   const [showClearModal, setShowClearModal] = useState<boolean>(false);
 
   const onClear = () => {
@@ -34,20 +34,20 @@ const Records: React.FC<RecordsProps> = ({ records, setRecords }) => {
   };
 
   const goToTakeImage = () => {
-    setStage(STAGE_ITEMS.TAKE_IMAGE)
-  }
+    setStage(STAGE_ITEMS.TAKE_IMAGE);
+  };
 
   return (
     <Layout>
-      <Title>Current Session</Title>
-      <p>Records automatically get deleted after 10 minutes.</p>
       <MiddleButtonContainer>
         <OrangeButton onClick={onClear} disabled={records.length === 0}>
           Clear All Records
         </OrangeButton>
-        <OrangeButton onClick={goToTakeImage}>
-          Create New Record
-        </OrangeButton>
+        <div>
+          <Title>Current Session</Title>
+          <p>Records automatically get deleted after 10 minutes.</p>
+        </div>
+        <OrangeButton onClick={goToTakeImage}>Create New Record</OrangeButton>
       </MiddleButtonContainer>
       <PreviewCasesList
         records={records}
@@ -63,4 +63,12 @@ export default Records;
 
 const MiddleButtonContainer = styled(BottomButtonContainer)`
   justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    margin: 0;
+  }
+  p {
+    margin-bottom: 0;
+  }
 `;
