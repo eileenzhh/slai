@@ -17,8 +17,8 @@ const Spinner = () => (
 const StyledSpinner = styled.svg`
   animation: rotate 2s linear infinite;
   margin: -25px 0 0 -25px;
-  width: 50px;
-  height: 50px;
+  width: 150px;
+  height: 150px;
   
   & .path {
     stroke: var(--orange);

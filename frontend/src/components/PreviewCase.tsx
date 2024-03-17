@@ -31,9 +31,9 @@ const PreviewCase: React.FC<PreviewCaseProps> = ({ record }) => {
         <p>Anatomy Site: {record.anatomySite}</p>
         <p>{record.exported ? "Exported" : "Unsaved"}</p>
       </DescriptionContainer>
-      {currentStage == STAGE_ITEMS.EXPORT_RESULTS ? null : (
+      {currentStage === STAGE_ITEMS.EXPORT_RESULTS ? null : (
         <SmallBottomButtonContainer>
-          <SmallOrangeButton onClick={onClick}>details</SmallOrangeButton>
+          <SmallOrangeButton onClick={onClick}>See Details</SmallOrangeButton>
         </SmallBottomButtonContainer>
       )}
     </Card>

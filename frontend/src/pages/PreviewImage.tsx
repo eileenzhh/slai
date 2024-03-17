@@ -1,61 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useSetStage } from "../app-context/stage-context";
 import Breadcrumb from "../components/Breadcrumb";
 import { STAGE_ITEMS } from "../constants";
 import {
   Layout,
-  LeftRightButtonContainer,
-  MiddleContainer,
-  OrangeButton,
   Title,
 } from "../commonStyles";
-import Loading from "../components/Loading";
 import Record from "../types/Record";
 import Spinner from "../components/Spinner";
+import styled from "styled-components";
 
 interface PreviewImageProps {
   currentRecord: Record;
 }
 
 const PreviewImage: React.FC<PreviewImageProps> = ({ currentRecord }) => {
-  const [loading, setLoading] = useState<boolean>(false);
-
   const setStage = useSetStage();
-
-  const onSubmit = () => {
-    setLoading(true);
+  
+  // TO DO: add get request
+  useEffect(() => {
     setTimeout(() => {
-      setLoading(false);
       setStage(STAGE_ITEMS.RESULTS);
     }, 3000);
-  };
-
-  const onBack = () => {
-    setStage(STAGE_ITEMS.TAKE_IMAGE);
-  };
-
+  })
   return (
     <div>
-      {loading && <Loading />}
       <Layout>
         <Breadcrumb />
         <Title>Retrieving Results</Title>
-        <MiddleContainer>
-          <Title>LOADING</Title>
+        <SpinnerContainer>
           <Spinner />
-        </MiddleContainer>
+        </SpinnerContainer>
         <p>Please do not exit the page until your results are retrieved.</p>
-        <LeftRightButtonContainer>
-          <OrangeButton onClick={onBack} disabled={loading}>
-            Back
-          </OrangeButton>
-          <OrangeButton onClick={onSubmit} disabled={loading}>
-            Submit
-          </OrangeButton>
-        </LeftRightButtonContainer>
       </Layout>
     </div>
   );
 };
 
 export default PreviewImage;
+
+const SpinnerContainer = styled.div`
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  height: 420px;
+`
