@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React from "react";
 import { useSetStage } from "../app-context/stage-context";
 import Breadcrumb from "../components/Breadcrumb";
 import { STAGE_ITEMS } from "../constants";
@@ -21,16 +20,15 @@ interface ResultsProps {
 }
 
 const Results: React.FC<ResultsProps> = ({ currentRecord, saveRecord }) => {
-  const navigate = useNavigate();
   const setStage = useSetStage();
 
   const onNext = () => {
-    saveRecord()
-    setStage(STAGE_ITEMS.EXPORT_RESULTS)
+    saveRecord();
+    setStage(STAGE_ITEMS.EXPORT_RESULTS);
   };
 
   const goHome = () => {
-    setStage(STAGE_ITEMS.HOME)
+    setStage(STAGE_ITEMS.HOME);
   };
 
   return (

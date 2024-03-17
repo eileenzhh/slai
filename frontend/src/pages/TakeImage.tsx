@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import cameraIcon from "../assets/camera.png";
 import styled from "styled-components";
 
@@ -13,21 +13,18 @@ import {
   MiddleContainer,
 } from "../commonStyles";
 import Loading from "../components/Loading";
-import Record from "../types/Record";
-import dummyCase, { dummyRecord } from "../types/DummyCase";
+import { dummyRecord } from "../types/DummyCase";
+import { useSetRecord } from "../app-context/record-context";
 
-interface TakeImageProps { 
-  setNewRecord: Dispatch<SetStateAction<Record>>
-}
-
-const TakeImage: React.FC<TakeImageProps> = ({ setNewRecord }) => {
+const TakeImage = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const setStage = useSetStage()
+  const setStage = useSetStage();
+  const setNewRecord = useSetRecord();
 
   const goToPreviewImage = () => {
-    setNewRecord(dummyRecord)
-    setStage(STAGE_ITEMS.SUBMIT_IMAGE)
-  }
+    setNewRecord(dummyRecord);
+    setStage(STAGE_ITEMS.SUBMIT_IMAGE);
+  };
 
   return (
     <div>

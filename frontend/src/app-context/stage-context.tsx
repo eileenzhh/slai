@@ -15,7 +15,7 @@ interface StageProviderProps {
 }
 
 export const StageProvider: React.FC<StageProviderProps> = ({ children }) => {
-  const [currentStage, setCurrentStage] = useState<StageItemType>(STAGE_ITEMS.TAKE_IMAGE);
+  const [currentStage, setCurrentStage] = useState<StageItemType>(STAGE_ITEMS.HOME);
 
   const setStage = (newStage: StageItemType) => {
     setCurrentStage(newStage);
