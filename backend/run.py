@@ -52,4 +52,4 @@ CORS(app)
 
 if __name__ == "__main__":
     app.debug = True
-    app.run(host="192.168.2.14")
+    app.run(host="172.20.10.4")
