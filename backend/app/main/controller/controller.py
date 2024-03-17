@@ -11,7 +11,7 @@ from app.main.service import (
 )
 
 cache = cache_service.Cache_Service()
-model_service = model_integration_service.Model_Service()
+model_service = model_integration_service.Model_Integration_Service()
 
 
 # Returns all cases in last 5 min
@@ -86,7 +86,7 @@ def image():
         fh.write(base64.b64decode(data["image"]))
 
     image = data["image"]
-    cases = model_service.call_model(image)
+    cases = model_service.evaluate()
 
     cache.add(image, cases)
 

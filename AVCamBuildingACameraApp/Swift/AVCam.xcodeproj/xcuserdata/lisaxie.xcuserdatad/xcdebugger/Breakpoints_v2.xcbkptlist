@@ -14,9 +14,9 @@
             filePath = "AVCam/PhotoCaptureDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
-            landmarkName = "photoOutput(_:didFinishCaptureFor:error:)"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "photoOutput(_:didFinishCapturingDeferredPhotoProxy:error:)"
             landmarkType = "7">
             <Locations>
                <Location
