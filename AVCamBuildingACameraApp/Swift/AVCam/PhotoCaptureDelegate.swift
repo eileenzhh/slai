@@ -118,23 +118,25 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
         }
 
         let test_uiimage = UIImage(data: photoData!)
-        let encodedPhotoData = test_uiimage?.pngData()!.base64EncodedString()
-//        print(test_png ?? "lol")
+        let encodedPhotoData = test_uiimage?.jpegData(compressionQuality: 1.0)!.base64EncodedString()
         let json: [String: String?] = ["image": encodedPhotoData]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
         
-        let url = URL(string: "http://192.168.2.14:5000/image")!
+        let url = URL(string: "http://172.20.10.2:5000/image")!
         var request = URLRequest(url: url)
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         request.httpBody = jsonData
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-          // handle the response
+            print("Error sending image")
+            self.didFinish()
+            return
         }
 
         task.resume()
+        didFinish()
 //
 ////         generate boundary string using a unique per-app string
 //        let boundary = UUID().uuidString

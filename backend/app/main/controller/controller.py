@@ -82,7 +82,7 @@ def image():
     data = request.json
 
     # for testing
-    with open("imageToSave.png", "wb") as fh:
+    with open("imageToSave.jpg", "wb") as fh:
         fh.write(base64.b64decode(data["image"]))
 
     image = data["image"]
