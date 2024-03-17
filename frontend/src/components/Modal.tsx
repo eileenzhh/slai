@@ -36,9 +36,9 @@ const Modal: React.FC<ModalProps> = ({
             <SmallOrangeButton onClick={primaryAction}>OK</SmallOrangeButton>
           )}
           {secondaryAction && (
-            <SmallOrangeButton onClick={secondaryAction}>
+            <SecondaryActionButton onClick={secondaryAction}>
               Cancel
-            </SmallOrangeButton>
+            </SecondaryActionButton>
           )}
         </ActionContainer>
       </ModalContainer>
@@ -65,7 +65,7 @@ const ModalContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
+  background: var(--white);
   border-radius: 2rem;
   padding: 2rem;
   justify-content: center;
@@ -83,3 +83,7 @@ const ActionContainer = styled.div`
   margin-top: 1.5rem;
   gap: 2rem;
 `;
+
+const SecondaryActionButton = styled(SmallOrangeButton)`
+  background: var(--grey)
+`

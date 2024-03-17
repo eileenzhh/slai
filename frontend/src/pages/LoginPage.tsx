@@ -11,7 +11,6 @@ const LoginPage = () => {
 
   const navigate = useNavigate();
   const onLogin = useCallback(() => {
-    console.log('hi')
     setStage(STAGE_ITEMS.HOME)
     navigate('/')
   }, [])
@@ -51,7 +50,7 @@ const LeftContainer = styled.div`
   display: grid;
   align-items: center;
   justify-content: center;
-  background-color: #ffb37b;
+  background-color: var(--orange);
   width: 67%;
 `;
 

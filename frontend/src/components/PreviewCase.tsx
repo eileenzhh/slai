@@ -43,10 +43,11 @@ const PreviewCase: React.FC<PreviewCaseProps> = ({ record }) => {
 export default PreviewCase;
 
 const Card = styled.div`
-  border: black solid;
+  border: var(--lightgrey) solid;
   border-radius: 2rem;
   width: 375px;
   min-height: 225px;
+  box-shadow: 0px 0px 10px 5px var(--lightgrey);
 `;
 
 const PreviewImage = styled.img<{ src: string }>`
