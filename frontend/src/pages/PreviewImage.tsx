@@ -11,6 +11,7 @@ import {
 } from "../commonStyles";
 import Loading from "../components/Loading";
 import Record from "../types/Record";
+import Spinner from "../components/Spinner";
 
 interface PreviewImageProps {
   currentRecord: Record;
@@ -38,13 +39,12 @@ const PreviewImage: React.FC<PreviewImageProps> = ({ currentRecord }) => {
       {loading && <Loading />}
       <Layout>
         <Breadcrumb />
-        <Title>Submit Image</Title>
-        <p>Verify you would like to proceed with this image.</p>
+        <Title>Retrieving Results</Title>
         <MiddleContainer>
-          <img src={currentRecord.image} alt="preview image" />
+          <Title>LOADING</Title>
+          <Spinner />
         </MiddleContainer>
-        <p>Click 'Back' to retake your image.</p>
-        <p>Click 'Submit' to retrieve cases for this image.</p>
+        <p>Please do not exit the page until your results are retrieved.</p>
         <LeftRightButtonContainer>
           <OrangeButton onClick={onBack} disabled={loading}>
             Back
