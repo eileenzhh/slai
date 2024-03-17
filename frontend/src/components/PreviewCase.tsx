@@ -5,6 +5,7 @@ import Record from "../types/Record";
 import { BottomButtonContainer, SmallOrangeButton } from "../commonStyles";
 import { useCurrentStage, useSetStage } from "../app-context/stage-context";
 import { STAGE_ITEMS } from "../constants";
+import { useSetRecord } from "../app-context/record-context";
 
 interface PreviewCaseProps {
   record: Record;
@@ -14,7 +15,10 @@ const PreviewCase: React.FC<PreviewCaseProps> = ({ record }) => {
   const currentStage = useCurrentStage();
 
   const setStage = useSetStage();
+  const setRecord = useSetRecord()
+
   const onClick = () => {
+    setRecord(record)
     setStage(STAGE_ITEMS.RESULTS);
   };
 

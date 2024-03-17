@@ -13,6 +13,7 @@ import { useCurrentRecord } from "../app-context/record-context";
 const Home = () => {
   const currentStage = useCurrentStage();
 
+  // TO DO: need to implement check on whether record has been expired or not
   const [records, setRecords] = useState<Record[]>(
     Object.entries(dummyCase).map(([id, caseData]) => {
       const record: Record = {
