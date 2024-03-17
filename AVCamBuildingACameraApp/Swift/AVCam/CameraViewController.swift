@@ -28,6 +28,8 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         // Disable the UI. Enable the UI later, if and only if the session
         // starts running.
         photoButton.isEnabled = false
+        photoButton.isHidden = false
+        
         
         photoQualityPrioritizationSegControl.isEnabled = false
         photoQualityPrioritizationSegControl.isHidden = true
