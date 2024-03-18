@@ -31,9 +31,9 @@ const PreviewCase: React.FC<PreviewCaseProps> = ({ record }) => {
         <p>Anatomy Site: {record.anatomySite}</p>
         <p>{record.exported ? "Exported" : "Unsaved"}</p>
       </DescriptionContainer>
-      {currentStage == STAGE_ITEMS.EXPORT_RESULTS ? null : (
+      {currentStage === STAGE_ITEMS.EXPORT_RESULTS ? null : (
         <SmallBottomButtonContainer>
-          <SmallOrangeButton onClick={onClick}>details</SmallOrangeButton>
+          <SmallOrangeButton onClick={onClick}>See Details</SmallOrangeButton>
         </SmallBottomButtonContainer>
       )}
     </Card>
@@ -43,10 +43,11 @@ const PreviewCase: React.FC<PreviewCaseProps> = ({ record }) => {
 export default PreviewCase;
 
 const Card = styled.div`
-  border: black solid;
+  border: var(--lightgrey) solid;
   border-radius: 2rem;
   width: 375px;
   min-height: 225px;
+  box-shadow: 0px 0px 10px 5px var(--lightgrey);
 `;
 
 const PreviewImage = styled.img<{ src: string }>`

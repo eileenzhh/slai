@@ -14,6 +14,8 @@ const Home = () => {
   const currentStage = useCurrentStage();
 
   // TO DO: need to implement check on whether record has been expired or not
+
+  // TO DO: move setting records logic to `Records`
   const [records, setRecords] = useState<Record[]>(
     Object.entries(dummyCase).map(([id, caseData]) => {
       const record: Record = {
@@ -31,7 +33,7 @@ const Home = () => {
   const newRecord = useCurrentRecord();
 
   const onComplete = useCallback(() => {
-    setRecords((prevRecords) => [...prevRecords, newRecord]);
+    setRecords((prevRecords) => [newRecord, ...prevRecords]);
   }, [newRecord]);
 
   switch (currentStage) {
