@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import cameraIcon from "../assets/camera.png";
 import styled from "styled-components";
 
@@ -20,6 +21,17 @@ const TakeImage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const setStage = useSetStage();
   const setNewRecord = useSetRecord();
+
+  const getRequest = () => {
+    axios.get('http://localhost:5000/cases')
+    .then(res => {
+      console.log(res)
+      res = res.data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
 
   const goToPreviewImage = () => {
     setNewRecord(dummyRecord);

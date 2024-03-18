@@ -17,7 +17,6 @@ model_service = model_integration_service.Model_Integration_Service()
 # Returns all cases in last 5 min
 @controller_endpoints.route("/cases", methods=["GET"])
 def cases():
-    data = request.json
     # print(cache.images)
     response = {}
 
