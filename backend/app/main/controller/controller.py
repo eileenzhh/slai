@@ -50,13 +50,15 @@ DEMO_CASES = [
 ]
 
 
+### FE endpoints
 # Returns all cases in last 5 min
 @controller_endpoints.route("/cases", methods=["GET"])
 def cases():
     response = []
 
-    keys = cache.get()
-    print(keys)
+    queue = cache.get_history()
+    # print(queue)
+    # print(base64.b64encode(open("ISIC_0490442.JPG", "rb").read()).decode("utf-8"))
     response.append(
         {
             "image": base64.b64encode(open("ISIC_0490442.JPG", "rb").read()).decode(
@@ -65,7 +67,8 @@ def cases():
             "cases": DEMO_CASES,
         }
     )
-    for key in keys:
+    print(queue)
+    for timestamp, key in queue:
         response.append(
             {
                 "image": cache.images[key],
@@ -76,61 +79,38 @@ def cases():
     return jsonify(response)
 
 
-@controller_endpoints.route("/cases_testing", methods=["GET"])
-def cases_testing():
-    data = request.json
-    response = {}
-
-    keys = cache.get()
-    print(keys)
-
-    # hard-coded response for testing
-    for key in range(2):
-        response[key] = {
-            "image": "byte_data",
-            "cases": [
-                "/static/images/ISIC_0015719.jpg",
-                "/static/images/ISIC_0052212.jpg",
-            ],
-        }
-
-    return jsonify(response)
-
-
-@controller_endpoints.route("/clear", methods=["GET"])
+@controller_endpoints.route("/clear", methods=["POST"])
 def clear():
     cache.clear_all_cache()
     return jsonify({})
 
 
-# Returns most recent case id
-# @controller_endpoints.route("/case", methods=["GET"])
-# def case():
-#     data = request.json
-#     response = {}
+# Returns current case
+@controller_endpoints.route("/case", methods=["GET"])
+def case():
+    response = {}
+    current_image, current_cases = cache.get_current_case()
+    if current_image and current_cases:
+        response["image"] = current_image
+        response["cases"] = current_cases
 
-#     keys = cache.get()
-#     print(keys)
-
-#     if keys:
-#         response = {
-#             "image": cache_service.images[keys[-1]],
-#             "cases": cache_service.cases[keys[-1]],
-#         }
-
-# hard-coded response for testing
-# response = {
-#     "image": "byte_data",
-#     "cases": [
-#         "/static/images/ISIC_0015719.jpg",
-#         "/static/images/ISIC_0052212.jpg",
-#     ],
-# }
-
-# return jsonify(response)
+    return jsonify(response)
 
 
-# Mobile endpoint: receive image of mole from mobile app
+@controller_endpoints.route("/discard", methods=["POST"])
+def discard():
+    cache.clear_current_case()
+    return jsonify({})
+
+
+@controller_endpoints.route("/save", methods=["POST"])
+def save():
+    cache.save_current_case()
+    return jsonify({})
+
+
+### Mobile endpoints
+# receive image from mobile app and get cases from ML
 @controller_endpoints.route("/image", methods=["POST"])
 def image():
     data = request.json
@@ -142,11 +122,12 @@ def image():
     image = data["image"]
     cases = model_service.evaluate()
 
-    cache.add(image, cases)
+    cache.add_current_case(image, DEMO_CASES)
 
     return jsonify({})
 
 
+### Misc. other endpoints
 @controller_endpoints.route("/upload_to_emr", methods=["POST"])
 def upload_to_emr():
     data = request.json
@@ -161,3 +142,24 @@ def upload_to_emr():
     cache.add(image, cases)
 
     return jsonify({})
+
+
+@controller_endpoints.route("/cases_testing", methods=["GET"])
+def cases_testing():
+    data = request.json
+    response = {}
+
+    keys = cache.get_history()
+    # print(keys)
+
+    # hard-coded response for testing
+    for key in range(2):
+        response[key] = {
+            "image": "byte_data",
+            "cases": [
+                "/static/images/ISIC_0015719.jpg",
+                "/static/images/ISIC_0052212.jpg",
+            ],
+        }
+
+    return jsonify(response)
