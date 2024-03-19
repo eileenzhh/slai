@@ -13,25 +13,13 @@ import {
   Title,
   MiddleContainer,
 } from "../commonStyles";
-import Loading from "../components/Loading";
 import { dummyRecord } from "../types/DummyCase";
 import { useSetRecord } from "../app-context/record-context";
 
 const TakeImage = () => {
-  const [loading, setLoading] = useState<boolean>(false);
   const setStage = useSetStage();
   const setNewRecord = useSetRecord();
 
-  const getRequest = () => {
-    axios.get('http://localhost:5000/cases')
-    .then(res => {
-      console.log(res)
-      res = res.data
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }
 
   const goToPreviewImage = () => {
     setNewRecord(dummyRecord);
@@ -40,7 +28,6 @@ const TakeImage = () => {
 
   return (
     <div>
-      {loading && <Loading />}
       <Breadcrumb />
       <Layout>
         <Title>Take Image</Title>
@@ -59,7 +46,7 @@ const TakeImage = () => {
         </MiddleContainer>
       </Layout>
 
-      <RightOrangeButton disabled={loading} onClick={goToPreviewImage}>
+      <RightOrangeButton onClick={goToPreviewImage}>
         Next
       </RightOrangeButton>
     </div>
