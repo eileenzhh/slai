@@ -4,8 +4,6 @@ from torch.cuda.amp import autocast
 from easydict import EasyDict as edict
 import yaml
 import pandas as pd
-
-# from app.main.service import
 from app.main.service.ISIC2020_Dataset import (
     ISIC2020TorchDataset,
     NORM_CHANNEL_MEAN,
@@ -14,6 +12,8 @@ from app.main.service.ISIC2020_Dataset import (
 from torch.utils.data import DataLoader
 import numpy as np
 import torchvision.transforms as T
+from PIL import Image
+import io
 
 # from time import perf_counter
 from sklearn.neighbors import NearestNeighbors
@@ -61,18 +61,6 @@ class Model_Integration_Service:
         pkl_file.close()
         self.stored_embeddings = pd.DataFrame(self.stored_embeddings)
 
-
-    def evaluate(self, input_image):
-        print("evaluate")
-        self.input_image = self.transform(input_image).unsqueeze(0)
-    
-        # self.test_loader = DataLoader(isic_dataset, batch_size=256, shuffle=False, num_workers=0)
-        self.model.eval()
-        with torch.no_grad():
-            data = self.input_image.to(self.device)
-            with autocast(enabled='store_true'):
-                self.input_embedding = self.model((data))
-                
     def get_neighbours(self):
         print("get_neighbours")
         knn = NearestNeighbors(n_neighbors=self.K)
@@ -98,22 +86,24 @@ class Model_Integration_Service:
                 "target": self.metadata.loc[ind, 'target'],
                 "diagnosis": self.metadata.loc[ind, 'diagnosis']
             })
-
+        
         return image_dicts
 
-        # inverted distance
-        with np.errstate(divide='ignore'):
-            dinv = np.nan_to_num(1 / dists)
 
-        # an array with distinct class labels
-        distinct_labels = np.array(list(set(self.actual_vals)))
-        # an array with labels of neighbors
-        neigh_labels = self.metadata.loc[indices, 'target']
-        # compute the weighted score for each potential label
-        weighted_scores = ((neigh_labels[:, :, np.newaxis] == distinct_labels) * dinv[:, :, np.newaxis]).sum(axis=1)
-        # choose the label with the highest score
-        predictions = distinct_labels[weighted_scores.argmax(axis=1)]
+    def evaluate(self, input_image_bytes):
+        print("evaluate")
+        self.input_image = Image.open(io.BytesIO(input_image_bytes))
+        self.input_image = self.transform(self.input_image).unsqueeze(0)
+    
+        # self.test_loader = DataLoader(isic_dataset, batch_size=256, shuffle=False, num_workers=0)
+        self.model.eval()
+        with torch.no_grad():
+            data = self.input_image.to(self.device)
+            with autocast(enabled='store_true'):
+                self.input_embedding = self.model((data))
 
-        # Return image file names and target array of dictionary
+        cases = self.get_neighbours()
 
-        #[{"image_name": 123.jpg, "target": 0}, {"image_name": 123.jpg, "target": 0}]
+        return cases
+                
+    

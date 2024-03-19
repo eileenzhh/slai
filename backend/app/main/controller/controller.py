@@ -170,11 +170,13 @@ def cases_testing():
 def image_ML_testing():
     image = DEMO_IMAGE
 
+    dec_img = base64.b64decode(image)
+
     # with open("ML_testing.jpg", "wb") as fh:
     #     fh.write(base64.b64decode(image))
 
     # Add your functions here
-    cases = model_service.evaluate()
+    cases = model_service.evaluate(dec_img)
 
     cache.add_current_case(image, DEMO_CASES)
     return jsonify({})
