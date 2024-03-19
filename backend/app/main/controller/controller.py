@@ -48,6 +48,7 @@ DEMO_CASES = [
         "benign_malignant": "benign",
     },
 ]
+DEMO_IMAGE = base64.b64encode(open("ISIC_0490442.JPG", "rb").read()).decode("utf-8")
 
 
 ### FE endpoints
@@ -57,17 +58,12 @@ def cases():
     response = []
 
     queue = cache.get_history()
-    # print(queue)
-    # print(base64.b64encode(open("ISIC_0490442.JPG", "rb").read()).decode("utf-8"))
     response.append(
         {
-            "image": base64.b64encode(open("ISIC_0490442.JPG", "rb").read()).decode(
-                "utf-8"
-            ),
+            "image": DEMO_IMAGE,
             "cases": DEMO_CASES,
         }
     )
-    print(queue)
     for timestamp, key in queue:
         response.append(
             {
@@ -79,6 +75,7 @@ def cases():
     return jsonify(response)
 
 
+# Clears all history and current cases
 @controller_endpoints.route("/clear", methods=["POST"])
 def clear():
     cache.clear_all_cache()
@@ -97,12 +94,14 @@ def case():
     return jsonify(response)
 
 
+# Clears current image and cases
 @controller_endpoints.route("/discard", methods=["POST"])
 def discard():
     cache.clear_current_case()
     return jsonify({})
 
 
+# Saves current image and cases to history
 @controller_endpoints.route("/save", methods=["POST"])
 def save():
     cache.save_current_case()
@@ -163,3 +162,13 @@ def cases_testing():
         }
 
     return jsonify(response)
+
+
+@controller_endpoints.route("/image_ML_testing", methods=["POST"])
+def image_ML_testing():
+    image = DEMO_IMAGE
+    cases = model_service.evaluate()
+
+    cache.add_current_case(image, DEMO_CASES)
+
+    return jsonify({})

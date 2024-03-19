@@ -43,8 +43,9 @@ class Cache_Service:
         self.current_cases = None
 
     def save_current_case(self):
-        self.add(self.current_image, self.current_cases)
-        self.clear_current_case()
+        if self.current_image and self.current_cases:
+            self.add(self.current_image, self.current_cases)
+            self.clear_current_case()
 
     def invalidate_and_clear_cache(self):
         cur_time = time.time()
