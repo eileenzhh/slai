@@ -71,7 +71,7 @@ class PhotoCaptureProcessor: NSObject {
         let json: [String: String?] = ["image": encodedPhotoData]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
 
-        let url = URL(string: "http://172.20.10.4:5000/image")!
+        let url = URL(string: "http://192.168.2.14:5000/image")!
         var request = URLRequest(url: url)
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
