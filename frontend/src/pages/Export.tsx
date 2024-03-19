@@ -1,36 +1,30 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   BottomButtonContainer,
   Layout,
   OrangeButton,
   Title,
 } from "../commonStyles";
-import { useNavigate } from "react-router-dom";
 import Breadcrumb from "../components/Breadcrumb";
 import { useSetStage } from "../app-context/stage-context";
 import { STAGE_ITEMS } from "../constants";
 import PreviewCase from "../components/PreviewCase";
 import styled from "styled-components";
-import { dummyRecord } from "../types/DummyCase";
 import Record from "../types/Record";
 
 interface ExportProps {
-  record?: Record;
+  currentRecord: Record;
 }
 
-const Export: React.FC<ExportProps> = ({ record }) => {
-  const navigate = useNavigate();
+const Export: React.FC<ExportProps> = ({ currentRecord }) => {
   const setStage = useSetStage();
-  useEffect(() => {
-    setStage(STAGE_ITEMS.EXPORT_RESULTS);
-  }, []);
 
   const onNext = () => {
-    navigate("/");
+    setStage(STAGE_ITEMS.HOME);
   };
 
   const updatedRecord: Record = {
-    ...dummyRecord,
+    ...currentRecord,
     exported: true,
   };
   return (

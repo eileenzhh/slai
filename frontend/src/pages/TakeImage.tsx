@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import axios from "axios";
 import cameraIcon from "../assets/camera.png";
 import styled from "styled-components";
 
@@ -14,22 +14,28 @@ import {
   MiddleContainer,
 } from "../commonStyles";
 import Loading from "../components/Loading";
+import { dummyRecord } from "../types/DummyCase";
+import { useSetRecord } from "../app-context/record-context";
 
 const TakeImage = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const navigate = useNavigate();
-
   const setStage = useSetStage();
-  useEffect(() => {
-    setStage(STAGE_ITEMS.TAKE_IMAGE);
-  }, []);
+  const setNewRecord = useSetRecord();
 
-  const onSubmit = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      navigate("/preview-image");
-    }, 3000);
+  const getRequest = () => {
+    axios.get('http://localhost:5000/cases')
+    .then(res => {
+      console.log(res)
+      res = res.data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
+  const goToPreviewImage = () => {
+    setNewRecord(dummyRecord);
+    setStage(STAGE_ITEMS.SUBMIT_IMAGE);
   };
 
   return (
@@ -47,12 +53,13 @@ const TakeImage = () => {
             <ul>
               <li>Connect mobile app</li>
               <li>Make sure to have good lighting</li>
+              <li>After you take the image, click 'Next'</li>
             </ul>
           </Instructions>
         </MiddleContainer>
       </Layout>
 
-      <RightOrangeButton disabled={loading} onClick={onSubmit}>
+      <RightOrangeButton disabled={loading} onClick={goToPreviewImage}>
         Next
       </RightOrangeButton>
     </div>

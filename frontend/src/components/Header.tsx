@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/SLAI-logo.png";
 import Modal from "./Modal";
-import { useCurrentStage } from "../app-context/stage-context";
+import { useCurrentStage, useSetStage } from "../app-context/stage-context";
 import { STAGE_ITEMS } from "../constants";
 
 const Header = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const location = useLocation();
+  const setStage = useSetStage()
 
   const { pathname, state } = location;
   useEffect(() => {
     setShowModal(false);
   }, []);
 
-  const navigate = useNavigate();
   const currentStage = useCurrentStage();
 
   const onCloseModal = () => {
@@ -43,7 +43,7 @@ const Header = () => {
               title={"Exit Record"}
               description={modalDescription}
               primaryAction={() => {
-                navigate("/");
+                setStage(STAGE_ITEMS.HOME)
                 onCloseModal();
               }}
               secondaryAction={onCloseModal}

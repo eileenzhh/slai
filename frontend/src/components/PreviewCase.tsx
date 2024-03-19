@@ -2,21 +2,24 @@ import React from "react";
 import styled from "styled-components";
 import sample from "../assets/sample.png";
 import Record from "../types/Record";
-import { useNavigate } from "react-router-dom";
 import { BottomButtonContainer, SmallOrangeButton } from "../commonStyles";
-import { useCurrentStage } from "../app-context/stage-context";
+import { useCurrentStage, useSetStage } from "../app-context/stage-context";
 import { STAGE_ITEMS } from "../constants";
+import { useSetRecord } from "../app-context/record-context";
 
 interface PreviewCaseProps {
   record: Record;
 }
 
 const PreviewCase: React.FC<PreviewCaseProps> = ({ record }) => {
-  const navigate = useNavigate();
   const currentStage = useCurrentStage();
 
+  const setStage = useSetStage();
+  const setRecord = useSetRecord()
+
   const onClick = () => {
-    navigate("/results", { state: record });
+    setRecord(record)
+    setStage(STAGE_ITEMS.RESULTS);
   };
 
   return (
@@ -28,9 +31,9 @@ const PreviewCase: React.FC<PreviewCaseProps> = ({ record }) => {
         <p>Anatomy Site: {record.anatomySite}</p>
         <p>{record.exported ? "Exported" : "Unsaved"}</p>
       </DescriptionContainer>
-      {currentStage == STAGE_ITEMS.EXPORT_RESULTS ? null : (
+      {currentStage === STAGE_ITEMS.EXPORT_RESULTS ? null : (
         <SmallBottomButtonContainer>
-          <SmallOrangeButton onClick={onClick}>details</SmallOrangeButton>
+          <SmallOrangeButton onClick={onClick}>See Details</SmallOrangeButton>
         </SmallBottomButtonContainer>
       )}
     </Card>
@@ -40,10 +43,11 @@ const PreviewCase: React.FC<PreviewCaseProps> = ({ record }) => {
 export default PreviewCase;
 
 const Card = styled.div`
-  border: black solid;
+  border: var(--lightgrey) solid;
   border-radius: 2rem;
   width: 375px;
   min-height: 225px;
+  box-shadow: 0px 0px 10px 5px var(--lightgrey);
 `;
 
 const PreviewImage = styled.img<{ src: string }>`

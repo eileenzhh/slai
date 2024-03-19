@@ -10,6 +10,10 @@ import Photos
 import UIKit
 import Foundation
 
+protocol PhotoCaptureProcessorDelegate: AnyObject {
+    func photoCaptureProcessor(_ process: PhotoCaptureProcessor, didFinishCapturingPhoto imageData: Data)
+}
+
 class PhotoCaptureProcessor: NSObject {
     private(set) var requestedPhotoSettings: AVCapturePhotoSettings
     
@@ -27,6 +31,8 @@ class PhotoCaptureProcessor: NSObject {
 
     // Save the location of captured photos.
     var location: CLLocation?
+    
+    weak var delegate: PhotoCaptureProcessorDelegate?
 
     init(with requestedPhotoSettings: AVCapturePhotoSettings,
          willCapturePhotoAnimation: @escaping () -> Void,
@@ -51,6 +57,33 @@ class PhotoCaptureProcessor: NSObject {
         
         completionHandler(self)
     }
+    
+    func submitPhotoData(completion: @escaping (Data?, Error?) -> Void) {
+        guard let photoData = self.photoData else {
+           completion(nil, NSError(domain: "PhotoCaptureProcessor", code: -1, userInfo: [NSLocalizedDescriptionKey: "No photo data available"]))
+           return
+        }
+        
+        print("submit!!")
+        let test_uiimage = UIImage(data: photoData)
+        let encodedPhotoData = test_uiimage?.jpegData(compressionQuality: 1.0)!.base64EncodedString()
+
+        let json: [String: String?] = ["image": encodedPhotoData]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+
+        let url = URL(string: "http://192.168.2.14:5000/image")!
+        var request = URLRequest(url: url)
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+           completion(data, error)
+        }
+
+        task.resume()
+        }
+    
 }
 
 /// This extension adopts all of the AVCapturePhotoCaptureDelegate protocol
@@ -116,25 +149,28 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
             didFinish()
             return
         }
-
-        let test_uiimage = UIImage(data: photoData!)
-        let encodedPhotoData = test_uiimage?.pngData()!.base64EncodedString()
-//        print(test_png ?? "lol")
-        let json: [String: String?] = ["image": encodedPhotoData]
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
-        
-        let url = URL(string: "http://192.168.2.14:5000/image")!
-        var request = URLRequest(url: url)
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        request.httpBody = jsonData
+        delegate?.photoCaptureProcessor(self, didFinishCapturingPhoto: photoData!)
 
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-          // handle the response
-        }
-
-        task.resume()
+//        let test_uiimage = UIImage(data: photoData!)
+//        let encodedPhotoData = test_uiimage?.pngData()!.base64EncodedString()
+////        print(test_png ?? "lol")
+//        let json: [String: String?] = ["image": encodedPhotoData]
+//        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+//        
+//        
+//        let url = URL(string: "http://192.168.2.14:5000/image")!
+//        var request = URLRequest(url: url)
+//        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+//        request.httpMethod = "POST"
+//        request.httpBody = jsonData
+//
+//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//          // handle the response
+//        }
+//
+//        task.resume()
+//
 //
 ////         generate boundary string using a unique per-app string
 //        let boundary = UUID().uuidString

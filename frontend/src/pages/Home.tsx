@@ -1,32 +1,21 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import {
-  BottomButtonContainer,
-  Layout,
-  OrangeButton,
-  Title,
-} from "../commonStyles";
-import { Link } from "react-router-dom";
-import PreviewCase from "../components/PreviewCase";
+import React, { useCallback, useState } from "react";
 import dummyCase from "../types/DummyCase";
 import Record from "../types/Record";
-import { useSetStage } from "../app-context/stage-context";
+import { useCurrentStage } from "../app-context/stage-context";
 import { STAGE_ITEMS } from "../constants";
-import Modal from "../components/Modal";
-
-// const defaultValues: Pick<Record, 'date' | 'anatomySite' | 'exported'> = {
-//     date: 'March 4, 2024',
-//     anatomySite: 'Upper arm',
-//     exported: false,
-//   };
+import Records from "./Records";
+import TakeImage from "./TakeImage";
+import PreviewImage from "./PreviewImage";
+import Results from "./Results";
+import Export from "./Export";
+import { useCurrentRecord } from "../app-context/record-context";
 
 const Home = () => {
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const setStage = useSetStage();
-  useEffect(() => {
-    setStage(STAGE_ITEMS.HOME);
-  }, []);
+  const currentStage = useCurrentStage();
 
+  // TO DO: need to implement check on whether record has been expired or not
+
+  // TO DO: move setting records logic to `Records`
   const [records, setRecords] = useState<Record[]>(
     Object.entries(dummyCase).map(([id, caseData]) => {
       const record: Record = {
@@ -41,58 +30,26 @@ const Home = () => {
     })
   );
 
-  const onClear = () => {
-    setShowModal(true);
-  };
+  const newRecord = useCurrentRecord();
 
-  const onCloseModal = () => {
-    setShowModal(false);
-  };
+  const onComplete = useCallback(() => {
+    setRecords((prevRecords) => [newRecord, ...prevRecords]);
+  }, [newRecord]);
 
-  return (
-    <Layout>
-      {showModal && records.length > 0 && (
-        <Modal
-          title={"Clear Results"}
-          description={"Are you sure you want to clear all the results?"}
-          primaryAction={() => {
-            setRecords([]);
-            onCloseModal();
-          }}
-          secondaryAction={onCloseModal}
-          onClose={onCloseModal}
-        />
-      )}
-      <Title>Current Session</Title>
-      <p>Records automatically get deleted after 10 minutes.</p>
-      <MiddleButtonContainer>
-        <OrangeButton onClick={onClear} disabled={records.length === 0}>
-          Clear All Records
-        </OrangeButton>
-        <OrangeButton>
-          <Link to="/take-image">Create New Record</Link>
-        </OrangeButton>
-      </MiddleButtonContainer>
-      {records.length === 0 && <p>You have no records. Create a new record.</p>}
-      <RecordsContainer>
-        {records.map((record: Record, index) => (
-          <PreviewCase key={index} record={record} />
-        ))}
-      </RecordsContainer>
-    </Layout>
-  );
+  switch (currentStage) {
+    case STAGE_ITEMS.HOME:
+      return <Records records={records} setRecords={setRecords} />;
+    case STAGE_ITEMS.TAKE_IMAGE:
+      return <TakeImage />;
+    case STAGE_ITEMS.SUBMIT_IMAGE:
+      return <PreviewImage currentRecord={newRecord} />;
+    case STAGE_ITEMS.RESULTS:
+      return <Results currentRecord={newRecord} saveRecord={onComplete} />;
+    case STAGE_ITEMS.EXPORT_RESULTS:
+      return <Export currentRecord={newRecord} />;
+    default:
+      return <div>Error</div>;
+  }
 };
 
 export default Home;
-
-const RecordsContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 4rem;
-  margin: 0 2rem;
-  justify-content: center;
-`;
-
-const MiddleButtonContainer = styled(BottomButtonContainer)`
-  justify-content: space-between;
-`;

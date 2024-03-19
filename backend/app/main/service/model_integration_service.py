@@ -4,14 +4,22 @@ from torch.cuda.amp import autocast
 from easydict import EasyDict as edict
 import yaml
 import pandas as pd
-from app.main.service.ISIC2020_Dataset import NORM_CHANNEL_MEAN, NORM_CHANNEL_STD
-# from torch.utils.data import DataLoader
+
+# from app.main.service import
+from app.main.service.ISIC2020_Dataset import (
+    ISIC2020TorchDataset,
+    NORM_CHANNEL_MEAN,
+    NORM_CHANNEL_STD,
+)
+from torch.utils.data import DataLoader
 import numpy as np
 import torchvision.transforms as T
+
 # from time import perf_counter
 from sklearn.neighbors import NearestNeighbors
 from app.main.service.DarwinNet_659MF import DarwinNetV2
 import pickle
+
 
 class Model_Integration_Service:
     def __init__(self):
@@ -56,7 +64,6 @@ class Model_Integration_Service:
 
     def evaluate(self, input_image):
         print("evaluate")
-
         self.input_image = self.transform(input_image).unsqueeze(0)
     
         # self.test_loader = DataLoader(isic_dataset, batch_size=256, shuffle=False, num_workers=0)
