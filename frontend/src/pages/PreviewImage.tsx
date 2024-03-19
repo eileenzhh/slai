@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useSetStage } from "../app-context/stage-context";
 import Breadcrumb from "../components/Breadcrumb";
 import { STAGE_ITEMS } from "../constants";
@@ -9,6 +10,7 @@ import {
 import Record from "../types/Record";
 import Spinner from "../components/Spinner";
 import styled from "styled-components";
+import { useSetRecord } from "../app-context/record-context";
 
 interface PreviewImageProps {
   currentRecord: Record;
@@ -16,13 +18,29 @@ interface PreviewImageProps {
 
 const PreviewImage: React.FC<PreviewImageProps> = ({ currentRecord }) => {
   const setStage = useSetStage();
-  
-  // TO DO: add get request
+  const [loading, setLoading] = useState<boolean>(true)
+  // const setNewRecord = useSetRecord();
+
+  const fetchCase = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/case')
+      if (response.data && Object.keys(response.data).length !== 0) {
+        console.log(response.data)
+        // setNewRecord()
+        setLoading(false)
+        setStage(STAGE_ITEMS.RESULTS);
+      } else {
+        setTimeout(fetchCase, 2000)
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
   useEffect(() => {
-    setTimeout(() => {
-      setStage(STAGE_ITEMS.RESULTS);
-    }, 3000);
-  })
+    fetchCase()
+  }, [])
+
   return (
     <div>
       <Layout>
