@@ -1,0 +1,4 @@
+input_shape: [224, 224, 3]
+model_cfg: [[40, 2, false, false, basic, false, true], [84, 2, false, false, basic, false, true],
+  [176, 3, false, false, bottleneck, false, true], [372, 1, false, false, bottleneck, false, true]]
+num_classes: 1000
