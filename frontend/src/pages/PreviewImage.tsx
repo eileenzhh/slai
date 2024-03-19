@@ -19,14 +19,17 @@ interface PreviewImageProps {
 const PreviewImage: React.FC<PreviewImageProps> = ({ currentRecord }) => {
   const setStage = useSetStage();
   const [loading, setLoading] = useState<boolean>(true)
-  // const setNewRecord = useSetRecord();
+  const setNewRecord = useSetRecord();
 
   const fetchCase = async () => {
     try {
       const response = await axios.get('http://localhost:5000/case')
       if (response.data && Object.keys(response.data).length !== 0) {
         console.log(response.data)
-        // setNewRecord()
+        // const newRecord: Record = {
+          
+        // }
+        // setNewRecord(newRecord)
         setLoading(false)
         setStage(STAGE_ITEMS.RESULTS);
       } else {

@@ -25,7 +25,7 @@ const Export: React.FC<ExportProps> = ({ currentRecord }) => {
 
   const updatedRecord: Record = {
     ...currentRecord,
-    exported: true,
+    saved: true,
   };
   return (
     <Layout>

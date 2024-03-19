@@ -19,12 +19,8 @@ const dummyCase = {
 };
 
 export const dummyRecord: Record = {
-  id: 1,
   image: sample,
-  retrievedRecords: [sample1, sample2],
-  date: "March 1, 2024",
-  anatomySite: "Arm",
-  exported: false,
+  cases: [],
 };
 
 export default dummyCase;

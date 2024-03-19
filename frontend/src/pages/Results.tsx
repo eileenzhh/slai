@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSetStage } from "../app-context/stage-context";
 import Breadcrumb from "../components/Breadcrumb";
 import { STAGE_ITEMS } from "../constants";
 import {
   Layout,
-  BottomButtonContainer,
   OrangeButton,
   MiddleContainer,
   Title,
@@ -13,23 +12,51 @@ import {
 
 import styled from "styled-components";
 import Record from "../types/Record";
+import axios from "axios";
 
 interface ResultsProps {
   currentRecord: Record;
   saveRecord: () => void;
+  cachedRecords: Record[];
 }
 
-const Results: React.FC<ResultsProps> = ({ currentRecord, saveRecord }) => {
+const Results: React.FC<ResultsProps> = ({ currentRecord, saveRecord, cachedRecords }) => {
   const setStage = useSetStage();
 
-  const onNext = () => {
-    saveRecord();
-    setStage(STAGE_ITEMS.EXPORT_RESULTS);
-  };
+  // const onNext = () => {
+  //   saveRecord();
+  //   setStage(STAGE_ITEMS.EXPORT_RESULTS);
+  // };
 
-  const goHome = () => {
-    setStage(STAGE_ITEMS.HOME);
-  };
+  const saveCurrentRecord = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/save', {});
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const discardCurrentRecord = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/discard', {});
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const onSave = () => {
+    saveCurrentRecord()
+    setStage(STAGE_ITEMS.EXPORT_RESULTS);
+  }
+
+  const onDiscard = () => {
+    discardCurrentRecord()
+    setStage(STAGE_ITEMS.SUBMIT_IMAGE);
+
+  }
+
 
   return (
     <div>
@@ -42,35 +69,42 @@ const Results: React.FC<ResultsProps> = ({ currentRecord, saveRecord }) => {
         <p>My image</p>
         <ResultsContainer>
           <TopRow>
-            {currentRecord.retrievedRecords.slice(0, 3).map((item, index) => (
+            {currentRecord.cases.slice(0, 3).map((item, index) => (
               <GridItem key={index}>
                 <h3>{`Result: ${index + 1}`}</h3>
-                <Image src={item} alt={`Image ${index + 1}`} />
-                <p>similarity: 92%</p>
+                <Image src={item.filename} alt={`Image ${index + 1}`} />
+                <p>{item.benignOrMalignant.toUpperCase()}</p>
+                <p>Anatomy site: {item.location}</p>
+                {item.diagnosis !== "unknown" ? <p>Diagnosis: {item.diagnosis}</p> : null}
+                <p>Approximate age: {item.age}</p>
+                <p>Sex: {item.sex}</p>
+                
+
               </GridItem>
             ))}
           </TopRow>
           <BottomRow>
-            {currentRecord.retrievedRecords.slice(3, 5).map((item, index) => (
+            {currentRecord.cases.slice(3, 5).map((item, index) => (
               <GridItem key={index}>
-                <h3>{`Result: ${index + 4}`}</h3>
-                <Image src={item} alt={`Image ${index + 4}`} />
-                <p>image description</p>
-              </GridItem>
+              <h3>{`Result: ${index + 4}`}</h3>
+              <Image src={item.filename} alt={`Image ${index + 1}`} />
+              <p>{item.benignOrMalignant.toUpperCase()}</p>
+              <p>Anatomy site: {item.location}</p>
+              {item.diagnosis !== "unknown" ? <p>Diagnosis: {item.diagnosis}</p> : null}
+              <p>Approximate age: {item.age}</p>
+              <p>Sex: {item.sex}</p>
+            </GridItem>
             ))}
           </BottomRow>
         </ResultsContainer>
-
-        {!currentRecord.exported ? (
           <LeftRightButtonContainer>
-            <OrangeButton onClick={goHome}>Return Home</OrangeButton>
-            <OrangeButton onClick={onNext}>Save Record</OrangeButton>
+            <OrangeButton onClick={onDiscard}>Discard</OrangeButton>
+           {cachedRecords.includes(currentRecord) ? 
+            <OrangeButton onClick={() => setStage(STAGE_ITEMS.HOME)}>Return Home</OrangeButton>
+           :
+            <OrangeButton onClick={onSave}>Save</OrangeButton>
+           } 
           </LeftRightButtonContainer>
-        ) : (
-          <BottomButtonContainer>
-            <OrangeButton onClick={goHome}>Return Home</OrangeButton>
-          </BottomButtonContainer>
-        )}
       </Layout>
     </div>
   );

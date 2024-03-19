@@ -22,15 +22,12 @@ const PreviewCase: React.FC<PreviewCaseProps> = ({ record }) => {
     setStage(STAGE_ITEMS.RESULTS);
   };
 
+  // TO DO: show previews of the cases
+
   return (
     <Card>
-      <p>Record {record.id}</p>
+      <p>Record</p>
       <PreviewImage src={record.image ?? sample} alt="preview-image" />
-      <DescriptionContainer>
-        {record.date && <p>Date: {record.date}</p>}
-        <p>Anatomy Site: {record.anatomySite}</p>
-        <p>{record.exported ? "Exported" : "Unsaved"}</p>
-      </DescriptionContainer>
       {currentStage === STAGE_ITEMS.EXPORT_RESULTS ? null : (
         <SmallBottomButtonContainer>
           <SmallOrangeButton onClick={onClick}>See Details</SmallOrangeButton>
