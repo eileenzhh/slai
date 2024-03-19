@@ -167,8 +167,12 @@ def cases_testing():
 @controller_endpoints.route("/image_ML_testing", methods=["POST"])
 def image_ML_testing():
     image = DEMO_IMAGE
+
+    # with open("ML_testing.jpg", "wb") as fh:
+    #     fh.write(base64.b64decode(image))
+
+    # Add your functions here
     cases = model_service.evaluate()
 
     cache.add_current_case(image, DEMO_CASES)
-
     return jsonify({})
