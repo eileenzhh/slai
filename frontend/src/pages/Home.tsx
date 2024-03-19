@@ -1,6 +1,5 @@
-import React, { useCallback, useState } from "react";
-import dummyCase from "../types/DummyCase";
-import Record from "../types/Record";
+import React, { useCallback, useEffect, useState } from "react";
+import Record, { Case } from "../types/Record";
 import { useCurrentStage } from "../app-context/stage-context";
 import { STAGE_ITEMS } from "../constants";
 import Records from "./Records";
@@ -9,31 +8,54 @@ import PreviewImage from "./PreviewImage";
 import Results from "./Results";
 import Export from "./Export";
 import { useCurrentRecord } from "../app-context/record-context";
+import axios from "axios";
+import getImageUrl from "../utils/getImageUrl";
 
 const Home = () => {
   const currentStage = useCurrentStage();
 
   // TO DO: need to implement check on whether record has been expired or not
 
-  // TO DO: move setting records logic to `Records`
-  const [records, setRecords] = useState<Record[]>(
-    Object.entries(dummyCase).map(([id, caseData]) => {
+  const [records, setRecords] = useState<Record[]>([]);
+
+  const fetchAllCases = async () => {
+    const response = await axios.get('http://localhost:5000/cases')
+    const data = response.data
+    
+    // console.log("DATA", data.length)
+    for (let i = 0; i < data.length; i++) {
+      const item = data[i]
+      
+      const image = getImageUrl(item["image"])
+      const cases = item["cases"].map((d: any, index: number) => {
+        // console.log(d)
+        const currentCase: Case = {
+          age: d["age_approx"],
+          location: d["anatom_site_general_challenge"],
+          benignOrMalignant: d["benign_malignant"],
+          diagnosis: d["diagnosis"],
+          filename: d["filename"],
+          sex: d["sex"],
+        }
+        return currentCase
+
+      })
+      
       const record: Record = {
-        id: parseInt(id, 10),
-        image: caseData.image,
-        retrievedRecords: (caseData as { cases?: string[] }).cases || [],
-        date: id === "3" ? "March 4, 2024" : "March 5, 2024",
-        anatomySite: id === "1" ? "Upper arm" : "Thigh",
-        exported: id === "1" ? false : true,
-      };
-      return record;
-    })
-  );
+        image: image,
+        cases: cases
+      }
+      setRecords((prev) => prev ? [record, ...prev] : [record])
+    }
+  }
+  useEffect(() => {
+    fetchAllCases()
+  }, [])
 
   const newRecord = useCurrentRecord();
 
   const onComplete = useCallback(() => {
-    setRecords((prevRecords) => [newRecord, ...prevRecords]);
+    setRecords((prev) => prev ? [newRecord, ...prev] : [newRecord])
   }, [newRecord]);
 
   switch (currentStage) {
@@ -44,7 +66,7 @@ const Home = () => {
     case STAGE_ITEMS.SUBMIT_IMAGE:
       return <PreviewImage currentRecord={newRecord} />;
     case STAGE_ITEMS.RESULTS:
-      return <Results currentRecord={newRecord} saveRecord={onComplete} />;
+      return <Results currentRecord={newRecord} saveRecord={onComplete} cachedRecords={records} />;
     case STAGE_ITEMS.EXPORT_RESULTS:
       return <Export currentRecord={newRecord} />;
     default:

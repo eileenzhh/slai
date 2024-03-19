@@ -1,38 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import Record from "../types/Record";
 import PreviewCase from "../components/PreviewCase";
-import Modal from "../components/Modal";
 
 import styled from "styled-components";
 
 interface PreviewCasesListProps {
   records: Record[];
-  showModal: boolean;
-  clearRecords: () => void;
-  closeModal: () => void;
 }
 
-const PreviewCasesList: React.FC<PreviewCasesListProps> = ({
-  records,
-  showModal,
-  clearRecords,
-  closeModal,
-}) => {
+const PreviewCasesList: React.FC<PreviewCasesListProps> = ({ records }) => {
   return (
     <div>
-      {showModal && records.length > 0 && (
-        <Modal
-          title={"Clear Results"}
-          description={"Are you sure you want to clear all the results?"}
-          primaryAction={() => {
-            clearRecords();
-            closeModal();
-          }}
-          secondaryAction={closeModal}
-          onClose={closeModal}
-        />
-      )}
-
       {records.length === 0 && <p>You have no records. Create a new record.</p>}
       <RecordsContainer>
         <Row>
