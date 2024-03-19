@@ -70,7 +70,7 @@ class Model_Integration_Service:
         # Apply weighted class labels to the K nearest neighbours
         indices_list = indices.tolist()[0]
         labels = np.array(self.metadata.loc[indices_list, 'target'])
-        weights = (labels * 1/3) + 1
+        weights = (labels * 1/8) + 1
         dists = np.divide(dists[0], weights)
 
         # Sort and find the weighted k nearest neighbours
@@ -95,7 +95,6 @@ class Model_Integration_Service:
         self.input_image = Image.open(io.BytesIO(input_image_bytes))
         self.input_image = self.transform(self.input_image).unsqueeze(0)
     
-        # self.test_loader = DataLoader(isic_dataset, batch_size=256, shuffle=False, num_workers=0)
         self.model.eval()
         with torch.no_grad():
             data = self.input_image.to(self.device)

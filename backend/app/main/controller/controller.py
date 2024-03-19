@@ -178,5 +178,5 @@ def image_ML_testing():
     # Add your functions here
     cases = model_service.evaluate(dec_img)
 
-    cache.add_current_case(image, DEMO_CASES)
+    cache.add_current_case(image, cases)
     return jsonify({})
