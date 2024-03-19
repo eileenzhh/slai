@@ -13,16 +13,11 @@ import {
   Title,
   MiddleContainer,
 } from "../commonStyles";
-import { dummyRecord } from "../types/DummyCase";
-import { useSetRecord } from "../app-context/record-context";
 
 const TakeImage = () => {
   const setStage = useSetStage();
-  const setNewRecord = useSetRecord();
-
 
   const goToPreviewImage = () => {
-    setNewRecord(dummyRecord);
     setStage(STAGE_ITEMS.SUBMIT_IMAGE);
   };
 

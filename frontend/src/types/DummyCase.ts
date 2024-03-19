@@ -20,7 +20,14 @@ const dummyCase = {
 
 export const dummyRecord: Record = {
   image: sample,
-  cases: [],
+  cases: [{
+    age: 24,
+    location: 'arm',
+    benignOrMalignant: 'benign',
+    diagnosis: 'unknown',
+    filename: 'sample1.png',
+    sex: 'male'
+  }],
 };
 
 export default dummyCase;

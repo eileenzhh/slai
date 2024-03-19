@@ -11,6 +11,7 @@ import Record from "../types/Record";
 import Spinner from "../components/Spinner";
 import styled from "styled-components";
 import { useSetRecord } from "../app-context/record-context";
+import { dummyRecord } from "../types/DummyCase";
 
 interface PreviewImageProps {
   currentRecord: Record;
@@ -44,6 +45,11 @@ const PreviewImage: React.FC<PreviewImageProps> = ({ currentRecord }) => {
     fetchCase()
   }, [])
 
+  const setDummyImage = () =>{
+    setNewRecord(dummyRecord);
+    setStage(STAGE_ITEMS.RESULTS);
+  }
+
   return (
     <div>
       <Layout>
@@ -53,6 +59,7 @@ const PreviewImage: React.FC<PreviewImageProps> = ({ currentRecord }) => {
           <Spinner />
         </SpinnerContainer>
         <p>Please do not exit the page until your results are retrieved.</p>
+        <button onClick={() => setDummyImage()}>Set dummy image for now</button>
       </Layout>
     </div>
   );
