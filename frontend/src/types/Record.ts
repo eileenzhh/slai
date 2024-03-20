@@ -5,7 +5,7 @@ type Record = {
 }
 
 export type Case = {
-    age: number;
+    age: number | "unknown";
     location: string;
     benignOrMalignant: 'benign' | 'malignant';
     diagnosis: string;

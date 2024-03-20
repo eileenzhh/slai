@@ -46,7 +46,7 @@ class Model_Integration_Service:
             ]
         )
 
-        data_df = pd.read_csv("ISIC_2020_Training_GroundTruth.csv")
+        data_df = pd.read_csv("ISIC_2020_Training_GroundTruth.csv", keep_default_na=False)
         data_files = data_df["isic_id"].to_numpy()
         actual_vals = data_df["target"].to_numpy()
         actual_diag = data_df["diagnosis"].to_numpy()
@@ -97,7 +97,7 @@ class Model_Integration_Service:
                 {
                     "filename": self.metadata.loc[ind, "isic_id"],
                     "sex": self.metadata.loc[ind, "sex"],
-                    "age_approx": int(self.metadata.loc[ind, "age_approx"]),
+                    "age_approx": str(self.metadata.loc[ind, "age_approx"]),
                     "anatom_site_general_challenge": self.metadata.loc[
                         ind, "anatom_site_general_challenge"
                     ],

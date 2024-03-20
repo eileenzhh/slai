@@ -21,16 +21,14 @@ const PreviewImage = () => {
     try {
       const response = await axios.get("http://localhost:5000/case");
       if (response.data && Object.keys(response.data).length !== 0) {
-        console.log(response.data);
         const data = response.data;
         const image = getImageUrl(data["image"]);
-
         const newRecord: Record = {
           image: image,
           cases: data["cases"].map((d: any, index: number) => {
             const currentCase: Case = {
-              age: d["age_approx"],
-              location: d["anatom_site_general_challenge"],
+              age: d["age_approx"] ? d["age_approx"] : "unknown",
+              location: d["anatom_site_general_challenge"] ? d["anatom_site_general_challenge"] : "unknown",
               benignOrMalignant: d["benign_malignant"],
               diagnosis: d["diagnosis"],
               filename: d["filename"],
