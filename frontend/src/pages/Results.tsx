@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import LazyLoad from 'react-lazyload'
 import { useSetStage } from "../app-context/stage-context";
 import Breadcrumb from "../components/Breadcrumb";
 import { STAGE_ITEMS } from "../constants";
@@ -55,7 +56,7 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
     setStage(STAGE_ITEMS.SUBMIT_IMAGE);
 
   }
-
+//frontend/public/ISIC_2020_Training_JPEG/ISIC_0015719.jpg
   return (
     <div>
       <Breadcrumb />
@@ -70,7 +71,9 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
             {currentRecord.cases.slice(0, 3).map((item, index) => (
               <GridItem key={index}>
                 <h3>{`Result: ${index + 1}`}</h3>
-                <Image src={require(`../assets/ISIC_2020_Training_JPEG/${item.filename}`)} alt={`Image ${index + 1}`} />
+                <LazyLoad once>
+                <Image src={`/ISIC_2020_Training_JPEG/${item.filename}`} alt={`Image ${index + 1}`} />
+                </LazyLoad>
                 <p>{item.benignOrMalignant.toUpperCase()}</p>
                 <p>Anatomy site: {item.location}</p>
                 {item.diagnosis !== "unknown" ? <p>Diagnosis: {item.diagnosis}</p> : null}
@@ -85,7 +88,9 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
             {currentRecord.cases.slice(3, 5).map((item, index) => (
               <GridItem key={index}>
               <h3>{`Result: ${index + 4}`}</h3>
-              <Image src={item.filename} alt={`Image ${index + 1}`} />
+              <LazyLoad once>
+              <Image src={`/ISIC_2020_Training_JPEG/${item.filename}`} alt={`Image ${index + 1}`} />
+              </LazyLoad>
               <p>{item.benignOrMalignant.toUpperCase()}</p>
               <p>Anatomy site: {item.location}</p>
               {item.diagnosis !== "unknown" ? <p>Diagnosis: {item.diagnosis}</p> : null}
@@ -141,4 +146,7 @@ const Image = styled.img`
 
 const ResultsContainer = styled.div`
   margin: 0 4rem;
+  p {
+    margin: 0.25rem;
+  }
 `;
