@@ -16,33 +16,33 @@ emr_service = emr_integration_service.EMR_Integration_Service()
 
 DEMO_CASES = [
     {
-        "filename": "ISIC_4577414.jpg",
+        "image_name": "ISIC_4577414.jpg",
         "sex": "male",
-        "age_approx": "60",
+        "age_approx": 60,
         "anatom_site_general_challenge": "torso",
         "diagnosis": "unknown",
         "benign_malignant": "benign",
     },
     {
-        "filename": "ISIC_3747575.jpg",
+        "image_name": "ISIC_3747575.jpg",
         "sex": "male",
-        "age_approx": "45",
+        "age_approx": 45,
         "anatom_site_general_challenge": "torso",
         "diagnosis": "unknown",
         "benign_malignant": "benign",
     },
     {
-        "filename": "ISIC_4434221.jpg",
+        "image_name": "ISIC_4434221.jpg",
         "sex": "male",
-        "age_approx": "30",
+        "age_approx": 30,
         "anatom_site_general_challenge": "torso",
         "diagnosis": "unknown",
         "benign_malignant": "benign",
     },
     {
-        "filename": "ISIC_4577414.jpg",
+        "image_name": "ISIC_4577414.jpg",
         "sex": "male",
-        "age_approx": "60",
+        "age_approx": 60,
         "anatom_site_general_challenge": "lower extremity",
         "diagnosis": "unknown",
         "benign_malignant": "benign",
@@ -113,18 +113,16 @@ def save():
 @controller_endpoints.route("/image", methods=["POST"])
 def image():
     data = request.json
+    image = data["image"]
 
     # for testing
     with open("imageToSave.jpg", "wb") as fh:
-        fh.write(base64.b64decode(data["image"]))
+        fh.write(base64.b64decode(image))
 
-    image = data["image"]
-    decoded_image = base64.b64decode(image)
-    embeddings = model_service.evaluate(decoded_image)
-    cases = model_service.get_neighbours(embeddings)
+    dec_img = base64.b64decode(image)
 
-    cache.add_current_case(image, DEMO_CASES)
-
+    cases = model_service.evaluate(dec_img)
+    cache.add_current_case(image, cases)
     return jsonify({})
 
 
@@ -177,6 +175,5 @@ def image_ML_testing():
 
     # Add your functions here
     cases = model_service.evaluate(dec_img)
-
     cache.add_current_case(image, cases)
     return jsonify({})

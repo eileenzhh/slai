@@ -44,7 +44,7 @@ class PhotoCaptureProcessor: NSObject {
         self.completionHandler = completionHandler
     }
     
-    private func didFinish() {
+    func didFinish() {
         if let livePhotoCompanionMoviePath = livePhotoCompanionMovieURL?.path {
             if FileManager.default.fileExists(atPath: livePhotoCompanionMoviePath) {
                 do {
@@ -64,9 +64,17 @@ class PhotoCaptureProcessor: NSObject {
            return
         }
         
-        print("submit!!")
+        print("submiting lol?!!")
         let test_uiimage = UIImage(data: photoData)
         let encodedPhotoData = test_uiimage?.jpegData(compressionQuality: 1.0)!.base64EncodedString()
+        
+        // delete this later. this is to debug the photo that's sending
+        let endIndex = (encodedPhotoData?.index(encodedPhotoData!.endIndex, offsetBy: -10))!
+            let lastTenCharacters = encodedPhotoData?[endIndex...]
+            print("Last 10 characters of encodedPhotoData: \(lastTenCharacters)")
+        
+        //
+        
 
         let json: [String: String?] = ["image": encodedPhotoData]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
@@ -82,8 +90,10 @@ class PhotoCaptureProcessor: NSObject {
         }
 
         task.resume()
+        print("finished submitting i think")
         }
-    
+        
+
 }
 
 /// This extension adopts all of the AVCapturePhotoCaptureDelegate protocol
@@ -149,8 +159,9 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
             didFinish()
             return
         }
-        
+        print("Lisa Testing")
         delegate?.photoCaptureProcessor(self, didFinishCapturingPhoto: photoData!)
+        // maybe need to didFinish()
 
 //        let test_uiimage = UIImage(data: photoData!)
 //        let encodedPhotoData = test_uiimage?.pngData()!.base64EncodedString()

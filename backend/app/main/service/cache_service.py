@@ -30,8 +30,8 @@ class Cache_Service:
         return list(self.queue)
 
     def add_current_case(self, current_image, current_cases):
-        if self.current_image or self.current_cases:
-            return
+        # if self.current_image or self.current_cases:
+        #     return
         self.current_image = current_image
         self.current_cases = current_cases
 
