@@ -46,11 +46,19 @@ class Model_Integration_Service:
         data_files = data_df['isic_id'].to_numpy()
         actual_vals = data_df['target'].to_numpy()
         actual_diag = data_df['diagnosis'].to_numpy()
+        sex = data_df['sex'].to_numpy()
+        age_approx = data_df['age_approx'].to_numpy()
+        anatom = data_df['anatom_site_general_challenge'].to_numpy()
+        benign_malignant = data_df['benign_malignant'].to_numpy()
 
         mdata = {
             'isic_id': data_files, 
             'target': actual_vals, 
-            'diagnosis': actual_diag
+            'diagnosis': actual_diag,
+            'sex': sex,
+            'age_approx': age_approx,
+            'anatom_site_general_challenge': anatom,
+            'benign_malignant': benign_malignant,
             }
         
         self.metadata = pd.DataFrame(data=mdata)
@@ -82,9 +90,13 @@ class Model_Integration_Service:
         image_dicts = []
         for ind in final_indices:
             image_dicts.append({
-                "image_name": self.metadata.loc[ind, 'isic_id'],
-                "target": self.metadata.loc[ind, 'target'],
-                "diagnosis": self.metadata.loc[ind, 'diagnosis']
+                'filename': self.metadata.loc[ind, 'isic_id'],
+                'sex': self.metadata.loc[ind, 'sex'],
+                'age_approx': int(self.metadata.loc[ind, 'age_approx']),
+                'anatom_site_general': self.metadata.loc[ind, 'anatom_site_general_challenge'],
+                'target': int(self.metadata.loc[ind, 'target']),
+                'diagnosis': self.metadata.loc[ind, 'diagnosis'],
+                'benign_malignant': self.metadata.loc[ind, 'benign_malignant'],
             })
         
         return image_dicts
