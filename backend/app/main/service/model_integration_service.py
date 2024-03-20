@@ -98,7 +98,7 @@ class Model_Integration_Service:
                     "filename": self.metadata.loc[ind, "isic_id"],
                     "sex": self.metadata.loc[ind, "sex"],
                     "age_approx": int(self.metadata.loc[ind, "age_approx"]),
-                    "anatom_site_general": self.metadata.loc[
+                    "anatom_site_general_challenge": self.metadata.loc[
                         ind, "anatom_site_general_challenge"
                     ],
                     "target": int(self.metadata.loc[ind, "target"]),
