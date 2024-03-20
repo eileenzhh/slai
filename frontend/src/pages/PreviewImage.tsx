@@ -3,32 +3,48 @@ import axios from "axios";
 import { useSetStage } from "../app-context/stage-context";
 import Breadcrumb from "../components/Breadcrumb";
 import { STAGE_ITEMS } from "../constants";
-import {
-  Layout,
-  Title,
-} from "../commonStyles";
+import { Layout, Title } from "../commonStyles";
 import Spinner from "../components/Spinner";
 import styled from "styled-components";
 import { useSetRecord } from "../app-context/record-context";
 import { dummyRecord } from "../types/DummyCase";
+import Record, { Case } from "../types/Record";
+import getImageUrl from "../utils/getImageUrl";
 
-
-const PreviewImage = ( ) => {
+const PreviewImage = () => {
   const setStage = useSetStage();
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(true);
   const setNewRecord = useSetRecord();
   const isMountedRef = useRef(true);
 
   const fetchCase = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/case');
+      const response = await axios.get("http://localhost:5000/case");
       if (response.data && Object.keys(response.data).length !== 0) {
         console.log(response.data);
+        const data = response.data;
+        const image = getImageUrl(data["image"]);
+
+        const newRecord: Record = {
+          image: image,
+          cases: data["cases"].map((d: any, index: number) => {
+            const currentCase: Case = {
+              age: d["age_approx"],
+              location: d["anatom_site_general_challenge"],
+              benignOrMalignant: d["benign_malignant"],
+              diagnosis: d["diagnosis"],
+              filename: d["filename"],
+              sex: d["sex"],
+            };
+            return currentCase;
+          }),
+        };
+        setNewRecord(newRecord);
         setLoading(false);
         setStage(STAGE_ITEMS.RESULTS);
       }
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
 
@@ -49,10 +65,10 @@ const PreviewImage = ( ) => {
     };
   }, []);
 
-  const setDummyImage = () =>{
+  const setDummyImage = () => {
     setNewRecord(dummyRecord);
     setStage(STAGE_ITEMS.RESULTS);
-  }
+  };
 
   return (
     <div>
@@ -74,7 +90,7 @@ export default PreviewImage;
 
 const SpinnerContainer = styled.div`
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   height: 420px;
-`
+`;

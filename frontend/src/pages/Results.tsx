@@ -77,7 +77,7 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
       <Layout>
         <Title>Results</Title>
         <MiddleContainer>
-          <img src={currentRecord.image} alt="preview" />
+          <MainImage src={currentRecord.image} alt="preview" />
         </MiddleContainer>
         <p>
           {currentRecord.cases.length} cases were retrieved. Click on the image
@@ -186,3 +186,9 @@ const ResultsContainer = styled.div`
     margin: 0.25rem;
   }
 `;
+
+const MainImage = styled.img<{ src:string }>`
+  max-height: 420px;
+  object-fit: cover;
+`
+
