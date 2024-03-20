@@ -21,7 +21,7 @@ const PreviewCase: React.FC<PreviewCaseProps> = ({ record }) => {
     setStage(STAGE_ITEMS.RESULTS);
   };
 
-  // TO DO: show previews of the cases
+  // TO DO: show previews of the cases...?
 
   return (
     <Card>

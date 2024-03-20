@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import LazyLoad from 'react-lazyload'
 import { useSetStage } from "../app-context/stage-context";
 import Breadcrumb from "../components/Breadcrumb";
@@ -12,9 +12,10 @@ import {
 } from "../commonStyles";
 
 import styled from "styled-components";
-import Record from "../types/Record";
+import Record, { Case } from "../types/Record";
 import axios from "axios";
 import { useCurrentRecord } from "../app-context/record-context";
+import ImageModal from "../components/ImageModal";
 
 interface ResultsProps {
   cachedRecords: Record[];
@@ -23,6 +24,8 @@ interface ResultsProps {
 const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
   const setStage = useSetStage();
   const currentRecord = useCurrentRecord()
+  const [showImageModal, setShowImageModal] = useState<boolean>(false)
+  const [selectedCase, setSelectedCase] = useState<Case>()
   // const onNext = () => {
   //   saveRecord();
   //   setStage(STAGE_ITEMS.EXPORT_RESULTS);
@@ -54,25 +57,36 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
   const onDiscard = () => {
     discardCurrentRecord()
     setStage(STAGE_ITEMS.SUBMIT_IMAGE);
+  }
 
+  const onShowImageModal = (caseRecord: Case) =>{
+    setSelectedCase(caseRecord)
+    setShowImageModal(true)
   }
 
   return (
     <div>
+      {showImageModal && selectedCase &&
+        <ImageModal caseRecord={selectedCase} onClose={() => setShowImageModal(false)} />
+      }
       <Breadcrumb />
       <Layout>
         <Title>Cases Retrieved</Title>
         <MiddleContainer>
           <img src={currentRecord.image} alt="preview" />
         </MiddleContainer>
-        <p>My image</p>
         <ResultsContainer>
           <TopRow>
             {currentRecord.cases.slice(0, 3).map((item, index) => (
               <GridItem key={index}>
                 <h3>{`Result: ${index + 1}`}</h3>
                 <LazyLoad once>
-                <Image src={`/ISIC_2020_Training_JPEG/${item.filename}`} alt={`Image ${index + 1}`} />
+                  <Image 
+                    src={`/ISIC_2020_Training_JPEG/${item.filename}`} 
+                    alt={`Image ${index + 1}`}
+                    onClick={() => onShowImageModal(item)}  
+
+                   />
                 </LazyLoad>
                 <p>{item.benignOrMalignant.toUpperCase()}</p>
                 <p>Anatomy site: {item.location}</p>
@@ -89,7 +103,11 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
               <GridItem key={index}>
               <h3>{`Result: ${index + 4}`}</h3>
               <LazyLoad once>
-              <Image src={`/ISIC_2020_Training_JPEG/${item.filename}`} alt={`Image ${index + 1}`} />
+                <Image 
+                  src={`/ISIC_2020_Training_JPEG/${item.filename}`} 
+                  alt={`Image ${index + 1}`}
+                  onClick={() => onShowImageModal(item)}  
+                />
               </LazyLoad>
               <p>{item.benignOrMalignant.toUpperCase()}</p>
               <p>Anatomy site: {item.location}</p>
@@ -138,10 +156,11 @@ const BottomRow = styled(GridContainer)`
 `;
 
 const Image = styled.img`
-  width: 12rem;
+  width: 18rem;
   height: 100%;
   margin: auto;
   object-fit: cover;
+  cursor: zoom-in
 `;
 
 const ResultsContainer = styled.div`
