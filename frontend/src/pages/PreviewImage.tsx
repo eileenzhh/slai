@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { useCurrentStage, useSetStage } from "../app-context/stage-context";
+import { useSetStage } from "../app-context/stage-context";
 import Breadcrumb from "../components/Breadcrumb";
 import { STAGE_ITEMS } from "../constants";
 import {
   Layout,
   Title,
 } from "../commonStyles";
-import Record from "../types/Record";
 import Spinner from "../components/Spinner";
 import styled from "styled-components";
 import { useSetRecord } from "../app-context/record-context";
