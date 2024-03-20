@@ -13,11 +13,8 @@ import styled from "styled-components";
 import { useSetRecord } from "../app-context/record-context";
 import { dummyRecord } from "../types/DummyCase";
 
-interface PreviewImageProps {
-  currentRecord: Record;
-}
 
-const PreviewImage: React.FC<PreviewImageProps> = ({ currentRecord }) => {
+const PreviewImage = ( ) => {
   const setStage = useSetStage();
   const [loading, setLoading] = useState<boolean>(true)
   const setNewRecord = useSetRecord();
@@ -41,6 +38,7 @@ const PreviewImage: React.FC<PreviewImageProps> = ({ currentRecord }) => {
     }
   }
 
+  // TO DO: stop calling when exit page
   useEffect(() => {
     fetchCase()
   }, [])

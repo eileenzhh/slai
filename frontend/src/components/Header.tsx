@@ -34,6 +34,8 @@ const Header = () => {
       ? "You haven't retrieved the results yet. Are you sure you want to exit?"
       : "Go back to home";
 
+
+  // TO DO: Make sure to discard when exiting record
   return (
     <div>
       {pathname !== "/login" ? (

@@ -13,16 +13,15 @@ import {
 import styled from "styled-components";
 import Record from "../types/Record";
 import axios from "axios";
+import { useCurrentRecord } from "../app-context/record-context";
 
 interface ResultsProps {
-  currentRecord: Record;
-  saveRecord: () => void;
   cachedRecords: Record[];
 }
 
-const Results: React.FC<ResultsProps> = ({ currentRecord, saveRecord, cachedRecords }) => {
+const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
   const setStage = useSetStage();
-
+  const currentRecord = useCurrentRecord()
   // const onNext = () => {
   //   saveRecord();
   //   setStage(STAGE_ITEMS.EXPORT_RESULTS);
@@ -57,7 +56,6 @@ const Results: React.FC<ResultsProps> = ({ currentRecord, saveRecord, cachedReco
 
   }
 
-
   return (
     <div>
       <Breadcrumb />
@@ -72,7 +70,7 @@ const Results: React.FC<ResultsProps> = ({ currentRecord, saveRecord, cachedReco
             {currentRecord.cases.slice(0, 3).map((item, index) => (
               <GridItem key={index}>
                 <h3>{`Result: ${index + 1}`}</h3>
-                <Image src={item.filename} alt={`Image ${index + 1}`} />
+                <Image src={require(`../assets/ISIC_2020_Training_JPEG/${item.filename}`)} alt={`Image ${index + 1}`} />
                 <p>{item.benignOrMalignant.toUpperCase()}</p>
                 <p>Anatomy site: {item.location}</p>
                 {item.diagnosis !== "unknown" ? <p>Diagnosis: {item.diagnosis}</p> : null}
