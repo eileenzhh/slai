@@ -114,15 +114,15 @@ def save():
 def image():
     data = request.json
     image = data["image"]
+    dec_img = base64.b64decode(image)
 
     # for testing
     with open("imageToSave.jpg", "wb") as fh:
         fh.write(base64.b64decode(image))
 
-    dec_img = base64.b64decode(image)
-
     cases = model_service.evaluate(dec_img)
     cache.add_current_case(image, cases)
+
     return jsonify({})
 
 

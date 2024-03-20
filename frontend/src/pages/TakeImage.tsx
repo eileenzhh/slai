@@ -13,16 +13,11 @@ import {
   Title,
   MiddleContainer,
 } from "../commonStyles";
-import { dummyRecord } from "../types/DummyCase";
-import { useSetRecord } from "../app-context/record-context";
 
 const TakeImage = () => {
   const setStage = useSetStage();
-  const setNewRecord = useSetRecord();
-
 
   const goToPreviewImage = () => {
-    setNewRecord(dummyRecord);
     setStage(STAGE_ITEMS.SUBMIT_IMAGE);
   };
 
@@ -32,16 +27,18 @@ const TakeImage = () => {
       <Layout>
         <Title>Take Image</Title>
         <MiddleContainer>
+        <p>How to take a picture using our mobile app.</p>
+
           <CameraIcon>
             <img src={cameraIcon} alt="Camera Icon" />
           </CameraIcon>
           <Instructions>
-            <p>How to take a picture</p>
-            <ul>
-              <li>Connect mobile app</li>
-              <li>Make sure to have good lighting</li>
-              <li>After you take the image, click 'Next'</li>
-            </ul>
+            <ol>
+              <li>Open the mobile app on your device</li>
+              <li>Attach the phone clip to the camera</li>
+              <li>Tap to manually focus on the area of the skin lesion</li>
+              <li>Click 'Submit' to use the </li>
+            </ol>
           </Instructions>
         </MiddleContainer>
       </Layout>
@@ -62,4 +59,8 @@ const CameraIcon = styled.div`
 
 const Instructions = styled.div`
   text-align: left;
+  margin: 1rem 0;
+  li {
+    padding-bottom: 0.25rem;
+  }
 `;

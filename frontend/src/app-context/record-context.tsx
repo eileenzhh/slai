@@ -14,12 +14,8 @@ interface RecordContextProviderProps {
 }
 
 const emptyRecord: Record = {
-    id: 0,
     image: "",
-    retrievedRecords: [],
-    date: "",
-    anatomySite: "",
-    exported: false
+    cases: [],
 }
 
 export const RecordContextProvider: React.FC<RecordContextProviderProps> = ({ children }) => {
