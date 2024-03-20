@@ -7,6 +7,7 @@ export const Layout = styled.div`
 
 export const Title = styled.h1`
   text-align: center;
+  margin-top: 0;
 `;
 
 export const OrangeButton = styled.div<{ disabled?: boolean }>`
@@ -58,7 +59,7 @@ export const MiddleContainer = styled.div`
   height: 420px;
   margin: auto;
   display: flex;
-  justify-content: center;
+  justify-content: censper;
   flex-direction: column;
 `;
 
@@ -71,3 +72,8 @@ export const GreyOverlay = styled.div`
   background-color: var(--darkgrey);
   opacity: 0.5;
 `;
+
+export const MainImage = styled.img<{ src:string }>`
+  max-height: 420px;
+  object-fit: cover;
+`

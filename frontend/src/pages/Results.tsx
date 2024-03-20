@@ -10,6 +10,7 @@ import {
   Title,
   LeftRightButtonContainer,
   BottomButtonContainer,
+  MainImage
 } from "../commonStyles";
 
 import styled from "styled-components";
@@ -97,10 +98,8 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
                 </LazyLoad>
                 <p>{item.benignOrMalignant.toUpperCase()}</p>
                 <p>Anatomy site: {item.location}</p>
-                {item.diagnosis !== "unknown" ? (
                   <p>Diagnosis: {item.diagnosis}</p>
-                ) : null}
-                <p>Approximate age: {item.age}</p>
+                  <p>Approximate age: {item.age ?? "unknown"}</p> 
                 <p>Sex: {item.sex}</p>
               </GridItem>
             ))}
@@ -118,10 +117,8 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
                 </LazyLoad>
                 <p>{item.benignOrMalignant.toUpperCase()}</p>
                 <p>Anatomy site: {item.location}</p>
-                {item.diagnosis !== "unknown" ? (
-                  <p>Diagnosis: {item.diagnosis}</p>
-                ) : null}
-                <p>Approximate age: {item.age}</p>
+                <p>Diagnosis: {item.diagnosis}</p>
+                <p>Approximate age: {item.age ?? "unknown"}</p> 
                 <p>Sex: {item.sex}</p>
               </GridItem>
             ))}
@@ -186,9 +183,3 @@ const ResultsContainer = styled.div`
     margin: 0.25rem;
   }
 `;
-
-const MainImage = styled.img<{ src:string }>`
-  max-height: 420px;
-  object-fit: cover;
-`
-
