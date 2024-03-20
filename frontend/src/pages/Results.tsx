@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import LazyLoad from 'react-lazyload'
 import { useSetStage } from "../app-context/stage-context";
 import Breadcrumb from "../components/Breadcrumb";
 import { STAGE_ITEMS } from "../constants";
 import {
   Layout,
-  BottomButtonContainer,
   OrangeButton,
   MiddleContainer,
   Title,
@@ -12,65 +12,120 @@ import {
 } from "../commonStyles";
 
 import styled from "styled-components";
-import Record from "../types/Record";
+import Record, { Case } from "../types/Record";
+import axios from "axios";
+import { useCurrentRecord } from "../app-context/record-context";
+import ImageModal from "../components/ImageModal";
 
 interface ResultsProps {
-  currentRecord: Record;
-  saveRecord: () => void;
+  cachedRecords: Record[];
 }
 
-const Results: React.FC<ResultsProps> = ({ currentRecord, saveRecord }) => {
+const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
   const setStage = useSetStage();
+  const currentRecord = useCurrentRecord()
+  const [showImageModal, setShowImageModal] = useState<boolean>(false)
+  const [selectedCase, setSelectedCase] = useState<Case>()
+  // const onNext = () => {
+  //   saveRecord();
+  //   setStage(STAGE_ITEMS.EXPORT_RESULTS);
+  // };
 
-  const onNext = () => {
-    saveRecord();
+  const saveCurrentRecord = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/save', {});
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const discardCurrentRecord = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/discard', {});
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const onSave = () => {
+    saveCurrentRecord()
     setStage(STAGE_ITEMS.EXPORT_RESULTS);
-  };
+  }
 
-  const goHome = () => {
-    setStage(STAGE_ITEMS.HOME);
-  };
+  const onDiscard = () => {
+    discardCurrentRecord()
+    setStage(STAGE_ITEMS.SUBMIT_IMAGE);
+  }
+
+  const onShowImageModal = (caseRecord: Case) =>{
+    setSelectedCase(caseRecord)
+    setShowImageModal(true)
+  }
 
   return (
     <div>
+      {showImageModal && selectedCase &&
+        <ImageModal caseRecord={selectedCase} onClose={() => setShowImageModal(false)} />
+      }
       <Breadcrumb />
       <Layout>
         <Title>Cases Retrieved</Title>
         <MiddleContainer>
           <img src={currentRecord.image} alt="preview" />
         </MiddleContainer>
-        <p>My image</p>
         <ResultsContainer>
           <TopRow>
-            {currentRecord.retrievedRecords.slice(0, 3).map((item, index) => (
+            {currentRecord.cases.slice(0, 3).map((item, index) => (
               <GridItem key={index}>
                 <h3>{`Result: ${index + 1}`}</h3>
-                <Image src={item} alt={`Image ${index + 1}`} />
-                <p>similarity: 92%</p>
+                <LazyLoad once>
+                  <Image 
+                    src={`/ISIC_2020_Training_JPEG/${item.filename}`} 
+                    alt={`Image ${index + 1}`}
+                    onClick={() => onShowImageModal(item)}  
+
+                   />
+                </LazyLoad>
+                <p>{item.benignOrMalignant.toUpperCase()}</p>
+                <p>Anatomy site: {item.location}</p>
+                {item.diagnosis !== "unknown" ? <p>Diagnosis: {item.diagnosis}</p> : null}
+                <p>Approximate age: {item.age}</p>
+                <p>Sex: {item.sex}</p>
+                
+
               </GridItem>
             ))}
           </TopRow>
           <BottomRow>
-            {currentRecord.retrievedRecords.slice(3, 5).map((item, index) => (
+            {currentRecord.cases.slice(3, 5).map((item, index) => (
               <GridItem key={index}>
-                <h3>{`Result: ${index + 4}`}</h3>
-                <Image src={item} alt={`Image ${index + 4}`} />
-                <p>image description</p>
-              </GridItem>
+              <h3>{`Result: ${index + 4}`}</h3>
+              <LazyLoad once>
+                <Image 
+                  src={`/ISIC_2020_Training_JPEG/${item.filename}`} 
+                  alt={`Image ${index + 1}`}
+                  onClick={() => onShowImageModal(item)}  
+                />
+              </LazyLoad>
+              <p>{item.benignOrMalignant.toUpperCase()}</p>
+              <p>Anatomy site: {item.location}</p>
+              {item.diagnosis !== "unknown" ? <p>Diagnosis: {item.diagnosis}</p> : null}
+              <p>Approximate age: {item.age}</p>
+              <p>Sex: {item.sex}</p>
+            </GridItem>
             ))}
           </BottomRow>
         </ResultsContainer>
-
-        {!currentRecord.exported ? (
           <LeftRightButtonContainer>
-            <OrangeButton onClick={goHome}>Return Home</OrangeButton>
-            <OrangeButton onClick={onNext}>Save Record</OrangeButton>
+            <OrangeButton onClick={onDiscard}>Discard</OrangeButton>
+           {cachedRecords.includes(currentRecord) ? 
+            <OrangeButton onClick={() => setStage(STAGE_ITEMS.HOME)}>Return Home</OrangeButton>
+           :
+            <OrangeButton onClick={onSave}>Save</OrangeButton>
+           } 
           </LeftRightButtonContainer>
-        ) : (
-          <BottomButtonContainer>
-            <OrangeButton onClick={goHome}>Return Home</OrangeButton>
-          </BottomButtonContainer>
-        )}
       </Layout>
     </div>
   );
@@ -101,12 +156,16 @@ const BottomRow = styled(GridContainer)`
 `;
 
 const Image = styled.img`
-  width: 12rem;
+  width: 18rem;
   height: 100%;
   margin: auto;
   object-fit: cover;
+  cursor: zoom-in
 `;
 
 const ResultsContainer = styled.div`
   margin: 0 4rem;
+  p {
+    margin: 0.25rem;
+  }
 `;

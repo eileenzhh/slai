@@ -5,6 +5,7 @@ import logo from "../assets/SLAI-logo.png";
 import Modal from "./Modal";
 import { useCurrentStage, useSetStage } from "../app-context/stage-context";
 import { STAGE_ITEMS } from "../constants";
+import axios from "axios";
 
 const Header = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -17,6 +18,20 @@ const Header = () => {
   }, []);
 
   const currentStage = useCurrentStage();
+  const discardCurrentRecord = async () => {
+    try {
+      await axios.post('http://localhost:5000/discard', {})    
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+  // TO DO: Can this be called even when there isn't a current record...?
+  const handleOnClick = async () => {
+    await discardCurrentRecord()
+    setStage(STAGE_ITEMS.HOME)
+    onCloseModal()
+  }
 
   const onCloseModal = () => {
     setShowModal(false);
@@ -42,10 +57,7 @@ const Header = () => {
             <Modal
               title={"Exit Record"}
               description={modalDescription}
-              primaryAction={() => {
-                setStage(STAGE_ITEMS.HOME)
-                onCloseModal();
-              }}
+              primaryAction={handleOnClick}
               secondaryAction={onCloseModal}
               onClose={onCloseModal}
             />

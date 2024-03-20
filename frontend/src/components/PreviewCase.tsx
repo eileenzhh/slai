@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import sample from "../assets/sample.png";
 import Record from "../types/Record";
 import { BottomButtonContainer, SmallOrangeButton } from "../commonStyles";
 import { useCurrentStage, useSetStage } from "../app-context/stage-context";
@@ -22,15 +21,12 @@ const PreviewCase: React.FC<PreviewCaseProps> = ({ record }) => {
     setStage(STAGE_ITEMS.RESULTS);
   };
 
+  // TO DO: show previews of the cases...?
+
   return (
     <Card>
-      <p>Record {record.id}</p>
-      <PreviewImage src={record.image ?? sample} alt="preview-image" />
-      <DescriptionContainer>
-        {record.date && <p>Date: {record.date}</p>}
-        <p>Anatomy Site: {record.anatomySite}</p>
-        <p>{record.exported ? "Exported" : "Unsaved"}</p>
-      </DescriptionContainer>
+      <p>Record</p>
+      <PreviewImage src={record.image} alt="preview-image" />
       {currentStage === STAGE_ITEMS.EXPORT_RESULTS ? null : (
         <SmallBottomButtonContainer>
           <SmallOrangeButton onClick={onClick}>See Details</SmallOrangeButton>
@@ -54,6 +50,7 @@ const PreviewImage = styled.img<{ src: string }>`
   object-fit: cover;
   width: 100%;
   height: 250px;
+  margin-bottom: 1rem;
 `;
 
 const DescriptionContainer = styled.div`
@@ -62,5 +59,5 @@ const DescriptionContainer = styled.div`
 `;
 
 const SmallBottomButtonContainer = styled(BottomButtonContainer)`
-  margin: 1rem;
+  margin: 0 1rem 1rem;
 `;

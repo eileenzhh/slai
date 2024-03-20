@@ -11,21 +11,18 @@ import { STAGE_ITEMS } from "../constants";
 import PreviewCase from "../components/PreviewCase";
 import styled from "styled-components";
 import Record from "../types/Record";
+import { useCurrentRecord } from "../app-context/record-context";
 
-interface ExportProps {
-  currentRecord: Record;
-}
-
-const Export: React.FC<ExportProps> = ({ currentRecord }) => {
+const Export = () => {
   const setStage = useSetStage();
-
+  const currentRecord = useCurrentRecord()
   const onNext = () => {
     setStage(STAGE_ITEMS.HOME);
   };
 
   const updatedRecord: Record = {
     ...currentRecord,
-    exported: true,
+    saved: true,
   };
   return (
     <Layout>

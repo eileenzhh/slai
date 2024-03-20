@@ -26,9 +26,9 @@ const Modal: React.FC<ModalProps> = ({
     <OverlayContainer>
       <GreyOverlay />
       <ModalContainer>
-        <HeaderContainer>
+        <ModalHeaderContainer>
           <CancelButton src={cancelButton} onClick={onClose} />
-        </HeaderContainer>
+        </ModalHeaderContainer>
         <h3>{title}</h3>
         {description}
         <ActionContainer>
@@ -48,19 +48,19 @@ const Modal: React.FC<ModalProps> = ({
 
 export default Modal;
 
-const CancelButton = styled.img`
+export const CancelButton = styled.img`
   cursor: pointer;
   &:hover {
     opacity: 0.5;
   }
 `;
 
-const OverlayContainer = styled.div`
+export const OverlayContainer = styled.div`
   position: relative;
   z-index: 1000;
 `;
 
-const ModalContainer = styled.div`
+export const ModalContainer = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -72,7 +72,7 @@ const ModalContainer = styled.div`
   text-align: center;
 `;
 
-const HeaderContainer = styled.div`
+export const ModalHeaderContainer = styled.div`
   position: absolute;
   right: 2rem;
 `;
