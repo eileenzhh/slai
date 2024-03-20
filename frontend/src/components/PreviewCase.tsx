@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Record from "../types/Record";
-import { BottomButtonContainer, SmallOrangeButton } from "../commonStyles";
+import { BottomButtonContainer, LeftRightButtonContainer, SmallOrangeButton } from "../commonStyles";
 import { useCurrentStage, useSetStage } from "../app-context/stage-context";
 import { STAGE_ITEMS } from "../constants";
 import { useSetRecord } from "../app-context/record-context";
@@ -29,6 +29,7 @@ const PreviewCase: React.FC<PreviewCaseProps> = ({ record }) => {
       <PreviewImage src={record.image} alt="preview-image" />
       {currentStage === STAGE_ITEMS.EXPORT_RESULTS ? null : (
         <SmallBottomButtonContainer>
+          <p>{record.cases.length} cases retrieved from this record</p>
           <SmallOrangeButton onClick={onClick}>See Details</SmallOrangeButton>
         </SmallBottomButtonContainer>
       )}
@@ -58,6 +59,10 @@ const DescriptionContainer = styled.div`
   margin: 0 1rem;
 `;
 
-const SmallBottomButtonContainer = styled(BottomButtonContainer)`
+const SmallBottomButtonContainer = styled(LeftRightButtonContainer)`
   margin: 0 1rem 1rem;
+  p {
+    text-align: left
+  }
+  align-items: center;
 `;

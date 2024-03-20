@@ -50,6 +50,7 @@ export const LeftRightButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 2rem;
+  align-items: center;
 `;
 
 export const MiddleContainer = styled.div`

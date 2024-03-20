@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import LazyLoad from 'react-lazyload'
+import React, { useState } from "react";
+import LazyLoad from "react-lazyload";
 import { useSetStage } from "../app-context/stage-context";
 import Breadcrumb from "../components/Breadcrumb";
 import { STAGE_ITEMS } from "../constants";
@@ -9,6 +9,7 @@ import {
   MiddleContainer,
   Title,
   LeftRightButtonContainer,
+  BottomButtonContainer,
 } from "../commonStyles";
 
 import styled from "styled-components";
@@ -23,9 +24,9 @@ interface ResultsProps {
 
 const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
   const setStage = useSetStage();
-  const currentRecord = useCurrentRecord()
-  const [showImageModal, setShowImageModal] = useState<boolean>(false)
-  const [selectedCase, setSelectedCase] = useState<Case>()
+  const currentRecord = useCurrentRecord();
+  const [showImageModal, setShowImageModal] = useState<boolean>(false);
+  const [selectedCase, setSelectedCase] = useState<Case>();
   // const onNext = () => {
   //   saveRecord();
   //   setStage(STAGE_ITEMS.EXPORT_RESULTS);
@@ -33,99 +34,115 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
 
   const saveCurrentRecord = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/save', {});
-      console.log(response)
+      const response = await axios.post("http://localhost:5000/save", {});
+      console.log(response);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const discardCurrentRecord = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/discard', {});
-      console.log(response)
+      const response = await axios.post("http://localhost:5000/discard", {});
+      console.log(response);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const onSave = () => {
-    saveCurrentRecord()
+    saveCurrentRecord();
     setStage(STAGE_ITEMS.EXPORT_RESULTS);
-  }
+  };
 
   const onDiscard = () => {
-    discardCurrentRecord()
+    discardCurrentRecord();
     setStage(STAGE_ITEMS.SUBMIT_IMAGE);
-  }
+  };
 
-  const onShowImageModal = (caseRecord: Case) =>{
-    setSelectedCase(caseRecord)
-    setShowImageModal(true)
-  }
+  const onShowImageModal = (caseRecord: Case) => {
+    setSelectedCase(caseRecord);
+    setShowImageModal(true);
+  };
 
   return (
     <div>
-      {showImageModal && selectedCase &&
-        <ImageModal caseRecord={selectedCase} onClose={() => setShowImageModal(false)} />
-      }
+      {showImageModal && selectedCase && (
+        <ImageModal
+          caseRecord={selectedCase}
+          onClose={() => setShowImageModal(false)}
+        />
+      )}
       <Breadcrumb />
       <Layout>
-        <Title>Cases Retrieved</Title>
+        <Title>Results</Title>
         <MiddleContainer>
           <img src={currentRecord.image} alt="preview" />
         </MiddleContainer>
+        <p>
+          {currentRecord.cases.length} cases were retrieved. Click on the image
+          to get a larger view.
+        </p>
         <ResultsContainer>
           <TopRow>
             {currentRecord.cases.slice(0, 3).map((item, index) => (
               <GridItem key={index}>
-                <h3>{`Result: ${index + 1}`}</h3>
+                <h3>{`Result ${index + 1}`}</h3>
                 <LazyLoad once>
-                  <Image 
-                    src={`/ISIC_2020_Training_JPEG/${item.filename}`} 
+                  <Image
+                    src={`/ISIC_2020_Training_JPEG/${item.filename}`}
                     alt={`Image ${index + 1}`}
-                    onClick={() => onShowImageModal(item)}  
-
-                   />
+                    onClick={() => onShowImageModal(item)}
+                  />
                 </LazyLoad>
                 <p>{item.benignOrMalignant.toUpperCase()}</p>
                 <p>Anatomy site: {item.location}</p>
-                {item.diagnosis !== "unknown" ? <p>Diagnosis: {item.diagnosis}</p> : null}
+                {item.diagnosis !== "unknown" ? (
+                  <p>Diagnosis: {item.diagnosis}</p>
+                ) : null}
                 <p>Approximate age: {item.age}</p>
                 <p>Sex: {item.sex}</p>
-                
-
               </GridItem>
             ))}
           </TopRow>
           <BottomRow>
             {currentRecord.cases.slice(3, 5).map((item, index) => (
               <GridItem key={index}>
-              <h3>{`Result: ${index + 4}`}</h3>
-              <LazyLoad once>
-                <Image 
-                  src={`/ISIC_2020_Training_JPEG/${item.filename}`} 
-                  alt={`Image ${index + 1}`}
-                  onClick={() => onShowImageModal(item)}  
-                />
-              </LazyLoad>
-              <p>{item.benignOrMalignant.toUpperCase()}</p>
-              <p>Anatomy site: {item.location}</p>
-              {item.diagnosis !== "unknown" ? <p>Diagnosis: {item.diagnosis}</p> : null}
-              <p>Approximate age: {item.age}</p>
-              <p>Sex: {item.sex}</p>
-            </GridItem>
+                <h3>{`Result ${index + 4}`}</h3>
+                <LazyLoad once>
+                  <Image
+                    src={`/ISIC_2020_Training_JPEG/${item.filename}`}
+                    alt={`Image ${index + 1}`}
+                    onClick={() => onShowImageModal(item)}
+                  />
+                </LazyLoad>
+                <p>{item.benignOrMalignant.toUpperCase()}</p>
+                <p>Anatomy site: {item.location}</p>
+                {item.diagnosis !== "unknown" ? (
+                  <p>Diagnosis: {item.diagnosis}</p>
+                ) : null}
+                <p>Approximate age: {item.age}</p>
+                <p>Sex: {item.sex}</p>
+              </GridItem>
             ))}
           </BottomRow>
         </ResultsContainer>
+        {cachedRecords.includes(currentRecord) ? (
+          <BottomButtonContainer>
+            <OrangeButton onClick={() => setStage(STAGE_ITEMS.HOME)}>
+              Return Home
+            </OrangeButton>
+          </BottomButtonContainer>
+        ) : (
           <LeftRightButtonContainer>
             <OrangeButton onClick={onDiscard}>Discard</OrangeButton>
-           {cachedRecords.includes(currentRecord) ? 
-            <OrangeButton onClick={() => setStage(STAGE_ITEMS.HOME)}>Return Home</OrangeButton>
-           :
+            <p>
+              Click 'Save' to add to 'Records'. Click 'Discard' to create a new
+              'Record'.
+            </p>
             <OrangeButton onClick={onSave}>Save</OrangeButton>
-           } 
           </LeftRightButtonContainer>
+        )}
       </Layout>
     </div>
   );
@@ -160,7 +177,7 @@ const Image = styled.img`
   height: 100%;
   margin: auto;
   object-fit: cover;
-  cursor: zoom-in
+  cursor: zoom-in;
 `;
 
 const ResultsContainer = styled.div`

@@ -59,6 +59,7 @@ const PreviewImage = ( ) => {
       <Layout>
         <Breadcrumb />
         <Title>Retrieving Results</Title>
+        <p>We are retrieving the image from the mobile app.</p>
         <SpinnerContainer>
           <Spinner />
         </SpinnerContainer>
