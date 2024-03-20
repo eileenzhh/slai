@@ -56,7 +56,7 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
     setStage(STAGE_ITEMS.SUBMIT_IMAGE);
 
   }
-//frontend/public/ISIC_2020_Training_JPEG/ISIC_0015719.jpg
+
   return (
     <div>
       <Breadcrumb />

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { useSetStage } from "../app-context/stage-context";
+import { useCurrentStage, useSetStage } from "../app-context/stage-context";
 import Breadcrumb from "../components/Breadcrumb";
 import { STAGE_ITEMS } from "../constants";
 import {
@@ -18,30 +18,37 @@ const PreviewImage = ( ) => {
   const setStage = useSetStage();
   const [loading, setLoading] = useState<boolean>(true)
   const setNewRecord = useSetRecord();
+  const isMountedRef = useRef(true);
 
   const fetchCase = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/case')
+      const response = await axios.get('http://localhost:5000/case');
       if (response.data && Object.keys(response.data).length !== 0) {
-        console.log(response.data)
-        // const newRecord: Record = {
-          
-        // }
-        // setNewRecord(newRecord)
-        setLoading(false)
+        console.log(response.data);
+        setLoading(false);
         setStage(STAGE_ITEMS.RESULTS);
-      } else {
-        setTimeout(fetchCase, 2000)
       }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  }
+  };
 
-  // TO DO: stop calling when exit page
   useEffect(() => {
-    fetchCase()
-  }, [])
+    const fetchData = async () => {
+      await fetchCase();
+    };
+
+    fetchData();
+
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 2000);
+
+    return () => {
+      clearInterval(intervalId);
+      isMountedRef.current = false;
+    };
+  }, []);
 
   const setDummyImage = () =>{
     setNewRecord(dummyRecord);
