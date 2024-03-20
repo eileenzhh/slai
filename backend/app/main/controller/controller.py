@@ -119,11 +119,10 @@ def image():
         fh.write(base64.b64decode(data["image"]))
 
     image = data["image"]
-    decoded_image = base64.b64decode(image)
-    embeddings = model_service.evaluate(decoded_image)
-    cases = model_service.get_neighbours(embeddings)
+    dec_img = base64.b64decode(image)
+    cases = model_service.evaluate(dec_img)
 
-    cache.add_current_case(image, DEMO_CASES)
+    cache.add_current_case(image, cases)
 
     return jsonify({})
 
