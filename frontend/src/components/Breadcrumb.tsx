@@ -43,7 +43,7 @@ const BreadcrumbItem = styled.div<{ active: boolean }>`
 `;
 
 const BreadcrumbContainer = styled.div`
-  margin: 0 20rem 1rem;
+  margin: 0 15rem 1rem;
   display: flex;
   justify-content: space-around;
 `;

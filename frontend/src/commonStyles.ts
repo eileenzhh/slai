@@ -8,11 +8,12 @@ export const Layout = styled.div`
 export const TwoColumnLayout = styled(Layout)`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  height: calc(100vh - 64px - 38px - 42px - 32px);
+  height: calc(100vh - 64px - 68px - 42px - 32px);
   overflow: hidden;
+  margin: 0 4rem;
 `;
 
-export const Title = styled.h1`
+export const Title = styled.h2`
   text-align: center;
   margin-top: 0;
 `;

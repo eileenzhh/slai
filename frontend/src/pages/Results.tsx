@@ -37,24 +37,21 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
     }
   };
 
-  const discardCurrentRecord = async () => {
-    try {
-      const response = await axios.post("http://localhost:5000/discard", {});
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const onSave = () => {
     saveCurrentRecord();
     setStage(STAGE_ITEMS.EXPORT_RESULTS);
   };
 
-  // TO DO: when response status 200 then go submit image
-  const onDiscard = () => {
-    discardCurrentRecord();
-    setTimeout(() => setStage(STAGE_ITEMS.SUBMIT_IMAGE), 500);
+  const onDiscard = async () => {
+    await axios.post("http://localhost:5000/discard", {})
+      .then((res) => {
+        if (res.status === 200){
+          setStage(STAGE_ITEMS.SUBMIT_IMAGE)
+        }
+      })
+      .catch((error => {
+        console.log(error)
+      }))
   };
 
   const onShowImageModal = (caseRecord: Case) => {
