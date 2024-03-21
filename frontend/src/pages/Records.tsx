@@ -8,7 +8,6 @@ import {
 } from "../commonStyles";
 import Record, { Case } from "../types/Record";
 import PreviewCasesList from "../components/PreviewCasesList";
-import styled from "styled-components";
 import { useSetStage } from "../app-context/stage-context";
 import { STAGE_ITEMS } from "../constants";
 import Modal from "../components/Modal";
@@ -37,7 +36,7 @@ const Records: React.FC<RecordsProps> = ({ records, setRecords }) => {
           location: d["anatom_site_general_challenge"],
           benignOrMalignant: d["benign_malignant"],
           diagnosis: d["diagnosis"],
-          filename: d["filename"],
+          filename: d["isic_id"],
           sex: d["sex"],
         }
         return currentCase

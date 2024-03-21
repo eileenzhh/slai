@@ -7,7 +7,6 @@ import { Layout, Title } from "../commonStyles";
 import Spinner from "../components/Spinner";
 import styled from "styled-components";
 import { useSetRecord } from "../app-context/record-context";
-import { dummyRecord } from "../types/DummyCase";
 import Record, { Case } from "../types/Record";
 import getImageUrl from "../utils/getImageUrl";
 
@@ -31,7 +30,7 @@ const PreviewImage = () => {
               location: d["anatom_site_general_challenge"] ? d["anatom_site_general_challenge"] : "unknown",
               benignOrMalignant: d["benign_malignant"],
               diagnosis: d["diagnosis"],
-              filename: d["filename"],
+              filename: d["isic_id"],
               sex: d["sex"],
             };
             return currentCase;
@@ -63,11 +62,6 @@ const PreviewImage = () => {
     };
   }, []);
 
-  const setDummyImage = () => {
-    setNewRecord(dummyRecord);
-    setStage(STAGE_ITEMS.RESULTS);
-  };
-
   return (
     <div>
       <Layout>
@@ -78,7 +72,6 @@ const PreviewImage = () => {
           <Spinner />
         </SpinnerContainer>
         <p>Please do not exit the page until your results are retrieved.</p>
-        <button onClick={() => setDummyImage()}>Set dummy image for now</button>
       </Layout>
     </div>
   );

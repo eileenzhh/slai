@@ -1,6 +1,5 @@
 function getImageUrl(image: string) {
-    const byteCharacters = atob(image); // 
-    console.log('getimageurl', byteCharacters)
+    const byteCharacters = atob(image); 
     const byteNumbers = new Array(byteCharacters.length);
     for (let i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);

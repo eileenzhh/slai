@@ -67,7 +67,7 @@ export const MiddleContainer = styled.div`
   height: 420px;
   margin: auto;
   display: flex;
-  justify-content: censper;
+  justify-content: center;
   flex-direction: column;
 `;
 

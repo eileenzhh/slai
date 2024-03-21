@@ -44,7 +44,7 @@ const Header = () => {
   const canShowModal = showModal && currentStage !== STAGE_ITEMS.HOME;
   const modalDescription =
     currentStage === STAGE_ITEMS.RESULTS && !state?.exported
-      ? "You haven't exported this record yet. Are you sure you want to exit?"
+      ? "You haven't saved this record yet. Are you sure you want to exit?"
       : currentStage === STAGE_ITEMS.SUBMIT_IMAGE
       ? "You haven't retrieved the results yet. Are you sure you want to exit?"
       : "Go back to home";

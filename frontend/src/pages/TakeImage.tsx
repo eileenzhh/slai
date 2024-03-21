@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import cameraIcon from "../assets/camera.png";
+import uploadIcon from "../assets/upload.png";
 import styled from "styled-components";
 
 import Breadcrumb from "../components/Breadcrumb";
@@ -42,6 +43,11 @@ const TakeImage = () => {
     }
   };
 
+  const handleIconClick = () => {
+    const fileInput = document.getElementById('file-input');
+    fileInput?.click();
+  };
+
   const sendImage = async () => {
     const response = await axios.post("http://localhost:5000/image", {
       image: uploadFileString,
@@ -79,14 +85,23 @@ const TakeImage = () => {
           <Title>Upload Image</Title>
           <MiddleContainer>
             <form>
-              <input type="file" onChange={(e) => onUpload(e)}></input>
+              <StyledInput id="file-input" type="file" onChange={(e) => onUpload(e)}></StyledInput>
             </form>
-            {uploadFileString && (
+            {uploadFileString ? (
               <UploadedImg src={getImageUrl(uploadFileString)} alt="preview" />
+            ) : (
+              <UploadIcon>
+                <UploadIconImg src={uploadIcon} onClick={handleIconClick} alt="upload_icon" />
+              </UploadIcon>
             )}
           </MiddleContainer>
           <MiddleButtonContainer>
-            <OrangeButton onClick={sendImage}>Next</OrangeButton>
+            <OrangeButton
+              onClick={sendImage}
+              disabled={uploadFileString === ""}
+            >
+              Next
+            </OrangeButton>
           </MiddleButtonContainer>
         </div>
       </TwoColumnLayout>
@@ -115,7 +130,20 @@ const MiddleButtonContainer = styled.div`
   margin-top: 1rem;
 `;
 
+const UploadIcon = styled.label`
+  margin: auto;
+`;
+
+const UploadIconImg = styled(MainImage)`
+
+height: 150px;
+width: 150px;`
 
 const UploadedImg = styled(MainImage)`
-  max-height: 400px;
+max-height: 400px;
+
 `;
+
+const StyledInput = styled.input`
+
+`

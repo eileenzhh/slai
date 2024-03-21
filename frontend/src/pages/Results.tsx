@@ -9,6 +9,7 @@ import {
   MainImage,
   TwoColumnLayout,
   MiddleButtonContainer,
+  BottomButtonContainer,
 } from "../commonStyles";
 
 import styled from "styled-components";
@@ -43,15 +44,16 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
   };
 
   const onDiscard = async () => {
-    await axios.post("http://localhost:5000/discard", {})
+    await axios
+      .post("http://localhost:5000/discard", {})
       .then((res) => {
-        if (res.status === 200){
-          setStage(STAGE_ITEMS.SUBMIT_IMAGE)
+        if (res.status === 200) {
+          setStage(STAGE_ITEMS.SUBMIT_IMAGE);
         }
       })
-      .catch((error => {
-        console.log(error)
-      }))
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const onShowImageModal = (caseRecord: Case) => {
@@ -69,13 +71,7 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
       )}
       <Breadcrumb />
       {cachedRecords.includes(currentRecord) ? (
-        <MiddleButtonContainer>
-          <OrangeButton onClick={() => setStage(STAGE_ITEMS.HOME)}>
-            Return Home
-          </OrangeButton>
-          <Title>Results</Title>
-          <div></div>
-        </MiddleButtonContainer>
+        <Title>Results</Title>
       ) : (
         <MiddleButtonContainer>
           <OrangeButton onClick={onDiscard}>Discard</OrangeButton>
@@ -83,7 +79,7 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
           <OrangeButton onClick={onSave}>Save</OrangeButton>
         </MiddleButtonContainer>
       )}
-      <TwoColumnLayout>
+      <ResultTwoColumnLayout>
         <div>
           <MiddleContainer>
             <MainImage src={currentRecord.image} alt="preview" />
@@ -92,6 +88,13 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
             {currentRecord.cases.length} cases were retrieved from this image.
             Click on the image to get a larger view.
           </p>
+          {cachedRecords.includes(currentRecord) && (
+            <BottomButtonContainer>
+              <OrangeButton onClick={() => setStage(STAGE_ITEMS.HOME)}>
+                Return Home
+              </OrangeButton>
+            </BottomButtonContainer>
+          )}
         </div>
         <ResultsContainer>
           {currentRecord.cases.map((item, index) => {
@@ -105,7 +108,7 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
             );
           })}
         </ResultsContainer>
-      </TwoColumnLayout>
+      </ResultTwoColumnLayout>
     </div>
   );
 };
@@ -118,4 +121,8 @@ const ResultsContainer = styled.div`
   border-radius: 1rem;
   padding: 0.5rem;
   margin-right: 1rem;
+`;
+
+const ResultTwoColumnLayout = styled(TwoColumnLayout)`
+  margin: 0;
 `;

@@ -28,12 +28,12 @@ const Export = () => {
     <Layout>
       <Breadcrumb />
       <Title>Export your record</Title>
-      The record has been saved!
       <PreviewContainer>
         <PreviewCase record={updatedRecord} />
       </PreviewContainer>
+      <p>The record has been saved!</p>
       <BottomButtonContainer>
-        <OrangeButton onClick={onNext}>Return to home</OrangeButton>
+        <OrangeButton onClick={onNext}>Return</OrangeButton>
       </BottomButtonContainer>
     </Layout>
   );

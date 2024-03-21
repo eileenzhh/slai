@@ -5,6 +5,7 @@ import { BottomButtonContainer, LeftRightButtonContainer, SmallOrangeButton } fr
 import { useCurrentStage, useSetStage } from "../app-context/stage-context";
 import { STAGE_ITEMS } from "../constants";
 import { useSetRecord } from "../app-context/record-context";
+import upload from '../assets/check.png'
 
 interface PreviewCaseProps {
   record: Record;
@@ -27,7 +28,12 @@ const PreviewCase: React.FC<PreviewCaseProps> = ({ record }) => {
     <Card>
       <p>Record</p>
       <PreviewImage src={record.image} alt="preview-image" />
-      {currentStage === STAGE_ITEMS.EXPORT_RESULTS ? null : (
+      {currentStage === STAGE_ITEMS.EXPORT_RESULTS ? (
+        <SavedContainer>
+          <CheckIcon src={upload} alt='check'/>
+          <p>Saved</p>
+        </SavedContainer>
+      ) : (
         <SmallBottomButtonContainer>
           <p>{record.cases.length} cases retrieved from this record</p>
           <SmallOrangeButton onClick={onClick}>See Details</SmallOrangeButton>
@@ -51,7 +57,6 @@ const PreviewImage = styled.img<{ src: string }>`
   object-fit: cover;
   width: 100%;
   height: 250px;
-  margin-bottom: 1rem;
 `;
 
 const DescriptionContainer = styled.div`
@@ -66,3 +71,14 @@ const SmallBottomButtonContainer = styled(LeftRightButtonContainer)`
   }
   align-items: center;
 `;
+
+const SavedContainer = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+`
+
+const CheckIcon = styled.img`
+  height: 24px;
+  width: 24px;
+`
