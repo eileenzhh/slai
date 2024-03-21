@@ -35,7 +35,6 @@ const ImageModalContainer = styled(ModalContainer)`
     width: 900px;
 `
 const Image = styled.img`
-    
     width: 100% 
 `
 
