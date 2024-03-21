@@ -23,7 +23,6 @@ import pickle
 
 class Model_Integration_Service:
     def __init__(self):
-        print("init")
         num_classes = 1
         self.K = 100
         self.k = 5
@@ -46,7 +45,7 @@ class Model_Integration_Service:
             ]
         )
 
-        data_df = pd.read_csv("ISIC_2020_Training_GroundTruth.csv")
+        data_df = pd.read_csv("ISIC_2020_Training_GroundTruth.csv", keep_default_na=False)
         data_files = data_df["isic_id"].to_numpy()
         actual_vals = data_df["target"].to_numpy()
         actual_diag = data_df["diagnosis"].to_numpy()
@@ -74,7 +73,6 @@ class Model_Integration_Service:
         self.stored_embeddings = pd.DataFrame(self.stored_embeddings)
 
     def get_neighbours(self):
-        print("get_neighbours")
         knn = NearestNeighbors(n_neighbors=self.K)
         knn.fit(self.stored_embeddings)  # <-- Database of embeddings
         dists, indices = knn.kneighbors(self.input_embedding)
@@ -82,7 +80,7 @@ class Model_Integration_Service:
         # Apply weighted class labels to the K nearest neighbours
         indices_list = indices.tolist()[0]
         labels = np.array(self.metadata.loc[indices_list, "target"])
-        weights = (labels * 1 / 8) + 1
+        weights = (labels * 1 / 8.5) + 1
         dists = np.divide(dists[0], weights)
 
         # Sort and find the weighted k nearest neighbours
@@ -95,9 +93,9 @@ class Model_Integration_Service:
         for ind in final_indices:
             image_dicts.append(
                 {
-                    "filename": self.metadata.loc[ind, "isic_id"],
+                    "isic_id": self.metadata.loc[ind, "isic_id"],
                     "sex": self.metadata.loc[ind, "sex"],
-                    "age_approx": int(self.metadata.loc[ind, "age_approx"]),
+                    "age_approx": str(self.metadata.loc[ind, "age_approx"]),
                     "anatom_site_general_challenge": self.metadata.loc[
                         ind, "anatom_site_general_challenge"
                     ],
@@ -109,10 +107,7 @@ class Model_Integration_Service:
 
         return image_dicts
 
-        return image_dicts
-
     def evaluate(self, input_image_bytes):
-        print("evaluate")
         self.input_image = Image.open(io.BytesIO(input_image_bytes))
         self.input_image = self.transform(self.input_image).unsqueeze(0)
 

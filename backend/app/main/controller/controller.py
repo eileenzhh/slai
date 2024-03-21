@@ -16,34 +16,42 @@ emr_service = emr_integration_service.EMR_Integration_Service()
 
 DEMO_CASES = [
     {
-        "image_name": "ISIC_4577414.jpg",
+        "isic_id": "ISIC_4577414.jpg",
         "sex": "male",
-        "age_approx": 60,
+        "age_approx": "60",
         "anatom_site_general_challenge": "torso",
         "diagnosis": "unknown",
         "benign_malignant": "benign",
     },
     {
-        "image_name": "ISIC_3747575.jpg",
+        "isic_id": "ISIC_6024863.jpg",
         "sex": "male",
-        "age_approx": 45,
+        "age_approx": "50",
         "anatom_site_general_challenge": "torso",
         "diagnosis": "unknown",
         "benign_malignant": "benign",
     },
     {
-        "image_name": "ISIC_4434221.jpg",
+        "isic_id": "ISIC_0865521.jpg",
         "sex": "male",
-        "age_approx": 30,
+        "age_approx": "60",
         "anatom_site_general_challenge": "torso",
         "diagnosis": "unknown",
         "benign_malignant": "benign",
     },
     {
-        "image_name": "ISIC_4577414.jpg",
+        "isic_id": "ISIC_4434221.jpg",
         "sex": "male",
-        "age_approx": 60,
-        "anatom_site_general_challenge": "lower extremity",
+        "age_approx": "30",
+        "anatom_site_general_challenge": "torso",
+        "diagnosis": "unknown",
+        "benign_malignant": "benign",
+    },
+    {
+        "isic_id": "ISIC_2173487.jpg",
+        "sex": "male",
+        "age_approx": "75",
+        "anatom_site_general_challenge": "torso",
         "diagnosis": "unknown",
         "benign_malignant": "benign",
     },
@@ -60,14 +68,14 @@ def cases():
     queue = cache.get_history()
     response.append(
         {
-            "image": DEMO_IMAGE,
+            # "image": DEMO_IMAGE,
             "cases": DEMO_CASES,
         }
     )
     for timestamp, key in queue:
         response.append(
             {
-                "image": cache.images[key],
+                # "image": cache.images[key],
                 "cases": cache.cases[key],
             }
         )
