@@ -65,17 +65,19 @@ DEMO_IMAGE = base64.b64encode(open("ISIC_0490442.JPG", "rb").read()).decode("utf
 def cases():
     response = []
 
-    queue = cache.get_history()
+    # Hard-coded case for demos
     response.append(
         {
-            # "image": DEMO_IMAGE,
+            "image": DEMO_IMAGE,
             "cases": DEMO_CASES,
         }
     )
+
+    queue = cache.get_history()
     for timestamp, key in queue:
         response.append(
             {
-                # "image": cache.images[key],
+                "image": cache.images[key],
                 "cases": cache.cases[key],
             }
         )
@@ -137,17 +139,7 @@ def image():
 ### Misc. other endpoints
 @controller_endpoints.route("/upload_to_emr", methods=["POST"])
 def upload_to_emr():
-    data = request.json
-
-    # for testing
-    with open("imageToSave.jpg", "wb") as fh:
-        fh.write(base64.b64decode(data["image"]))
-
-    image = data["image"]
-    cases = model_service.evaluate()
-
-    cache.add(image, cases)
-
+    emr_service.call()
     return jsonify({})
 
 

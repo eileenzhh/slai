@@ -1,8 +1,8 @@
 from collections import OrderedDict, deque
 import time
 
-# 5 minutes  = 300 seconds
-TIME_LIMIT = 300
+# 10 minutes  = 600 seconds
+TIME_LIMIT = 600
 
 
 class Cache_Service:
