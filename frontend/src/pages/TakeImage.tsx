@@ -7,7 +7,7 @@ import { useSetStage } from "../app-context/stage-context";
 import { STAGE_ITEMS } from "../constants";
 
 import {
-  Layout,
+  TwoColumnLayout,
   Title,
   MiddleContainer,
   OrangeButton,
@@ -55,7 +55,7 @@ const TakeImage = () => {
       <Breadcrumb />
       <TwoColumnLayout>
         <div>
-          <Title>A. Take Image</Title>
+          <Title>Take Image</Title>
           <MiddleContainer>
             <p>How to take a picture using our mobile app.</p>
 
@@ -67,7 +67,7 @@ const TakeImage = () => {
                 <li>Open the mobile app on your device</li>
                 <li>Attach the phone clip to the camera</li>
                 <li>Tap to manually focus on the area of the skin lesion</li>
-                <li>Click 'Submit' to use the </li>
+                <li>Click 'Submit' to use the image from the app </li>
               </ol>
             </Instructions>
           </MiddleContainer>
@@ -76,7 +76,7 @@ const TakeImage = () => {
           </MiddleButtonContainer>
         </div>
         <div>
-          <Title>B. Upload Image</Title>
+          <Title>Upload Image</Title>
           <MiddleContainer>
             <form>
               <input type="file" onChange={(e) => onUpload(e)}></input>
@@ -115,10 +115,6 @@ const MiddleButtonContainer = styled.div`
   margin-top: 1rem;
 `;
 
-const TwoColumnLayout = styled(Layout)`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-`;
 
 const UploadedImg = styled(MainImage)`
   max-height: 400px;

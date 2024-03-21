@@ -1,8 +1,15 @@
 import styled from "styled-components";
 
 export const Layout = styled.div`
-  margin: 0 0 4rem;
   text-align: center;
+  height: calc(100vh - 75px);
+`;
+
+export const TwoColumnLayout = styled(Layout)`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: calc(100vh - 64px - 38px - 42px - 32px);
+  overflow: hidden;
 `;
 
 export const Title = styled.h1`
@@ -11,8 +18,8 @@ export const Title = styled.h1`
 `;
 
 export const OrangeButton = styled.div<{ disabled?: boolean }>`
-  width: 200px;
-  height: 75px;
+  min-width: 100px;
+  height: 42px;
   a {
     text-decoration: none;
   }
@@ -43,14 +50,14 @@ export const RightOrangeButton = styled(OrangeButton)`
 
 export const BottomButtonContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
-  margin: 2rem;
+  justify-content: flex-start;
+  margin: 0 2rem 1rem;
 `;
 
 export const LeftRightButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 2rem;
+  margin: 0 2rem 2rem;
   align-items: center;
 `;
 
@@ -76,4 +83,18 @@ export const GreyOverlay = styled.div`
 export const MainImage = styled.img<{ src:string }>`
   max-height: 420px;
   object-fit: cover;
+  border-radius: 1rem;
 `
+
+export const MiddleButtonContainer = styled(BottomButtonContainer)`
+justify-content: space-between;
+align-items: center;
+
+h1 {
+  margin: 0;
+}
+p {
+  margin-bottom: 0;
+}
+`;
+

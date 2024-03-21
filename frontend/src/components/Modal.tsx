@@ -66,7 +66,7 @@ export const ModalContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   background: var(--white);
-  border-radius: 2rem;
+  border-radius: 1rem;
   padding: 2rem;
   justify-content: center;
   text-align: center;

@@ -55,7 +55,7 @@ const Header = () => {
         <div>
           {canShowModal && (
             <Modal
-              title={"Exit Record"}
+              title={"Exit Current Record"}
               description={modalDescription}
               primaryAction={handleOnClick}
               secondaryAction={onCloseModal}
@@ -73,7 +73,6 @@ const Header = () => {
                 Records
               </HeaderButton>
             </LeftSide>
-            <h3>User 1</h3>
           </HeaderContainer>
         </div>
       ) : null}
@@ -87,7 +86,7 @@ const HeaderContainer = styled.div`
   height: 4rem;
   display: flex;
   align-items: center;
-  padding: 0.5rem 2rem;
+  padding: 0rem 2rem;
   justify-content: space-between;
 `;
 

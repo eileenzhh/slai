@@ -4,7 +4,7 @@ import {
   Layout,
   Title,
   OrangeButton,
-  BottomButtonContainer,
+  MiddleButtonContainer,
 } from "../commonStyles";
 import Record, { Case } from "../types/Record";
 import PreviewCasesList from "../components/PreviewCasesList";
@@ -110,15 +110,3 @@ const Records: React.FC<RecordsProps> = ({ records, setRecords }) => {
 };
 
 export default Records;
-
-const MiddleButtonContainer = styled(BottomButtonContainer)`
-  justify-content: space-between;
-  align-items: center;
-
-  h1 {
-    margin: 0;
-  }
-  p {
-    margin-bottom: 0;
-  }
-`;
