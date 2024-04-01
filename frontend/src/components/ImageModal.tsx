@@ -8,12 +8,13 @@ import cancelButton from "../assets/cancel_button.png";
 import { Case } from "../types/Record";
 
 interface ImageModalProps {
-    caseRecord: Case;
+    imageURl: string
+    // caseRecord: Case;
     onClose: () => void;
 }
 
-const ImageModal: React.FC<ImageModalProps> = ({ caseRecord, onClose }) => {
-    console.log(caseRecord)
+const ImageModal: React.FC<ImageModalProps> = ({ imageURl, onClose }) => {
+    // console.log(caseRecord)
     return (
         <OverlayContainer>
         <GreyOverlay />
@@ -22,7 +23,7 @@ const ImageModal: React.FC<ImageModalProps> = ({ caseRecord, onClose }) => {
                 <CancelButton src={cancelButton} onClick={onClose} />
             </ModalHeaderContainer>
             <LazyLoad once>
-                <Image src={`/ISIC_2020_Training_JPEG/${caseRecord.filename}`} />
+                <Image src={imageURl} />
             </LazyLoad>
         </ImageModalContainer>
       </OverlayContainer>

@@ -13,7 +13,7 @@ import {
 } from "../commonStyles";
 
 import styled from "styled-components";
-import Record, { Case } from "../types/Record";
+import Record from "../types/Record";
 import axios from "axios";
 import SmallCase from "../components/SmallCase";
 import { useCurrentRecord } from "../app-context/record-context";
@@ -27,7 +27,7 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
   const setStage = useSetStage();
   const currentRecord = useCurrentRecord();
   const [showImageModal, setShowImageModal] = useState<boolean>(false);
-  const [selectedCase, setSelectedCase] = useState<Case>();
+  const [selectedImg, setSelectedImg] = useState<string>();
 
   const saveCurrentRecord = async () => {
     try {
@@ -56,16 +56,16 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
       });
   };
 
-  const onShowImageModal = (caseRecord: Case) => {
-    setSelectedCase(caseRecord);
+  const onShowImageModal = (imageUrl: string) => {
+    setSelectedImg(imageUrl);
     setShowImageModal(true);
   };
 
   return (
     <div>
-      {showImageModal && selectedCase && (
+      {showImageModal && selectedImg && (
         <ImageModal
-          caseRecord={selectedCase}
+          imageURl={selectedImg}
           onClose={() => setShowImageModal(false)}
         />
       )}
@@ -82,7 +82,7 @@ const Results: React.FC<ResultsProps> = ({ cachedRecords }) => {
       <ResultTwoColumnLayout>
         <div>
           <MiddleContainer>
-            <MainImage src={currentRecord.image} alt="preview" />
+            <MainImageZoom src={currentRecord.image} onClick={() => onShowImageModal(currentRecord.image)} alt="preview" />
           </MiddleContainer>
           <p>
             {currentRecord.cases.length} cases were retrieved from this image.
@@ -126,3 +126,7 @@ const ResultsContainer = styled.div`
 const ResultTwoColumnLayout = styled(TwoColumnLayout)`
   margin: 0;
 `;
+
+const MainImageZoom = styled(MainImage)`
+  cursor: zoom-in
+`
