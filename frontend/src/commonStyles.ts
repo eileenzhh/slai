@@ -52,13 +52,13 @@ export const RightOrangeButton = styled(OrangeButton)`
 export const BottomButtonContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  margin: 0 2rem 1rem;
+  margin: 0 4rem 1rem;
 `;
 
 export const LeftRightButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 0 2rem 2rem;
+  margin: 0 4rem 2rem;
   align-items: center;
 `;
 
