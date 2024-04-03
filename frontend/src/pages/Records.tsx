@@ -47,7 +47,7 @@ const Records: React.FC<RecordsProps> = ({ records, setRecords }) => {
         image: image,
         cases: cases
       }
-      allRecords.push(record)
+      allRecords.unshift(record)
     }
     setRecords(allRecords)
   }
