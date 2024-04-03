@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Layout = styled.div`
   text-align: center;
-  height: calc(100vh - 75px);
+  height: calc(100vh - 68px - 68px);
 `;
 
 export const TwoColumnLayout = styled(Layout)`
