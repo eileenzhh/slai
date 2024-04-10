@@ -7,7 +7,7 @@ import { Case } from "../types/Record";
 interface SmallCaseProps {
   index: number;
   caseRecord: Case;
-  showImageModal: (image: Case) => void;
+  showImageModal: (image: string) => void;
 }
 
 const SmallCase: React.FC<SmallCaseProps> = ({ index, caseRecord, showImageModal }) => {
@@ -18,7 +18,7 @@ const SmallCase: React.FC<SmallCaseProps> = ({ index, caseRecord, showImageModal
           <Image
             src={`/ISIC_2020_Training_JPEG/${caseRecord.filename}`}
             alt={`Image-${index}`}
-            onClick={() => showImageModal(caseRecord)}
+            onClick={() => showImageModal(`/ISIC_2020_Training_JPEG/${caseRecord.filename}`)}
           />
         </LazyLoad>
       </ImageContainer>
